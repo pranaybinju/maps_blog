@@ -1,4 +1,4 @@
-# Upgrading Rails… Phew 😌
+# Upgrading Ruby on Rails
 
 Here is something you need to know
 
