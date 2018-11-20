@@ -1,14 +1,16 @@
-😊 How we allowed Emoji in Post 😊
+### How to store emoji characters with Ruby on Rails & MySQL
 
-Emoji are everywhere these days, most of the people use emoji in communication. It has changed the way of communication. But what if you are getting error when you try to insert emoji in your text? Isn't is irritating? Same was happening a few days back in one of our internal app we were facing the error, Whenever any user tries to insert emoji in the post, save was running infinitely and we were getting an error
+Emojis has become an essential part of communication in our digital lives. Hence, as developers, our applications should provide first-class support to them. In this blog post, we will explore how to store them in our database.
 
-```
-ActiveRecord::StatementInvalid (Mysql2::Error: Incorrect string value: '\xF0\x9F\x98\x8A ...' for column 'content' at row 1: INSERT INTO posts (content, subject, user_id, created_at, updated_at, url_token) VALUES
-```
+What if you are getting an error when you try to insert emoji in your text? Isn't is irritating? Same was happening a few days back in one of our internal app we were facing the error, Whenever any user tries to insert emoji in the post, save was running infinitely and we were getting an error
 
-The issue was, the database is using encoding UTF-8 which supports only 3 bytes per character. But to save the emoji we require 4 bytes per character and because of that UTF-8 character set is not enough to store the emoji. The workaround to support 4 bytes character set is utf8mb4 which was introduced by MySql in 2010.To support emoji we need to followed very simple steps which change the encoding from utf8 to utf8mb4.1. For safety purpose very important to take backup of your database and add following setting in my.cnf
+> ActiveRecord::StatementInvalid (Mysql2::Error: Incorrect string value: '\xF0\x9F\x98\x8A ...' for column 'content' at row 1: INSERT INTO posts (content, subject, user_id, created_at, updated_at, url_token) VALUES
 
-```
+The issue was, the database is using encoding `UTF-8` which supports only `3 bytes per character`. But to save the emoji we require `4 bytes per character` and because of that `UTF-8` character set is not enough to store the emoji. The workaround to support 4 bytes character set is `utf8mb4` which was introduced by MySql in 2010. To support emoji we need to follow very simple steps which change the encoding from `utf8` to `utf8mb4`.
+
+1. For safety purpose very important to take backup of your database and add following setting in `my.cnf`
+
+```ruby
 [mysqld]
 default-storage-engine=InnoDB
 innodb_file_format=barracuda
@@ -21,16 +23,16 @@ collation-server=utf8mb4_unicode_ci
 ```
 
 2. Change the database.yml settings:
-```
+```ruby
 encoding: utf8mb4
 collate: utf8mb4_unicode_ci
 ```
 
-utf8mb4 allows the string to support 4 bytes per character,
-utf8mb4_unicode_ci uses the Unicode Collation Algorithm as defined in the Unicode standards
+`utf8mb4` allows the string to support 4 bytes per character,
+`utf8mb4_unicode_ci` uses the Unicode Collation Algorithm as defined in the Unicode standards
 
 3. Then add a migration to alter the database and table: Add this code in migration
-```
+```ruby
 def db
   ActiveRecord::Base.connection
 end
@@ -61,12 +63,10 @@ def up
 end
 ```
 
-First ALTER command changes the encoding and the COLLATE for the database
-For each table, we need to change the CHARACT SET and COLLATE which we are doing in second ALTER command.
-After that, we need to ALTER the text and varchar columns to set CHARACTER SET and COLLATE with default and null attributes of the column.
+First `ALTER` command changes the encoding and the `COLLATE` for the database for each table, we need to change the `CHARACTER SET` and `COLLATE` which we are doing in second `ALTER` command. After that, we need to `ALTER` the text and varchar columns to set `CHARACTER SET` and `COLLATE` with default and null attributes of the column.
 
 4. Add initializer file config/initializers/ar_innodb_row_format.rb
-```
+```ruby
  require 'active_record/connection_adapters/abstract_mysql_adapter'
 
  module ActiveRecord
@@ -78,11 +78,8 @@ After that, we need to ALTER the text and varchar columns to set CHARACTER SET a
  end
 ```
 
-This initializer insures to set column limit to 191 for the column type varchar at the time of executing ALTER or CREATE command on the table.Why length 191?MySQL indexes are limited to 768 bytes because the InnoDB storage engine has a maximum index length of 767 bytes. This means that if we increase VARCHAR(255) from 3 bytes per character to 4 bytes per character, the index key is smaller in terms of characters. That's why we need to change the length from 255 to 191.
+This initializer insures to set column limit to `191` for the column type varchar at the time of executing `ALTER` or `CREATE` command on the table. Why length `191`? MySQL indexes are limited to `768 bytes` because the `InnoDB` storage engine has a maximum index length of `767 bytes`. This means that if we increase `VARCHAR(255)` from `3 bytes per character` to `4 bytes per character`, the index key is smaller in terms of characters. That's why we need to change the length from `255` to `191`.
 
-😊 Hurray! we are ready to use emoji.
-
-Hope this will help!
-Feel free to share your thoughts, I'd love to hear those!
+😊 Hurray! we are ready to use emoji. Hope this will help! Feel free to share your thoughts, I'd love to hear those!
 
 Reference link: https://mathiasbynens.be/notes/mysql-utf8mb4#utf8-to-utf8mb4
