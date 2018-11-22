@@ -2,7 +2,7 @@
 
 Emojis has become an essential part of communication in our digital lives. Hence, as developers, our applications should provide first-class support to them. In this blog post, we will explore how to store them in our database.
 
-What if you are getting an error when you try to insert emoji in your text? Isn't is irritating? Same was happening a few days back in one of our internal app we were facing the error, Whenever any user tries to insert emoji in the post, save was running infinitely and we were getting an error
+A few days back in one of our internal app we were facing the error, Whenever any user tries to insert emoji in the post, save was running infinitely and we were getting an error
 
 > ActiveRecord::StatementInvalid (Mysql2::Error: Incorrect string value: '\xF0\x9F\x98\x8A ...' for column 'content' at row 1: INSERT INTO posts (content, subject, user_id, created_at, updated_at, url_token) VALUES
 
