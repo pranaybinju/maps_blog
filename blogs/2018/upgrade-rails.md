@@ -4,6 +4,7 @@ For the past few months at Kiprosh, we've done versions upgrade of multiple Ruby
 
 
 ![upgrade ruby on rails](https://blog.kiprosh.com/content/images/2018/11/upgrade_rails_d.png)
+
 [upgrading ruby on rails](https://guides.rubyonrails.org/upgrading_ruby_on_rails.html)
 
 **Rails** guides provide us with a brief information on how to upgrade the rails app, but we need to know more before we start to smooth our development process.
@@ -21,6 +22,7 @@ While upgrade we will use bundle install and bundle update many times. When we r
 As per the dependency error(s), we update our Gemfile by writing version number after it and bundle again. If that not solves our problem then it is better to bundle gems again with empty Gemfile.lock rather than resolving those dependency error(s). To empty Gemfile.lock, we need to maintain versions in Gemfile as below (see fig 1)
 
 ![fig 1: Before and After Gemfile](https://blog.kiprosh.com/content/images/2018/11/gemfile.jpeg)
+
 fig 1: Gemfile
 
 If we have a Gemfile like one on the right side (fig 1), we can empty Gemfile.lock if we are in a situation where to resolve dependencies will be more hectic than bundling gems.
@@ -143,6 +145,7 @@ Once we reach rails version 5.0, we can use bootsnap instead of zeus, as zeus wo
 Rails added bootsnap(v1.1.0) as a default gem in version 5.2 (see fig. 2)
 
 ![bootsnap](https://blog.kiprosh.com/content/images/2018/11/bootsnap.png)
+
 fig 2: bootsnap in rails 5.2
 
 To have bootsnap in our app, first we need to add bootsnap gem in our Gemfile
@@ -203,6 +206,7 @@ First, we need to check the installed version of jquery-rails in our app
 visit [jquery-rails](https://github.com/rails/jquery-rails) and click on branches, then click on tags then select 2.3.0, see fig 3
 
 ![jquery-rails](https://blog.kiprosh.com/content/images/2018/11/jquery-rails-v2_3_0.png)
+
 fig 3: checking out jquery-rails version 3
 
 Now copy vendor/assets/javascripts files to our app's folder assets/javascript/jquery-rails and require all files in one file and name it assets/javascripts/jquery-rails/all.js, see fig 4 & 5.
