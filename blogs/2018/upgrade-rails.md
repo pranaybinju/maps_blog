@@ -189,7 +189,30 @@ The initial breaking change we encountered with rails 4 was routes. In rails 4 m
 
 Replacing `match`  with the respective http method is time consuming if the routes are not well documented.
 
-we can find complete list of changes in [upgrade ruby on rails guides](https://guides.rubyonrails.org/upgrading_ruby_on_rails.html#upgrading-from-rails-3-2-to-rails-4-0).
+we can find complete list of changes in [upgrade ruby on rails guides](https://guides.rubyonrails.org/upgrading_ruby_on_rails.html#upgrading-from-rails-3-2-to-rails-4-0) and the following gems will help us with smooth transition from rails 3 to 4.
+
+```
+gem 'protected_attributes'
+gem 'rails-observers'
+gem 'actionpack-page_caching'
+gem 'actionpack-action_caching'
+```
+
+1. gem [protected_attributes](https://github.com/rails/protected_attributes)
+
+    The protected_attributes gem provides attr_accessible , attr_protected methods in rails 4,  then we can replace these methods with strong parameters.
+
+2. gem [rails-observers](https://github.com/rails/rails-observers)
+
+   The rails-observers gem removed from stack in rails 4. We can add this gem to Gemfile, If observer exist in our rails app.
+
+3. gem [actionpack-page_caching](https://github.com/rails/actionpack-page_caching)
+
+   The gem actionpack-page_caching provides caches_page, page_cache_directory methods in our rails app. We can use this gem if we our rails using these methods.
+
+4. gem [actionpack-action_caching](https://github.com/rails/actionpack-action_caching)
+
+   The gem actionpack-action_caching provides caches_page , caches_action and before_action filter for caches_action . We can use this gem if our rails app uses these methods.
 
 Let's continue with the problems we have faced while upgrading rails from version 3.x to 4.x.
 
