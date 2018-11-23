@@ -260,6 +260,6 @@ If we follow the above approach and upgrade gem one at a time and push it to the
 
 ### Summary
 
-While upgrading rails I have enjoyed a lot, as we are getting on a newer version of rails, and with fewer production bugs. I have upgraded 2 rails apps from Rails 3 to Rails 5 and I am happy to say that we are on a Rails 5.2.1 😃
+While upgrading rails I have enjoyed a lot, as we are getting on a newer version of rails, and with fewer production bugs. We have upgraded 2 rails apps from Rails 3 to Rails 5 and I am happy to say that we are on a Rails 5.2.1 😃
 
 Let us know what you are up to on rails upgrade and do drop a comment if you have any queries/thoughts.
