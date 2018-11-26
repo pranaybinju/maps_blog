@@ -262,4 +262,6 @@ If we follow the above approach and upgrade gem one at a time and push it to the
 
 We really enjoyed upgrading Rails because of its benefits in maintainability, fewer production bugs due to newer versions and performance improvements. We have now upgraded three Rails applications (mid to large in size) from Rails 3 to Rails 5 and I am happy to say that we are on a Rails 5.2.1 😃
 
-Let us know what you are up to on Rails upgrade and do drop us a comment if you have any queries, thoughts or suggestions. We would love to hear from you.
+Let us know what you are up to on Rails upgrade and do drop us a comment if you have any queries, thoughts or suggestions.
+
+![We would love to hear from you](https://blog.kiprosh.com/content/images/2018/11/love-to-here-from-you-1.png)
