@@ -22,7 +22,7 @@ character-set-server=utf8mb4
 collation-server=utf8mb4_unicode_ci
 ```
 
-2. Change the database.yml settings:
+2. Change the `database.yml` settings:
 ```ruby
 encoding: utf8mb4
 collate: utf8mb4_unicode_ci
@@ -31,7 +31,7 @@ collate: utf8mb4_unicode_ci
 `utf8mb4` allows the string to support 4 bytes per character,
 `utf8mb4_unicode_ci` uses the Unicode Collation Algorithm as defined in the Unicode standards
 
-3. Then add a migration to alter the database and table: Add this code in migration
+3. Then add a migration to alter the database and table. Add this code in migration
 ```ruby
 def db
   ActiveRecord::Base.connection
