@@ -1,13 +1,13 @@
 # Upgrading Ruby on Rails Insights and Strategies
 
-For the past few months at Kiprosh, we've done versions upgrade of multiple mid to large scale Ruby on Rails applications. One of them was running Rails version `3.2.22`. That's where we found that we need to make a lot of changes in our codebase to run our application on Rails version 4.0. Hence, we thought to write this blog to share lessons we learned while upgrading such mid to large Rails applications, our insights and recommended strategies.
+For the past few months at Kiprosh, we've done versions upgrade of multiple mid to large scale Ruby on Rails applications. One of them was running Rails version `3.2.22`. That's where we found that we need to make a lot of changes in our codebase to run our application on Rails version 4.0. Hence, we thought to write this blog post to share our insights and recommended strategies for upgrading such mid to large Rails applications.
 
 
 ![upgrade Ruby on Rails](https://blog.kiprosh.com/content/images/2018/11/upgrade_rails_d.png)
 
 [upgrading Ruby on Rails](https://guides.rubyonrails.org/upgrading_ruby_on_rails.html)
 
-**Rails** guides provide us with a brief information on how to upgrade the Rails app, but we need to know more before we start to smooth our development process.
+**Rails** guides provide us with a brief information on how to upgrade the Rails app, but we need to know more to smooth our development process
 
 
 Upgrading Rails is a painful task in Rails app development life-cycle, it will be more & more painful if we are on older Rails version(ex: 3.2.x)
