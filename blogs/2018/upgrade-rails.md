@@ -19,18 +19,19 @@ To make our workflow smoother and less painful, we will explore some insights in
 
 During our upgrade process we will use bundle install and bundle update many times. When we run bundle install or bundle update we may get gems dependency error(s).
 
-As per the dependency error(s), we update our Gemfile by writing version number after it and bundle again. If that not solves our problem then it is better to bundle gems again with empty Gemfile.lock rather than resolving those dependency error(s). To empty Gemfile.lock, we need to maintain versions in Gemfile as below (see fig 1)
+As per the dependency error(s), we will update our Gemfile by writing version number besides it and `bundle` it again. If that does not solve our problem then it is better to bundle gems again with empty Gemfile.lock rather than resolving those dependency errors(s). To empty Gemfile.lock, we need to maintain versions in Gemfile as below (see fig 1)
 
 ![fig 1: Before and After Gemfile](https://blog.kiprosh.com/content/images/2018/11/gemfile.jpeg)
 
 fig 1: Gemfile
 
-If we have a Gemfile like one on the right side (fig 1), we can empty Gemfile.lock if we are in a situation where to resolve dependencies will be more hectic than bundling gems.
+If we have a Gemfile like one on the right side (fig 1), we can empty Gemfile.lock and bundle again so that bundler will auto resolve dependencies.
 
-Hence, we can run following command whenever we need or tired of resolving dependencies.
+Hence, we can run the following commands whenever needed or whenever it is overwhelming to resolve such dependency error(s).
 
 ```
 $ > Gemfile.lock  # this will empty Gemfile.lock
+$ bundle install  # bundler will resolve dependencies
 ```
 
 > Note: check gemspec of each gem to find out which gem makes the dependency error(s)/issue(s).
@@ -83,7 +84,7 @@ zeus server (alias: s)
 zeus test (alias: rspec, testrb) [run to see backtrace]
 ```
 
-After we run the above commands, open a new tab in the console and try the available zeus commands and notice the command speed. you can test the speed of commands as below
+After we run the above commands, open a new tab in the console and try the available zeus commands and notice the command speed. you can test the speed of commands as follows
 
 ```
 # tab 2
@@ -101,7 +102,7 @@ user 0m0.001s
 sys  0m0.002s
 ```
 
-we recommend to stay on zeus for Rails version 3 & 4. zeus does not support Rails 5 as hot reload mechanism changed in Rails 5.1.
+we recommend to stay on zeus for Rails version 3 & 4. `Zeus` does not support Rails 5 as hot reload mechanism changed in Rails 5.1.
 
 > zeus is written in [golang](https://golang.org/)
 
@@ -110,7 +111,7 @@ we recommend to stay on zeus for Rails version 3 & 4. zeus does not support Rail
 
 spring gem developed in pure ruby and that's the only reason to add it in Rails 4.1 stack as a default gem under development group. It will take time when we run command for the first time in the console then a background process will start for spring server.
 
-we need to prepend commands with spring, to use spring for speed up Rails commands.
+To use spring to speed up Rails commands, we need to prepend commands with spring as follows:
 
 ```
 rails_app $ time rake db:reset
@@ -126,7 +127,7 @@ user 0m0.208s
 sys  0m0.089s
 ```
 
-As compared to zeus, spring server starts in the background and the server starts when we run our first command with spring. you can check spring server using the following command
+As compared to zeus, spring server starts in the background and the server starts when we run our first command with spring. You may check spring server using the following command
 
 ```
 rails_app $ ps aux | grep spring
@@ -140,7 +141,7 @@ Since, spring doesn't natively support multi-thread, it won't be a best match fo
 
 ### [3. bootsnap](https://github.com/Shopify/bootsnap)
 
-Once we reach Rails version 5.0, we can use bootsnap instead of zeus, as zeus won't support in Rails 5.1.
+Once we reach Rails version 5.0, we can use bootsnap instead of zeus, as zeus does not support Rails 5.1 yet.
 
 Rails added bootsnap(v1.1.0) as a default gem in version 5.2 (see fig. 2)
 
@@ -189,7 +190,7 @@ The initial breaking change we encountered with Rails 4 was routes. In Rails 4 m
 
 Replacing `match`  with the respective http method is time consuming if the routes are not well documented.
 
-we can find complete list of changes in [upgrade Ruby on Rails guides](https://guides.rubyonrails.org/upgrading_ruby_on_rails.html#upgrading-from-rails-3-2-to-rails-4-0) and the following gems will help us with smooth transition from Rails 3 to 4.
+We can find complete list of changes in [upgrade Ruby on Rails guides](https://guides.rubyonrails.org/upgrading_ruby_on_rails.html#upgrading-from-rails-3-2-to-rails-4-0) and the following gems will help us with smooth transition from Rails 3 to 4.
 
 ```
 gem 'protected_attributes'
@@ -208,7 +209,7 @@ gem 'actionpack-action_caching'
 
 3. gem [actionpack-page_caching](https://github.com/rails/actionpack-page_caching)
 
-   The gem actionpack-page_caching provides caches_page, page_cache_directory methods in our Rails app. We can use this gem if we our Rails using these methods.
+   The gem actionpack-page_caching provides caches_page, page_cache_directory methods in our Rails app. We can use this gem if these methods are used in our rails app.
 
 4. gem [actionpack-action_caching](https://github.com/rails/actionpack-action_caching)
 
@@ -226,7 +227,7 @@ To avoid upgrading jquery or jquery-rails gem what we can do is we can extract t
 
 First, we need to check the installed version of jquery-rails in our app
 
-visit [jquery-rails](https://github.com/rails/jquery-rails) and click on branches, then click on tags then select 2.3.0, see fig 3
+Visit [jquery-rails](https://github.com/rails/jquery-rails) and click on branches, then click on tags then select 2.3.0, see fig 3
 
 ![jquery-rails](https://blog.kiprosh.com/content/images/2018/11/jquery-rails-v2_3_0.png)
 
@@ -246,7 +247,7 @@ fig 6: application.js diff after removing jquery-rails gem
 
 Similarly, we can remove other assets gems if they have a dependency problem with other gems.
 
-### Upgrading gems
+### Recommended Approach to Upgrade Gems
 
 The [upgrading Ruby on Rails at rails.org](https://guides.rubyonrails.org/upgrading_ruby_on_rails.html) page will give us a full brief about how we can proceed with the upgrade and what are the major changes/features in Rails 3, 4 or 5.
 
