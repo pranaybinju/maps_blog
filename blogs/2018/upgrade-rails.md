@@ -17,7 +17,7 @@ To make our workflow smoother and less painful, we will explore some insights in
 
 ### Let's start with cleaning up Gemfile
 
-While upgrade we will use bundle install and bundle update many times. When we run bundle install or bundle update we may get gems dependency error(s).
+During our upgrade process we will use bundle install and bundle update many times. When we run bundle install or bundle update we may get gems dependency error(s).
 
 As per the dependency error(s), we update our Gemfile by writing version number after it and bundle again. If that not solves our problem then it is better to bundle gems again with empty Gemfile.lock rather than resolving those dependency error(s). To empty Gemfile.lock, we need to maintain versions in Gemfile as below (see fig 1)
 
