@@ -25,7 +25,7 @@ As per the dependency error(s), we will update our Gemfile by writing version nu
 
 fig 1: Gemfile
 
-If we have a Gemfile like one on the right side (fig 1), we can empty Gemfile.lock and bundle again so that bundler will auto resolve dependencies.
+If we have a Gemfile like one on the right side (fig 1) then we can empty Gemfile.lock and bundle install gems, doing so bundler will resolve such dependencies.
 
 Hence, we can run the following commands whenever needed or whenever it is overwhelming to resolve such dependency error(s).
 
