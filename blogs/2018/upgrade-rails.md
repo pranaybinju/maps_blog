@@ -247,7 +247,7 @@ fig 6: application.js diff after removing jquery-rails gem
 
 Similarly, we can remove other assets gems if they have a dependency problem with other gems.
 
-### Recommended Approach to Upgrade Gems one at a time
+### Recommended Approach - Upgrade Gems one at a time
 
 The [upgrading Ruby on Rails at rails.org](https://guides.rubyonrails.org/upgrading_ruby_on_rails.html) page will give us a full brief about how we can proceed with the upgrade and what are the major changes/features in Rails 3, 4 or 5.
 
