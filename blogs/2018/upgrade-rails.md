@@ -1,4 +1,4 @@
-# Upgrading Ruby on Rails insights
+# Upgrading Ruby on Rails Insights and Strategies
 
 For the past few months at Kiprosh, we've done versions upgrade of multiple mid to large scale Ruby on Rails applications. One of them was running Rails version `3.2.22`. That's where we found that we need to make a lot of changes in our codebase to run our application on Rails version 4.0. Hence, we thought to write this blog to share lessons we learned while upgrading such mid to large Rails applications.
 
@@ -247,7 +247,7 @@ fig 6: application.js diff after removing jquery-rails gem
 
 Similarly, we can remove other assets gems if they have a dependency problem with other gems.
 
-### Recommended Approach to Upgrade Gems
+### Recommended Approach to Upgrade Gems one at a time
 
 The [upgrading Ruby on Rails at rails.org](https://guides.rubyonrails.org/upgrading_ruby_on_rails.html) page will give us a full brief about how we can proceed with the upgrade and what are the major changes/features in Rails 3, 4 or 5.
 
