@@ -7,6 +7,7 @@
 - [ ] Attach a right contextual image to blog post
 - [ ] Have a proper SEO friendly slug to the blog post
 - [ ] Add appropriate tags to the blog post
+- [ ] Do not check 'turn this post into a page' or 'feature this post'
 - [ ] Confirm everything is looking as expected in preview mode
 - [ ] Post the Ghost draft & preview link on the PR and assign Rohan/Shivani/Bilal/Pradeep for the final review
 - [ ] Once approval is received by reviewer publish the post to public
