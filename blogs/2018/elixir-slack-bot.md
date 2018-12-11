@@ -176,7 +176,7 @@ I would like to split this post into following sections as it would be more clea
          2. If yes, inform user
    3. Inform user about error
 
-3) Now that connection is established, we need to test if the our Slack app is
+3. Now that connection is established, we need to test if the our Slack app is
    able to send the messages to workspace and works correctly. To do that, you
    must have a file which handles RTM connection. If you read
    [Elixir-Slack](https://github.com/BlakeWilliams/Elixir-Slack), we have
@@ -266,12 +266,29 @@ I would like to split this post into following sections as it would be more clea
      `data[:subtype] == "message_changed"` and text is sent in a different
      format. So we sure that handle_event `message` map is consistent each
      time and we have `user` and `text` keys available in any case. So use
-     `handle_message_subtypes` to return `message` map in formatted form.
+     `handle_message_subtypes` to return `message` map in formatted form. You
+     can learn more about message subtypes [here](https://api.slack.com/rtm)
 
   2. As we dicussed that we need to filter out the requests by checking
      if request has text and user, only then we be sure that incoming
      message is text request arriving from Slack app. We first check if
-     `slack` which contains data of
+     incoming request text had our Slack app mention in it. So for text
+     `@slack_bot how are you` we extract `@slack_bot` which is sent in the
+     format `<@SLACK_BOT_ID>`, so we extract SLACK_BOT_ID which is
+     `mentioned_user_id` here and check if id matches our Slack app. Our Slack
+     app info in stored in `slack`. So we check
+      `mentioned_user_id == slack.me.id`
+     Then we check who is originator of the message by matching `message.user`
+     which is id of the user with `slack.me.id` which is the app's user id. This
+     will ensure we do not send request to our selves in any case.
+      `slack.me.id != message.user`
+
+  3. Once we have verified if the request is correct and is intended for our
+     app, we proceed with processing the input and send appropriate output. We
+     do that in `SlackCommands.reply` this command will be send appropriate response.
+
+
+
 
 ##Creating supervisor process to handle Slack connection independently
 
