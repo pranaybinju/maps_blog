@@ -172,7 +172,7 @@ I would like to split this post into following sections as it would be more clea
    2. if Slack return "ok" status
       1. Check if user already in DB and Slack connection is established
          1. If no, save all details in the DB and start connection. This is done
-            in using BotHelper.insert_bot_settings.
+            in using BotHelper.insert_bot_settings. Check https://blog.kiprosh.com/managing-slack-workspace-credentials-using-slack-bot-secret-key-and-id/
          2. If yes, inform user
    3. Inform user about error
 
@@ -277,19 +277,157 @@ I would like to split this post into following sections as it would be more clea
      format `<@SLACK_BOT_ID>`, so we extract SLACK_BOT_ID which is
      `mentioned_user_id` here and check if id matches our Slack app. Our Slack
      app info in stored in `slack`. So we check
-      `mentioned_user_id == slack.me.id`
+     `mentioned_user_id == slack.me.id`
      Then we check who is originator of the message by matching `message.user`
      which is id of the user with `slack.me.id` which is the app's user id. This
      will ensure we do not send request to our selves in any case.
-      `slack.me.id != message.user`
+     `slack.me.id != message.user`
 
   3. Once we have verified if the request is correct and is intended for our
      app, we proceed with processing the input and send appropriate output. We
      do that in `SlackCommands.reply` this command will be send appropriate response.
 
+## Creating supervisor process to handle Slack connection independently
+
+- Now the most tricky part of this was to make the Slack app crash resistent.
+  By crash resistant, I mean it should not halt the whole system when it
+  crashes and also it should manage to restart in such case because no one will
+  Slack app which doesnt stay online all the time.
+
+- We can do that by creating another Supervisor process under main Supervisor
+  tree and that will make this connection independent of our main Supervisor
+  process. So we create new Supervisor for each connection we make with the
+  workspace.
+  Our flow for this looks like:
+  `MyApp.Application '-> MyApp.Bot '-> MyApp.BotSupervisor`
+
+- Our `application.ex` file looks like this:
+
+  ```elixir
+  defmodule MyApp.Application do
+    use Application
+
+    def start(_type, _args) do
+      import Supervisor.Spec
+      Envy.load([".env"])
+      Envy.reload_config()
+      children = [
+        supervisor(MyApp.Repo, []),
+        supervisor(MyApp.Endpoint, []),
+        supervisor(MyApp.Bot, [], id: :slack_bot, name: Slack.Supervisor)
+      ]
+
+      opts = [strategy: :one_for_one, name: MyApp.Supervisor]
+      Supervisor.start_link(children, opts)
+    end
+
+    def config_change(changed, _new, removed) do
+      MyApp.Endpoint.config_change(changed, removed)
+      :ok
+    end
+  end
+  ```
+
+  bot.ex
+
+  ```elixir
+  defmodule MyApp.Bot do
+    use Application
+    use GenServer
+    alias MyApp.{Repo, SlackWorkspaces}
+    import Logger
+    @delay 90_000
+    def start(_, state), do: {:ok, state}
+
+    def start_link do, GenServer.start_link(__MODULE__, MapSet.new())
+
+    def init(state) do
+      poll(100)
+      {:ok, state}
+    end
+
+    def handle_info(:start_bots, state) do, start_bots(state)
+
+    defp start_bots(_state) do
+      process_ids = start_all_bots()
+      poll()
+      {:noreply, process_ids}
+    end
+
+    defp poll(delay \\ @delay) do, Process.send_after(self(), :start_bots, delay)
 
 
+    defp start_all_bots() do
+      SlackWorkspaces
+      |> Repo.all()
+      |> Enum.map(fn bot ->
+        %{team_name: bot.team_name, token: bot.bot_access_token}
+        atomized_name = String.to_atom(bot.team_name)
 
-##Creating supervisor process to handle Slack connection independently
+        processes =
+          if :erlang.whereis(atomized_name) == :undefined do
+            Logger.info("Starting Slack bot for following team: #{bot.team_name}")
+            MyApp.BotSupervisor.start_link(bot)
+          end
+
+        processes
+      end)
+    end
+  end
+  ```
+
+  bot_supervisor.ex
+
+  ```elixir
+  defmodule MyApp.BotSupervisor do
+    import Logger
+    use GenServer
+    alias MyApp.Repo
+
+    def child_spec(team_info) do
+      %{
+        id: __MODULE__,
+        start: {__MODULE__, :start_link, [team_info]},
+        type: :supervisor
+      }
+    end
+
+    def start_link(team_info) do
+      GenServer.start_link(__MODULE__, team_info, name: String.to_atom(team_info.team_name))
+    end
+
+    def init(team_info) do
+      Slack.Bot.start_link(MyApp.SlackBot, team_info, team_info.bot_access_token)
+      |> handle_errors(team_info)
+    end
+
+    defp handle_errors({:ok, _} = response, team) do
+      # Logger.info("Worker running for #{team.team_name}")
+      response
+    end
+
+    defp handle_errors({:error, "Slack API returned an error `invalid_auth" <> _ = message}, team),
+      do: reset(team, message)
+
+    defp handle_errors(
+          {:error, "Slack API returned an error `account_inactive" <> _ = message},
+          team
+        ),
+        do: reset(team, message)
+
+    defp handle_errors(response, team) do
+      Logger.warn("UNEXPECTED response from start_link for #{team.team_name}")
+      Logger.warn("#{inspect(response)}")
+      :ignore
+    end
+
+    defp reset(team, message) do
+      Logger.warn("Starting team #{team.team_name} failed: #{message}")
+      Logger.warn("Deleting this team from DB now...")
+      Repo.delete!(team)
+      :ignore
+    end
+  end
+  ```
 
 - Now that most of the
