@@ -126,25 +126,22 @@ I would like to split this post into following sections as it would be more clea
    ```elixir
 
    def request(conn, %{"provider" => _provider, "code" => code, "state" => _state}) do
-      #1 fetch detials
+      #1 fetch details using Slack.Web.Oauth.html#access
       slack_details = get_slack_details(code)
-      if !slack_details["error"] && slack_details["ok"] do
-        #fetches workspace domain from slack
-        domain =
-          BotHelper.slack_team_info(slack_details["bot"]["bot_access_token"])["team"]["domain"]
 
-        #stores slack access token and other information like domain, workspace name etc derived from slack into DB
+      #2 if Slack return "ok" status and has no errors save the information in DB
+      if !slack_details["error"] && slack_details["ok"] do
         case BotHelper.insert_bot_settings(slack_details) do
           {:ok, changeset} ->
             Logger.info("Registered Slack user #{slack_details["user_id"]}")
 
           {:error, changeset} ->
-            Logger.info(":error Changeset: \n#{inspect(changeset)}")
             Logger.info("Bot for this user already started")
         end
-
+        #3 redirect user to Slack workspace post auth sucess.
         redirect(conn, external: "https://#{domain}.slack.com/")
       else
+      #3 there was some error in authorization of Slack token, redirect user with  401
         Logger.info(":error Slack reponded with : \n#{inspect(slack_details["error"])}")
 
         conn
@@ -171,3 +168,10 @@ I would like to split this post into following sections as it would be more clea
    end
 
    ```
+
+   1. https://hexdocs.pm/slack/Slack.Web.Oauth.html#access/4
+   2. if Slack return "ok" status
+      1. Check if user already in DB and Slack connection is established
+         1. If no, save all details in the DB and start connection
+         2. If yes, inform user
+   3. Inform user about error
