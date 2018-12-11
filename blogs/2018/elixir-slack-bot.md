@@ -27,7 +27,7 @@ I would like to split this post into following sections as it would be more clea
 2. Using Elixir-Slack plugin to establish connection with Slack and linking requests with Trackive users.
 3. Creating supervisor process to handle Slack connection independently.
 4. Creating Slack bot commands.
-5. Auto-restart Slack connection on crash/failure.6. Disconnecting User after Slack bot removal.
+5. Disconnecting User after Slack bot removal.
 
 ## Slack Authentication
 
@@ -113,10 +113,9 @@ I would like to split this post into following sections as it would be more clea
 
    ```elixir
    config :slack,
-   client_id: System.get_env("SLACK_CLIENT_ID") || "242215032151.295905216179",
-   client_secret: System.get_env("SLACK_CLIENT_SECRET") || "12ca1f9c1e690455dcfc35542cdb8858",
-   root_url:
-   System.get_env("SLACK_ROOT_URL") || "https://server.trackive-staging.com/api/v1/auth/slack"
+   client_id: System.get_env("SLACK_CLIENT_ID"),
+   client_secret: System.get_env("SLACK_CLIENT_SECRET"),
+   root_url: System.get_env("SLACK_ROOT_URL")
    ```
 
    Our controller looks like:
@@ -169,9 +168,111 @@ I would like to split this post into following sections as it would be more clea
 
    ```
 
-   1. https://hexdocs.pm/slack/Slack.Web.Oauth.html#access/4
+   1. Slack.Web.Oauth.access is used to generate a  API token from  https://hexdocs.pm/slack/Slack.Web.Oauth.html#access/4
    2. if Slack return "ok" status
       1. Check if user already in DB and Slack connection is established
-         1. If no, save all details in the DB and start connection
+         1. If no, save all details in the DB and start connection. This is done
+            in using BotHelper.insert_bot_settings.
          2. If yes, inform user
    3. Inform user about error
+
+
+
+3. Now that connection is established, we need to test if the our Slack app is
+   able to send the messages to workspace and works correctly. To do that, you
+   must have a file which handles RTM connection. If you read
+   [Elixir-Slack](https://github.com/BlakeWilliams/Elixir-Slack), we have
+   `SlackRtm` module which does exactly this. So create `SlackRtm` with
+   following code
+
+   ```elixir
+
+    defmodule SlackBot do
+    use Slack
+    alias SlackCommands
+    require Logger
+
+    def handle_connect(slack, state) do
+      Logger.info("Connected as #{slack.me.name}")
+      {:ok, state}
+    end
+
+    def handle_event(message = %{type: "message"}, slack, state) do
+      #1 check type of message incoming from Slack
+      message = handle_message_subtypes(message)
+
+      #2 check if the request if specific to our App/Bot and prevent responding to self messages
+      if is_bot_request?(message, slack) do
+        Logger.info("Incoming message for Bot.... \n#{inspect(message)}")
+        text = String.replace(message.text, ~r{“|”}, "\"")
+
+        message =
+          message
+          |> Map.put(:text, text)
+        #3 use regex to match input and reply with appropriate response.
+        SlackCommands.reply(message, slack)
+      end
+
+      {:ok, state}
+    end
+
+    def handle_event(_, _, state), do: {:ok, state}
+
+    def handle_info({:message, text, channel}, slack, state) do
+      Logger.info("Sending message from handle_nfo")
+      send_message(text, channel, slack)
+      {:ok, state}
+    end
+
+    def handle_info(_, _, state), do: {:ok, state}
+
+    defp handle_message_subtypes(data)do
+    # handles text edits
+      if data[:subtype] == "message_changed" do
+        data
+        |> Map.put(:user, data.message.user)
+        |> Map.put(:text, data.message.text)
+      else
+        data
+      end
+    end
+  end
+
+  def is_bot_request?(message, slack) do
+    # is message for bot only if the message contains text else it is some other command like deleting a message.
+    if message[:text] && message[:user] do
+      mentioned_user_id =
+        message.text
+        |> String.split(["<", "@", ">"], trim: true)
+        |> Enum.at(0)
+
+      mentioned_user_id == slack.me.id && slack.me.id != message.user
+    else
+      false
+    end
+
+
+   ```
+
+  - Here I have created a separate module for handling Slack incoming requests as
+    `SlackCommands`. It basically pattern matches the input string and supplies
+    appropriate response.
+  - Coming back to code, here file is taken as it is from Elixir/Slack, so we
+    wont go into details of each method. We will focus on `handle_event` method.
+    Here we are doin following things:
+     1. Fist check the type of incoming message. Slack sends all the messages to
+        us from any channel in which we invites this Bot, so we would first want
+        to filter out the messages to focus on request specific to our App. Also
+        when we edit our message in Slack then the request is sent with
+        `data[:subtype] == "message_changed"` and text is sent in a different
+        format. So we sure that handle_event `message` map is consistent each
+        time and we have `user` and `text` keys available in any case. So use
+        `handle_message_subtypes` to return `message` map in formatted form.
+
+      2. As we dicussed that we need to filter out the requests by checking
+         if request has text and user, only then we be sure that incoming
+         message is text request arriving from Slack app. We first check if
+         `slack` which contains data of
+
+##Creating supervisor process to handle Slack connection independently
+- Now that most of the
