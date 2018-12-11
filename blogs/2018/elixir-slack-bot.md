@@ -299,7 +299,7 @@ I would like to split this post into following sections as it would be more clea
   process. So we create new Supervisor for each connection we make with the
   workspace.
   Our flow for this looks like:
-  `MyApp.Application '-> MyApp.Bot '-> MyApp.BotSupervisor`
+  `MyApp.Application -> MyApp.Bot -> MyApp.BotSupervisor`
 
 - Our `application.ex` file looks like this:
 
@@ -430,4 +430,40 @@ I would like to split this post into following sections as it would be more clea
   end
   ```
 
-- Now that most of the
+
+
+## Delete Slack data on App removal, manually remove Slack data
+- Automatic deletion
+  - ```elixir
+    defp reset(team, message) do
+      Logger.warn("Starting team #{team.team_name} failed: #{message}")
+      Logger.warn("Deleting this team from DB now...")
+      Repo.delete!(team)
+      :ignore
+    end
+    ```
+- manual delete
+  -
+  ```elixir
+    def delete(conn, %{"id" => id}) do
+      current_user = current_user(conn)
+      bot_setting = Repo.get(BotSetting, id)
+
+      if bot_setting do
+        case BotSetting.get_bot_setting_permission(bot_setting, current_user) do
+          "write" ->
+            Logger.warn("Revoking Slack token for team : #{bot_setting.team_name}")
+            # send `test: 1` as params to test this
+            Logger.warn("#{inspect(Slack.Web.Auth.revoke(%{token: bot_setting.access_token}))}")
+            Repo.delete!(bot_setting)
+            TaskHelpMeetingHelper.delete_success_message(conn, bot_setting)
+
+          "read" ->
+            TaskHelpMeetingHelper.permission_denied_message(conn, bot_setting, "delete")
+        end
+      else
+        TaskHelpMeetingHelper.not_found_message(conn, "BotSetting")
+      end
+    end
+  ```
+
