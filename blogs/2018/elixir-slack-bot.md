@@ -10,7 +10,7 @@
 Article
 Slack Bot In Elixir/Phoenix
 
-There are many Team messaging apps available in the market, but Slack is not
+There are many team messaging apps available in the market, but Slack is not
 only preferred for its simplicity but also for wide variety of Slack apps. Slack
 apps make our lives a lot easier if designed carefully.
 
@@ -18,7 +18,8 @@ We use Trello to create our Story boards and track issues. Trello has excellent 
 
 This helps us manage Trello right from out chat app, No more app/browser tab switching atleast for Trello. There are alot other examples like Google Drive integration which lets us grant permission to view some file to someone else, right in the Slack.
 
-We have our application written in Elixir/Phoenix, and wanted Slack integration for the purpose of adding tasks and viewing them across projects. Our app was for organizing our day by add accomplishments, help needed and meetings. We could also mention anyone in the our organisation.
+At Kiprosh, we use an in-house task management tool which is written in Elixir + Pheonix. We use this tool heavily to collaborate with our team members. It helps us to work effectively across projects. We decided to write a Slack integration for this tool to take things to the next level.
+
 Coming from Rails, it was natural to expect someone else to do the heavy lifting of creating a library for Slack and [Elixir/Slack](https://github.com/BlakeWilliams/Elixir-Slack) was the one we found noteworthy.
 
 I would like to split this post into following sections as it would be more clear and we'll set a direction for this blog post:
