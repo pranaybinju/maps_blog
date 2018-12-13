@@ -1,4 +1,4 @@
-# Slack Bot in Elixir
+# Developing a Slack Bot in Elixir Phoenix
 
 1. Slack Authentication.
 2. Using Elixir-Slack plugin to establish connection with Slack and linking requests with Trackive users.
@@ -8,7 +8,7 @@
 6. Disconnecting User after Slack bot removal.
 
 Article
-Slack Bot In Elixir/Phoenix
+Developing a Slack Bot in Elixir Phoenix
 
 There are many team messaging apps available in the market, but Slack is not
 only preferred for its simplicity but also for wide variety of Slack apps. Slack
@@ -16,7 +16,7 @@ apps make our lives a lot easier if designed carefully.
 
 We use Trello to create our Story boards and track issues. Trello has excellent Slack app which helps us add and organize our cards and boards very easily.
 
-This helps us manage Trello right from out chat app, No more app/browser tab switching atleast for Trello. There are alot other examples like Google Drive integration which lets us grant permission to view some file to someone else, right in the Slack.
+This helps us manage Trello right from our chat app, No more app/browser tab switching atleast for Trello. There are alot other examples like Google Drive integration which lets us grant permission to view some file to someone else, right in the Slack.
 
 At Kiprosh, we use an in-house task management tool which is written in Elixir + Pheonix. We use this tool heavily to collaborate with our team members. It helps us to work effectively across projects. We decided to write a Slack integration for this tool to collaborate more effectively and save time.
 
