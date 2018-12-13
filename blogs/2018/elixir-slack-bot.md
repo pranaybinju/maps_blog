@@ -18,7 +18,7 @@ We use Trello to create our Story boards and track issues. Trello has excellent 
 
 This helps us manage Trello right from out chat app, No more app/browser tab switching atleast for Trello. There are alot other examples like Google Drive integration which lets us grant permission to view some file to someone else, right in the Slack.
 
-At Kiprosh, we use an in-house task management tool which is written in Elixir + Pheonix. We use this tool heavily to collaborate with our team members. It helps us to work effectively across projects. We decided to write a Slack integration for this tool to take things to the next level.
+At Kiprosh, we use an in-house task management tool which is written in Elixir + Pheonix. We use this tool heavily to collaborate with our team members. It helps us to work effectively across projects. We decided to write a Slack integration for this tool to collaborate more effectively and save time.
 
 Coming from Rails, it was natural to expect someone else to do the heavy lifting of creating a library for Slack and [Elixir/Slack](https://github.com/BlakeWilliams/Elixir-Slack) was the one we found noteworthy.
 
