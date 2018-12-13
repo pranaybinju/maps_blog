@@ -435,7 +435,17 @@ I would like to split this post into following sections as it would be more clea
 
 ## Delete Slack data on App removal, manually remove Slack data
 - Automatic deletion
-  - ```elixir
+  - This happens when we try to start the Slack app using credentials but Slack
+    responds with `account_inactive` or `invalid_auth`, which means that the
+    auth_token no longer has access to Slack workspace.
+  - We keep checking if the Slack app for all workspaces are running after 100
+    milliseconds using the `poll()` method.
+  - When we get `account_inactive` or `invalid_auth` from Slack we simply delete
+    that user access token from our db. So next time user has to authorize our
+    app again to make it work.
+  - This is done using following `reset()` method in `bot_supervisor.ex`
+
+    ```elixir
     defp reset(team, message) do
       Logger.warn("Starting team #{team.team_name} failed: #{message}")
       Logger.warn("Deleting this team from DB now...")
@@ -443,8 +453,20 @@ I would like to split this post into following sections as it would be more clea
       :ignore
     end
     ```
+
 - manual delete
-  -
+  - We do this when user explicitly asks us to remove the workspace from DB.
+  - We have a UI for displaying list of Slack workspaces connected to our App,
+    we have given user option to remove the workspace from our App.
+  - Removing Slack workspace involves two things
+    - Revoke the access token, which will tell Slack to invalidate the access
+      token for the user.
+    - Delete the access token record from DB.
+  - Once the workspace is removed, user will need to re-authorize the Slack to
+    grant access to our app.
+  - We have an endpoint like `DELETE https://my_app.com/slack/id' to remove
+    the record and controller code looks like below:
+
   ```elixir
     def delete(conn, %{"id" => id}) do
       current_user = current_user(conn)
