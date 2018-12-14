@@ -1,4 +1,4 @@
-# Developing a Slack Bot in Elixir Phoenix
+#Developing a Slack Bot in Elixir Phoenix
 
 1. Slack Authentication.
 2. Using Elixir-Slack plugin to establish connection with Slack and linking requests with Trackive users.
@@ -7,7 +7,7 @@
 5. Auto-restart Slack connection on crash/failure.
 6. Disconnecting User after Slack bot removal.
 
-Article
+#Article
 Developing a Slack Bot in Elixir Phoenix
 
 There are many team messaging apps available in the market, but Slack is not
@@ -186,7 +186,7 @@ I would like to split this post into following sections as it would be more clea
 
    ```elixir
 
-    defmodule SlackBot do
+    defmodule SlackRtm do
       use Slack
       alias SlackCommands
       require Logger
@@ -258,14 +258,14 @@ I would like to split this post into following sections as it would be more clea
   appropriate response.
 - Coming back to code, here file is taken as it is from Elixir/Slack, so we
   wont go into details of each method. We will focus on `handle_event` method.
-  Here we are doin following things:
+  Here,
 
   1. Fist check the type of incoming message. Slack sends all the messages to
-     us from any channel in which we invites this Bot, so we would first want
+     us from any channel in which logged in user has invited this Bot, so we would first want
      to filter out the messages to focus on request specific to our App. Also
      when we edit our message in Slack then the request is sent with
      `data[:subtype] == "message_changed"` and text is sent in a different
-     format. So we sure that handle_event `message` map is consistent each
+     format. So we make sure that handle_event `message` map is consistent each
      time and we have `user` and `text` keys available in any case. So use
      `handle_message_subtypes` to return `message` map in formatted form. You
      can learn more about message subtypes [here](https://api.slack.com/rtm)
@@ -273,9 +273,9 @@ I would like to split this post into following sections as it would be more clea
   2. As we dicussed that we need to filter out the requests by checking
      if request has text and user, only then we be sure that incoming
      message is text request arriving from Slack app. We first check if
-     incoming request text had our Slack app mention in it. So for text
-     `@slack_bot how are you` we extract `@slack_bot` which is sent in the
-     format `<@SLACK_BOT_ID>`, so we extract SLACK_BOT_ID which is
+     incoming request text has our Slack app mention in it. So for text
+     `@slack_bot how are you` we extract `@slack_bot` which is sent as
+     `<@SLACK_BOT_ID>` in the Slack API response, so we extract SLACK_BOT_ID which is
      `mentioned_user_id` here and check if id matches our Slack app. Our Slack
      app info in stored in `slack`. So we check
      `mentioned_user_id == slack.me.id`
@@ -286,14 +286,24 @@ I would like to split this post into following sections as it would be more clea
 
   3. Once we have verified if the request is correct and is intended for our
      app, we proceed with processing the input and send appropriate output. We
-     do that in `SlackCommands.reply` this command will be send appropriate response.
+     do that in `SlackCommands.reply` this command will be send appropriate
+     response. This can be a help command, or request to add new data , update
+     existing data, delete one etc.
+
+  So here we learnt how to establish connection between Elixir App and Slack
+  API, to respond to the user requests. Now we will move on to learn how make
+  this connection stable and crash-proof. We will learn, how to make the Slack
+  app supervisor and make sure it restart when crash happens, in the next section.
 
 ## Creating supervisor process to handle Slack connection independently
 
-- Now the most tricky part of this was to make the Slack app crash resistent.
-  By crash resistant, I mean it should not halt the whole system when it
+- Now the most tricky part of this was to make the Slack app Fault-tolerance.
+  By Fault-tolerance, I mean it should not halt the whole system when it
   crashes and also it should manage to restart in such case because no one will
-  Slack app which doesnt stay online all the time.
+  want a Slack app which doesnt stay online all the time. Also auto-restart is
+  required because we will not be available to monitor its online presence all
+  the time and can't restart it instantly unless someone tells us or we notice
+  that the app is offline. So we need it to auto-restart when something crashes.
 
 - We can do that by creating another Supervisor process under main Supervisor
   tree and that will make this connection independent of our main Supervisor
@@ -315,6 +325,9 @@ I would like to split this post into following sections as it would be more clea
       children = [
         supervisor(MyApp.Repo, []),
         supervisor(MyApp.Endpoint, []),
+        #1 Initialize Bot in main Supervisor proccess as child. Tells main
+        # supervisor to monitor Child supervisor MyApp.Bot and also assign
+        # it  a name as `Slack.Supervisor`
         supervisor(MyApp.Bot, [], id: :slack_bot, name: Slack.Supervisor)
       ]
 
@@ -340,29 +353,37 @@ I would like to split this post into following sections as it would be more clea
     @delay 90_000
     def start(_, state), do: {:ok, state}
 
+    #2 start_link calls the process which in turn calls init()
     def start_link do, GenServer.start_link(__MODULE__, MapSet.new())
 
+    #3 init method will keep start the Slack app for particular workspace after
+    # @delay time, if its not started or crashed
     def init(state) do
       poll(100)
       {:ok, state}
     end
 
+    #4 handle_info is called when `send(pid, message)` is called,
+    # is called by `poll()` method
     def handle_info(:start_bots, state) do, start_bots(state)
 
+    #start Slack process for all the workspaces if not started else ignores
     defp start_bots(_state) do
       process_ids = start_all_bots()
       poll()
       {:noreply, process_ids}
     end
 
+    #tries to start the Slack process after `delay` interval for workspaces
+    # whose processes are not active (crashed or newly registered)
     defp poll(delay \\ @delay) do, Process.send_after(self(), :start_bots, delay)
 
-
+    # fetches all the SlackWorkspaces and start Supervisor for each of them if
+    # its not already started
     defp start_all_bots() do
       SlackWorkspaces
       |> Repo.all()
       |> Enum.map(fn bot ->
-        %{team_name: bot.team_name, token: bot.bot_access_token}
         atomized_name = String.to_atom(bot.team_name)
 
         processes =
@@ -374,6 +395,7 @@ I would like to split this post into following sections as it would be more clea
         processes
       end)
     end
+
   end
   ```
 
@@ -393,12 +415,14 @@ I would like to split this post into following sections as it would be more clea
       }
     end
 
+    #initializes the Genserver and init() is invoked after this
     def start_link(team_info) do
       GenServer.start_link(__MODULE__, team_info, name: String.to_atom(team_info.team_name))
     end
 
+    # start Slack Bot using `start_link` and monitor its errors
     def init(team_info) do
-      Slack.Bot.start_link(MyApp.SlackBot, team_info, team_info.bot_access_token)
+      Slack.Bot.start_link(MyApp.SlackRtm, team_info, team_info.bot_access_token)
       |> handle_errors(team_info)
     end
 
@@ -431,10 +455,38 @@ I would like to split this post into following sections as it would be more clea
   end
   ```
 
+  Here,
 
+  - First we register the Bot Supervisor into the main Elixir Supervisor, which
+    will monitor our MyApp.Bot main supervisor.
+  - The supervision strategy :one_for_one means that if a child dies, it will be
+    the only one restarted.
+  - While registering `MyApp.Bot` start_link is called for this Supervisor.
+    After which `init()` method is called for `MyApp.Bot` which calls `poll`
+    method which taked `delay` as parameter. `poll()` method calls `start_bots`
+    method using Kernel method send.
+  - `start_bots` method first starts Bots for all the workspaces using
+    `start_all_bots` method.
+    `start_all_bots` finds out all the workspaces in the DB and starts
+    individaul GenServers for each of them. Also notice that `bot` is passed as
+    parameter to GenServer which will use `bot.team_name` to initialize the
+    GenServer which will be used to identify if the Workspace is already
+    registered or not. If it is registered `String.to_atom(bot.team_name)`
+    return process information else is undefined and we need to start a process
+    in that case.
+  - `start_all_bots` uses `MyApp.BotSupervisor.start_link(bot)` to start
+    Genserver for indiviadual workspaces.
+  - If we look inside `bot_supervisor.exs`, we see it has init() which starts the
+    Slack workspace bot using [Elixir/Slack start_link
+    method](https://hexdocs.pm/slack/Slack.Bot.html#start_link/4).
+  - `init()` also handled error appropriately. If Slack connection could be
+    established and we have one of `invalid_auth` or `account_inactive` status
+    then we delete the workspace info as its invalidated by Slack.
 
-## Delete Slack data on App removal, manually remove Slack data
+## Removing Slack workspace
+
 - Automatic deletion
+
   - This happens when we try to start the Slack app using credentials but Slack
     responds with `account_inactive` or `invalid_auth`, which means that the
     auth_token no longer has access to Slack workspace.
@@ -454,7 +506,8 @@ I would like to split this post into following sections as it would be more clea
     end
     ```
 
-- manual delete
+- Manual deletion
+
   - We do this when user explicitly asks us to remove the workspace from DB.
   - We have a UI for displaying list of Slack workspaces connected to our App,
     we have given user option to remove the workspace from our App.
@@ -489,4 +542,3 @@ I would like to split this post into following sections as it would be more clea
       end
     end
   ```
-
