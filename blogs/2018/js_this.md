@@ -129,6 +129,4 @@ When using above code it will fail to do the desired operation and it needs a bi
 
 because classes use strict mode - where the value of `this` being set to `undefined`.
 
-Please check the example image below
-
-
+![](https://github.com/Kiprosh/engineering-blogs/raw/js-this/blogs/2018/Gifable-27FB32A4-53BC-425F-90F1-A68BFD829D0D.gif?raw=true)
