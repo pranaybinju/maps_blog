@@ -1,8 +1,8 @@
-# Have you noticed `this` in Javascript?
+# Have you noticed `this` in JavasSript?
 
 `this` is a quite interesting being in the JS world. It is simple and does what it says - when you call a function it tries to know who is `this` caller calling it? :grin:
 
-Let's start with the layman terms
+Let's start with the simple example
 
 ```javascript
 const Dog = {
@@ -33,9 +33,9 @@ Well this doesn't look good :confused:
 
 We have assigned our new PedigreeLoverDog the function from generic Dog itself. Why does it say undefined?
 
-Isn't `this` suppose to ask it's environment and just return the value?
+Isn't `this` suppose to ask its environment and just return the value?
 
-It would, except the functional approach is very different in implementation than how it is written.
+It would, except the functional approach is very different in implementation than how it seems.
 
 
 ```javascript
@@ -55,7 +55,7 @@ console.log(Dog.eat()) // I am eating my Pedigree​​​​​
 
 the 'eat' function is separated out but still is able to reference the property on the Dog.
 
-The property 'eat' does not create a new function from the function 'eat', it is actually referencing it!
+The property 'eat' does not have a copy from the function 'eat', but a direct reference.
 
 ```javascript
 console.log(eat === Dog.eat) // true
@@ -70,7 +70,7 @@ console.log(a === b) // false
 
 What is happening here?
 
-Rule Of Thumb - `this` always `binds`(more on bind coming soon) to the left hand caller in Javascript.
+Rule Of Thumb - `this` always `binds`(more on bind below) to the left hand caller.
 
 so when you say 'Dog.eat' - the caller is 'Dog' and it has the property called 'food'.
 
@@ -87,7 +87,7 @@ Note: `bind` is available on function and not the objects!
 
 It expects an object to replace the implicit `this` calling.
 
-### Imlicit Binding
+### Implicit Binding
 
 In browser the default binding for `this` is the `window` object. Check the example below
 
