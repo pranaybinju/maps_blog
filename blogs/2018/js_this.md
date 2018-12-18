@@ -1,4 +1,4 @@
-## Have you noticed `this` in Javascript?
+# Have you noticed `this` in Javascript?
 
 `this` is a quite interesting being in the JS world. It is simple and does what it says - when you call a function it tries to know who is `this` caller calling it? :grin:
 
@@ -106,27 +106,61 @@ console.log(checkGlobal()) // I am global
 using prev example:
 
 ```javascript
-console.log(
-  eat()
-) // ​​​​​​​​​I am eating my undefined​​​​​
+console.log(eat()) // ​​​​​​​​​I am eating my undefined​​​​​
 
-console.log(
-  eat.bind( { food: 'new food!' } )()
-) // ​​​​​​​​​I am eating my new food!​​​​​
+console.log(eat.bind( { food: 'new food!' } )()) // ​​​​​​​​​I am eating my new food!​​​​​
 ```
 
 #### Why you need to use bind when using React?
 
 If you've been creating components in React along with attaching event listeners then you've probably come across this problem of binding the functions before it's references.
 
-```javascript
-<button type="button" onClick={this.handleClick}>Click Me</button>
+```jsx
+<button type="button" onClick={this.myHandler}>Hello</button>
 ```
 
 When using above code it will fail to do the desired operation and it needs a bind. Familiar?
 
-#### Why does this happen?
+#### Why need of explicit binding with React components?
 
 because classes use strict mode - where the value of `this` being set to `undefined`.
 
 ![](https://github.com/Kiprosh/engineering-blogs/raw/js-this/blogs/2018/Gifable-27FB32A4-53BC-425F-90F1-A68BFD829D0D.gif?raw=true)
+
+### Arrow functions
+
+One of the approach to solve such issues is the usage of Arrow Functions introduced in ES6. These functions have a default binding to `this`.
+
+```jsx
+class FooBar extends React.Component{
+  myHandler = () => {
+    console.log(this); 
+  }
+
+  render() {
+    return(
+      <button type="button" onClick={this.myHandler}>Hello</button>
+    )
+  }
+}
+```
+
+## Summary
+
+- It does not matter if you declare the functions inside an object or outside of it. It's the scope of `this` that matters.
+
+- Object calling the function is the default binding for a `this`. Also called as `implicit` binding.
+
+- If the function reference is assigned to variable then `implicit` binding will default to `global` in node & `window` in browser environment.
+
+- To change the scope of this use `bind` also called as `explicit` binding
+
+- ES6 classes work with `"use strict"` that prevents binding of `this` to the default scope.
+
+- Make use of the Arrow functions to reduce verbosity of `explicit` binding!
+
+--------
+
+Reachout to us and let us know your thoughts on `this` :wink:
+
+- [Karan Valecha @IamKaranV](https://twitter.com/iamkaranv?lang=en)
