@@ -1,31 +1,21 @@
-#Developing a Slack Bot in Elixir Phoenix
-
-1. Slack Authentication.
-2. Using Elixir-Slack plugin to establish connection with Slack and linking requests with Trackive users.
-3. Creating supervisor process to handle Slack connection independently.
-4. Creating Slack bot commands.
-5. Auto-restart Slack connection on crash/failure.
-6. Disconnecting User after Slack bot removal.
-
-#Article
 Developing a Slack Bot in Elixir Phoenix
 
 There are many team messaging apps available in the market, but Slack is not
-only preferred for its simplicity but also for wide variety of Slack apps. Slack
+only preferred for its simplicity but also for a wide variety of Slack apps. Slack
 apps make our lives a lot easier if designed carefully.
 
-We use Trello to create our Story boards and track issues. Trello has excellent Slack app which helps us add and organize our cards and boards very easily.
+We use Trello to create our Storyboards and track issues. Trello has excellent Slack app which helps us add and organize our cards and boards very easily.
 
-This helps us manage Trello right from our chat app, No more app/browser tab switching atleast for Trello. There are alot other examples like Google Drive integration which lets us grant permission to view some file to someone else, right in the Slack.
+This helps us manage Trello right from our chat app, No more app/browser tab switching at least for Trello. There are a lot of other examples like Google Drive integration which lets us grant permission to view some file to someone else, right in the Slack.
 
 At Kiprosh, we use an in-house task management tool which is written in Elixir + Pheonix. We use this tool heavily to collaborate with our team members. It helps us to work effectively across projects. We decided to write a Slack integration for this tool to collaborate more effectively and save time.
 
 Coming from Rails, it was natural to expect someone else to do the heavy lifting of creating a library for Slack and [Elixir/Slack](https://github.com/BlakeWilliams/Elixir-Slack) was the one we found noteworthy.
 
-I would like to split this post into following sections as it would be more clear and we'll set a direction for this blog post:
+I would like to split this post into the following sections as it would be more clear and we'll set a direction for this blog post:
 
 1. Slack Authentication.
-2. Using Elixir-Slack plugin to establish connection with Slack and linking requests with Trackive users.
+2. Using Elixir-Slack plugin to establish a connection with Slack and linking requests with Trackive users.
 3. Creating supervisor process to handle Slack connection independently.
 4. Creating Slack bot commands.
 5. Disconnecting User after Slack bot removal.
@@ -37,26 +27,26 @@ I would like to split this post into following sections as it would be more clea
    Slack on [this page](https://api.slack.com/slack-apps#creating_apps).
 
    - First create a dummy work space
-   - create a slack from [this page](https://api.slack.com/apps?new_app=1)
+   - Create a slack from [this page](https://api.slack.com/apps?new_app=1)
    - After creating the Slack app, you will get client ID and client secret
      which we will be using for developing the Slack app.
 
-2. Now that we have registered our app on Slack we need to register the User
+2. Now that we have registered our app on Slack we need to register the user
    wanting to use our app to Slack. This can be done by going to [`Manage Distributions Page`](https://api.slack.com/apps/YOUR_APP_ID/distribute?).
    You should be able to see `Add to Slack` button which we will use to embed
-   in our Html page. This will help user to willing to use our app to grant
-   access to his workspace. In return users will be able to access this App
+   in our HTML page. This will help user willing to use our app to grant
+   access to his workspace. In return, users will be able to access this App
    inside their workspace.
 
-3. Once the Slack authorizes user's request for use an App, user is
+3. Once the Slack authorizes user's request to use an App, the user is
    redirected back to one of our server URI. This is done by setting
-   `Redirect URLs` in "OAuth and Permission" page. Also we can pas this
-   redirect url along with Slack authorization URL so the URL is verified by
-   Slack and post authorization we are sent to that URL.
+   `Redirect URLs` in "OAuth and Permission" page. Also, we can pass this
+   redirect URL along with Slack authorization URL so the URL is verified by
+   Slack and post-authorization we are sent to that URL.
 
-4. When user is redirected to our server endpoint, Slack also provides us
-   with unique access Token which is used as identifier by Slack to
-   recongnize our App. This acess token has appropriate permissions
+4. When a user is redirected to our server endpoint, Slack also provides us
+   with unique access token which is used as an identifier by Slack to
+   recognize our App. This access token has appropriate permissions
    associated with it based on the type of 'scope' request that we sent while
    requesting for authorization. So our authorization request looks like
    this
