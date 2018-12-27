@@ -22,12 +22,12 @@ I would like to split this post into the following sections as it would be more 
 
 ## Slack Authentication
 
-1. To get started with creating Slack app, we will need to signup to slack
+1. To get started with creating a Slack app, we will need to signup to slack
    and create a dummy workspace to test our app. This is all very documented by
    Slack on [this page](https://api.slack.com/slack-apps#creating_apps).
 
    - First create a dummy work space
-   - Create a slack from [this page](https://api.slack.com/apps?new_app=1)
+   - Create a slack app from [this page](https://api.slack.com/apps?new_app=1)
    - After creating the Slack app, you will get client ID and client secret
      which we will be using for developing the Slack app.
 
@@ -57,8 +57,8 @@ I would like to split this post into the following sections as it would be more 
 
    _client_id:_ this is the id you generated while creating slack app.
 
-   _redirect_uri:_ Post Slack authorization , this is the place Slack will
-   point and grant acess_token. This must be the place you save user's access
+   _redirect_uri:_ Post Slack authorization, this is the place Slack will
+   point and grant `access_token`. This must be the place you save user's access
    token so tha you could access the user workspace everytime you want to
    communicate with the Slack. If you do not save this access token you'll
    need to authorize your request again and will need to generate acess token
@@ -77,12 +77,12 @@ I would like to split this post into the following sections as it would be more 
 
 ## Using Elixir-Slack plugin to establish connection with Slack
 
-1. Now we have access token, we are ready to establish connection with Slack.
-   We are going to user Elixir/Slack to establish and manage connection from
+1. Now we have an access token, we are ready to establish the connection with Slack.
+   We are going to user Elixir-Slack plugin to establish and manage connection from
    Elixir to Slack and vice versa. You can learn more about it on [Elixir/Slack
    github page](https://github.com/BlakeWilliams/Elixir-Slack).
 
-2. If you check ReadMe.md of Elixir/Slack, you'll see we are required to run
+2. If you check ReadMe.md of Elixir-Slack plugin, you'll see we are required to run
    `Slack.Bot.start_link(SlackRtm, [], "TOKEN_HERE")` to set the token values.
    This is exactly where we left in authorization section. You might be
    wondering what all code sits inside controller of
@@ -90,19 +90,20 @@ I would like to split this post into the following sections as it would be more 
 
    Controller code will have:
 
-   1. Check `state` send during authorization request(yes, you guessed right
-      even `state` is sent back along with `access_token`)if sent from the
+   1. Check `state` sent during authorization request(yes, you guessed right
+      even `state` is sent back along with `access_token`). If sent from the
       request while authoriation, else move to next step.
-   2. Save the `access_token` granted by slack in the DB (you can encypt this to
+   2. Save the `access_token` granted by slack in the DB (you can encrypt this to
       make it extra safe).
    3. Then we use the `access_token` to establish the connection with Slack
       using Elixir/Slack. It uses [Slack RTM API](https://api.slack.com/rtm).
 
    Also to do this we'll need to set our config for Slack as below:
 
-   config.mxs
 
    ```elixir
+    # config/config.exs
+
     config :slack,
       client_id: System.get_env("SLACK_CLIENT_ID"),
       client_secret: System.get_env("SLACK_CLIENT_SECRET"),
@@ -111,9 +112,8 @@ I would like to split this post into the following sections as it would be more 
 
    Our controller looks like:
 
-   slack_auth_controller.mxs
-
    ```elixir
+   # web/controllers/slack_auth_controller.ex
 
    def request(conn, %{"provider" => _provider, "code" => code, "state" => _state}) do
       #1 fetch details using Slack.Web.Oauth.html#access
@@ -160,14 +160,13 @@ I would like to split this post into the following sections as it would be more 
    ```
 
    1. Slack.Web.Oauth.access is used to generate a API token from https://hexdocs.pm/slack/Slack.Web.Oauth.html#access/4
-   2. if Slack return "ok" status
+   2. if Slack returns "ok" status
       1. Check if user already in DB and Slack connection is established
-         1. If no, save all details in the DB and start connection. This is done
-            in using BotHelper.insert_bot_settings. Check https://blog.kiprosh.com/managing-slack-workspace-credentials-using-slack-bot-secret-key-and-id/
+         1. If not, save all details in the DB and start connection. This is done using `BotHelper.insert_bot_settings` method. Check https://blog.kiprosh.com/managing-slack-workspace-credentials-using-slack-bot-secret-key-and-id/
          2. If yes, inform user
-   3. Inform user about error
+   3. Inform user about the error
 
-3. Now that connection is established, we need to test if the our Slack app is
+3. Now that the connection is established, we need to test if the our Slack app is
    able to send the messages to workspace and works correctly. To do that, you
    must have a file which handles RTM connection. If you read
    [Elixir-Slack](https://github.com/BlakeWilliams/Elixir-Slack), we have
@@ -190,7 +189,7 @@ I would like to split this post into the following sections as it would be more 
         #1 check type of message incoming from Slack
         message = handle_message_subtypes(message)
 
-        #2 check if the request if specific to our App/Bot and prevent responding to self messages
+        #2 check if the request is specific to our App/Bot and prevent responding to self messages
         if is_bot_request?(message, slack) do
           Logger.info("Incoming message for Bot.... \n#{inspect(message)}")
           text = String.replace(message.text, ~r{“|”}, "\"")
@@ -208,7 +207,7 @@ I would like to split this post into the following sections as it would be more 
       def handle_event(_, _, state), do: {:ok, state}
 
       def handle_info({:message, text, channel}, slack, state) do
-        Logger.info("Sending message from handle_nfo")
+        Logger.info("Sending message from handle_info")
         send_message(text, channel, slack)
         {:ok, state}
       end
@@ -226,7 +225,7 @@ I would like to split this post into the following sections as it would be more 
         end
       end
 
-      def is_bot_request?(message, slack) do
+      defp is_bot_request?(message, slack) do
         # is message for bot only if the message contains text else it is some other command like deleting a message.
         if message[:text] && message[:user] do
           mentioned_user_id =
@@ -261,9 +260,9 @@ I would like to split this post into the following sections as it would be more 
      can learn more about message subtypes [here](https://api.slack.com/rtm)
 
   2. As we dicussed that we need to filter out the requests by checking
-     if request has text and user, only then we be sure that incoming
+     if request has text and user, only then we will be sure that incoming
      message is text request arriving from Slack app. We first check if
-     incoming request text has our Slack app mention in it. So for text
+     incoming request text has our Slack app mentioned in it. So for text
      `@slack_bot how are you` we extract `@slack_bot` which is sent as
      `<@SLACK_BOT_ID>` in the Slack API response, so we extract SLACK_BOT_ID which is
      `mentioned_user_id` here and check if id matches our Slack app. Our Slack
@@ -276,48 +275,50 @@ I would like to split this post into the following sections as it would be more 
 
   3. Once we have verified if the request is correct and is intended for our
      app, we proceed with processing the input and send appropriate output. We
-     do that in `SlackCommands.reply` this command will be send appropriate
-     response. This can be a help command, or request to add new data , update
+     do that in `SlackCommands.reply` this command will send the appropriate
+     response. This can be a help command or request to add new data, update
      existing data, delete one etc.
 
-  So here we learnt how to establish connection between Elixir App and Slack
-  API, to respond to the user requests. Now we will move on to learn how make
+  So here we learned how to establish a connection between Elixir App and Slack
+  API, to respond to the user requests. Now we will move on to learn how to make
   this connection stable and crash-proof. We will learn, how to make the Slack
-  app supervisor and make sure it restart when crash happens, in the next section.
+  app supervisor and make sure it restarts when crash happens, in the next section.
 
 ## Creating supervisor process to handle Slack connection independently
 
 - Now the most tricky part of this was to make the Slack app Fault-tolerance.
   By Fault-tolerance, I mean it should not halt the whole system when it
   crashes and also it should manage to restart in such case because no one will
-  want a Slack app which doesnt stay online all the time. Also auto-restart is
+  want a Slack app which doesn't stay online all the time. Also, auto-restart is
   required because we will not be available to monitor its online presence all
   the time and can't restart it instantly unless someone tells us or we notice
   that the app is offline. So we need it to auto-restart when something crashes.
 
-- We can do that by creating another Supervisor process under main Supervisor
+- We can do that by creating another Supervisor process under the main Supervisor
   tree and that will make this connection independent of our main Supervisor
-  process. So we create new Supervisor for each connection we make with the
+  process. So we create a new Supervisor for each connection we make with the
   workspace.
-  Our flow for this looks like:
+  Our flow for this looks like
   `MyApp.Application -> MyApp.Bot -> MyApp.BotSupervisor`
 
-- Our `application.ex` file looks like this:
+- Our `my_app.ex`(where my_app is the name of our app) file looks like
 
   ```elixir
-  defmodule MyApp.Application do
+  # lib/my_app.ex
+  defmodule MyApp do
     use Application
 
     def start(_type, _args) do
       import Supervisor.Spec
       Envy.load([".env"])
       Envy.reload_config()
+
       children = [
         supervisor(MyApp.Repo, []),
         supervisor(MyApp.Endpoint, []),
-        #1 Initialize Bot in main Supervisor proccess as child. Tells main
-        # supervisor to monitor Child supervisor MyApp.Bot and also assign
-        # it  a name as `Slack.Supervisor`
+        #1. Initialize Bot in main Supervisor proccess as child.
+        #2. Tell main supervisor to monitor Child supervisor MyApp.Bot.
+        #3. Assign it a name as `Slack.Supervisor`
         supervisor(MyApp.Bot, [], id: :slack_bot, name: Slack.Supervisor)
       ]
 
@@ -335,18 +336,24 @@ I would like to split this post into the following sections as it would be more 
   bot.ex
 
   ```elixir
+  # lib/my_app/bot.ex
+
   defmodule MyApp.Bot do
     use Application
     use GenServer
-    alias MyApp.{Repo, SlackWorkspaces}
+
     import Logger
+
+    alias MyApp.{Repo, SlackWorkspaces}
+
     @delay 90_000
+
     def start(_, state), do: {:ok, state}
 
     #2 start_link calls the process which in turn calls init()
-    def start_link do, GenServer.start_link(__MODULE__, MapSet.new())
+      def start_link do, GenServer.start_link(__MODULE__, MapSet.new())
 
-    #3 init method will keep start the Slack app for particular workspace after
+    #3 init method will keep starting the Slack app for particular workspace after
     # @delay time, if its not started or crashed
     def init(state) do
       poll(100)
@@ -354,17 +361,17 @@ I would like to split this post into the following sections as it would be more 
     end
 
     #4 handle_info is called when `send(pid, message)` is called,
-    # is called by `poll()` method
+    # It is called by `poll()` method
     def handle_info(:start_bots, state) do, start_bots(state)
 
-    #start Slack process for all the workspaces if not started else ignores
+    # start Slack process for all the workspaces if not started else ignores
     defp start_bots(_state) do
       process_ids = start_all_bots()
       poll()
       {:noreply, process_ids}
     end
 
-    #tries to start the Slack process after `delay` interval for workspaces
+    # tries to start the Slack process after `delay` interval for workspaces
     # whose processes are not active (crashed or newly registered)
     defp poll(delay \\ @delay) do, Process.send_after(self(), :start_bots, delay)
 
@@ -392,6 +399,7 @@ I would like to split this post into the following sections as it would be more 
   bot_supervisor.ex
 
   ```elixir
+  # lib/my_app/boot_supervisor.ex
   defmodule MyApp.BotSupervisor do
     import Logger
     use GenServer
@@ -405,7 +413,7 @@ I would like to split this post into the following sections as it would be more 
       }
     end
 
-    #initializes the Genserver and init() is invoked after this
+    # initializes the Genserver and init() is invoked after this
     def start_link(team_info) do
       GenServer.start_link(__MODULE__, team_info, name: String.to_atom(team_info.team_name))
     end
@@ -417,7 +425,7 @@ I would like to split this post into the following sections as it would be more 
     end
 
     defp handle_errors({:ok, _} = response, team) do
-      # Logger.info("Worker running for #{team.team_name}")
+      Logger.info("Worker running for #{team.team_name}")
       response
     end
 
@@ -448,12 +456,12 @@ I would like to split this post into the following sections as it would be more 
   Here,
 
   - First we register the Bot Supervisor into the main Elixir Supervisor, which
-    will monitor our MyApp.Bot main supervisor.
-  - The supervision strategy :one_for_one means that if a child dies, it will be
+    will monitor our `MyApp.Bot` main supervisor.
+  - The supervision strategy `:one_for_one` means that if a child dies, it will be
     the only one restarted.
   - While registering `MyApp.Bot` start_link is called for this Supervisor.
     After which `init()` method is called for `MyApp.Bot` which calls `poll`
-    method which taked `delay` as parameter. `poll()` method calls `start_bots`
+    method which took `delay` as parameter. `poll()` method calls `start_bots`
     method using Kernel method send.
   - `start_bots` method first starts Bots for all the workspaces using
     `start_all_bots` method.
@@ -466,7 +474,7 @@ I would like to split this post into the following sections as it would be more 
     in that case.
   - `start_all_bots` uses `MyApp.BotSupervisor.start_link(bot)` to start
     Genserver for indiviadual workspaces.
-  - If we look inside `bot_supervisor.exs`, we see it has init() which starts the
+  - If we look inside `bot_supervisor.ex`, we see it has init() which starts the
     Slack workspace bot using [Elixir/Slack start_link
     method](https://hexdocs.pm/slack/Slack.Bot.html#start_link/4).
   - `init()` also handled error appropriately. If Slack connection could be
@@ -475,7 +483,7 @@ I would like to split this post into the following sections as it would be more 
 
 ## Removing Slack workspace
 
-- Automatic deletion
+### Automatic deletion
 
   - This happens when we try to start the Slack app using credentials but Slack
     responds with `account_inactive` or `invalid_auth`, which means that the
@@ -483,7 +491,7 @@ I would like to split this post into the following sections as it would be more 
   - We keep checking if the Slack app for all workspaces are running after 100
     milliseconds using the `poll()` method.
   - When we get `account_inactive` or `invalid_auth` from Slack we simply delete
-    that user access token from our db. So next time user has to authorize our
+    that user's access token from our db. So next time user has to authorize our
     app again to make it work.
   - This is done using following `reset()` method in `bot_supervisor.ex`
 
@@ -496,9 +504,9 @@ I would like to split this post into the following sections as it would be more 
     end
     ```
 
-- Manual deletion
+### Manual deletion
 
-  - We do this when user explicitly asks us to remove the workspace from DB.
+  - We do this when a user explicitly asks us to remove the workspace from DB.
   - We have a UI for displaying list of Slack workspaces connected to our App,
     we have given user option to remove the workspace from our App.
   - Removing Slack workspace involves two things
@@ -511,24 +519,26 @@ I would like to split this post into the following sections as it would be more 
     the record and controller code looks like below:
 
   ```elixir
+    # web/controllers/slack_controller.ex
+
     def delete(conn, %{"id" => id}) do
       current_user = current_user(conn)
       bot_setting = Repo.get(BotSetting, id)
 
       if bot_setting do
-        case BotSetting.get_bot_setting_permission(bot_setting, current_user) do
+        case  BotSetting.get_bot_setting_permission(bot_setting, current_user) do
           "write" ->
             Logger.warn("Revoking Slack token for team : #{bot_setting.team_name}")
             # send `test: 1` as params to test this
             Logger.warn("#{inspect(Slack.Web.Auth.revoke(%{token: bot_setting.access_token}))}")
             Repo.delete!(bot_setting)
-            TaskHelpMeetingHelper.delete_success_message(conn, bot_setting)
+            ApplicationHelper.delete_success_message(conn, bot_setting)
 
           "read" ->
-            TaskHelpMeetingHelper.permission_denied_message(conn, bot_setting, "delete")
+            ApplicationHelper.permission_denied_message(conn, bot_setting, "delete")
         end
       else
-        TaskHelpMeetingHelper.not_found_message(conn, "BotSetting")
+        ApplicationHelper.not_found_message(conn, "BotSetting")
       end
     end
   ```
