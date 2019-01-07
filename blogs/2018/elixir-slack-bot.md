@@ -23,7 +23,7 @@ I would like to split this post into the following sections as it would be more 
 ## Slack Authentication
 
 1. To get started with creating a Slack app, we will need to signup to slack
-   and create a dummy workspace to test our app. This is all very documented by
+   and create a dummy workspace to test our app. This is all very well documented by
    Slack on [this page](https://api.slack.com/slack-apps#creating_apps).
 
    - First create a dummy work space
@@ -34,9 +34,8 @@ I would like to split this post into the following sections as it would be more 
 2. Now that we have registered our app on Slack we need to register the user
    wanting to use our app to Slack. This can be done by going to [`Manage Distributions Page`](https://api.slack.com/apps/YOUR_APP_ID/distribute?).
    You should be able to see `Add to Slack` button which we will use to embed
-   in our HTML page. This will help user willing to use our app to grant
-   access to his workspace. In return, users will be able to access this App
-   inside their workspace.
+   in our HTML page. This will grant our Slack app, access to user's workspace.
+   In return, users will be able to access this App inside their workspace.
 
 3. Once the Slack authorizes user's request to use an App, the user is
    redirected back to one of our server URI. This is done by setting
