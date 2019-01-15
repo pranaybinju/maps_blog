@@ -81,7 +81,7 @@ I would like to split this post into the following sections as it would be more 
    Elixir to Slack and vice versa. You can learn more about it on [Elixir/Slack
    github page](https://github.com/BlakeWilliams/Elixir-Slack).
 
-2. If you check ReadMe.md of Elixir-Slack plugin, you'll see we are required to run
+2. If you check Readme.md of Elixir-Slack plugin, you'll see we are required to run
    `Slack.Bot.start_link(SlackRtm, [], "TOKEN_HERE")` to set the token values.
    This is exactly where we left in authorization section. You might be
    wondering what all code sits inside controller of
@@ -245,7 +245,7 @@ I would like to split this post into the following sections as it would be more 
   `SlackCommands`. It basically pattern matches the input string and supplies
   appropriate response.
 - Coming back to code, here file is taken as it is from Elixir/Slack, so we
-  wont go into details of each method. We will focus on `handle_event` method.
+  won't go into details of each method. We will focus on `handle_event` method.
   Here,
 
   1. Fist check the type of incoming message. Slack sends all the messages to
