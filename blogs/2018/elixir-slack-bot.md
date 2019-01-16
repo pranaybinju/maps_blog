@@ -541,3 +541,12 @@ I would like to split this post into the following sections as it would be more 
       end
     end
   ```
+
+We covered how to establish Slack connection and also retain it so that we do
+not need to request users to authorize our Slack bot again and again. Then we
+saw how to respond to user requests using regex. Finally we made sure our Bot
+was always alive  and was fault tolerant.
+
+Hope you enjoyed this blog and it motivated you to make your own Slack bot using
+Elixir. Feel free to reach out to me in commments section for any doubts. Keep
+checking our Blog section for more interesting blogs.
