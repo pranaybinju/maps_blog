@@ -1,8 +1,11 @@
 # Blog Post Writing Process
 
 - [ ] Write your blog in Markdown format in Github repo
-- [ ] Raise a PR and assign reviewers to it
-- [ ] Collaborate over the PR review comments and finalize the blog post content. 
+- [ ] Create a Trello card for this blog on the company board here https://trello.com/b/XwrkQKSO/kiprosh-company-wide
+- [ ] Set a due date on the Trello card
+- [ ] Add proper labels (example: `Tech`, `Blog`) to the Trello card
+- [ ] Raise a PR and assign reviewers to the PR. (Doing same on Trello card will also help as Trello sends auto reminder for the Due date).
+- [ ] Collaborate over the PR review comments and finalize the blog post content.
 - [ ] Copy + Paste the finalized content in Ghost
 - [ ] Attach a right contextual image to blog post
 - [ ] Have a proper SEO friendly slug to the blog post
