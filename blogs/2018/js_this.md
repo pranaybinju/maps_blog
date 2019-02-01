@@ -92,7 +92,7 @@ It expects an object to replace the implicit `this` calling.
 In browser the default binding for `this` is the `window` object. Check the example below
 
 ```javascript
-window.globalVar = 'I ama global';
+window.globalVar = 'I am a global';
 
 var checkGlobal = function() {
   return this.globalVar
