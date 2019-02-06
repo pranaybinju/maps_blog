@@ -1,8 +1,10 @@
-# Have you noticed `this` in JavasSript?
+###### Have you noticed `this` in JavaScript?
 
-`this` is a quite interesting being in the JS world. It is simple and does what it says - when you call a function it tries to know who is `this` caller calling it? :grin:
+`this` is quite interesting thing(reserved keyword) in the JS world. It is simple and does what it says - when you call a function it tries to know who is `this` to call me? 😬
 
-Let's start with the simple example
+------
+
+Let's start with an example: 👇🏼
 
 ```javascript
 const Dog = {
@@ -17,25 +19,30 @@ console.log(Dog.eat) // [λ: eat]​​​​​
 console.log(Dog.eat()) // I am eating my Pedigree​​​​​
 ```
 
-Let's give this chance to a our new Dog
+
+Extending the `eat` to our new Dog 🐶
+
+Great, as `eat` defined in `Dog` object knows how to eat food - Let's provide this functionality to new Object PedigreeLoverDog 🐕
 
 ```javascript
 const PedigreeLoverDog = {
-  eatFast: null
+  eat: null
 }
 
-PedigreeLoverDog.eatFast = Dog.eat;
+PedigreeLoverDog.eat = Dog.eat;
 
-console.log(PedigreeLoverDog.eatFast()); // ​​​​​I am eating my undefined​​​​​
+console.log(PedigreeLoverDog.eat()); // I am eating my undefined
 ```
 
-Well this doesn't look good :confused:
 
-We have assigned our new PedigreeLoverDog the function from generic Dog itself. Why does it say undefined?
+🤔 `this` doesn't look good here - (pun intended 😬)
 
-Isn't `this` suppose to ask its environment and just return the value?
+Common Misconception with `PedigreeLoverDog.eat = Dog.eat` - Just because `eat` was defined in `Dog` and it had `food` then the function must always have `food` accessible.
 
-It would, except the functional approach is very different in implementation than how it seems.
+🙇
+-------
+
+Let's play around the concept here: 
 
 
 ```javascript
@@ -49,43 +56,28 @@ const Dog = {
 }
 
 console.log(Dog.food) // Pedigree
-console.log(Dog.eat) // [λ: eat]​​​​​
-console.log(Dog.eat()) // I am eating my Pedigree​​​​​
+console.log(Dog.eat) // [λ: eat]
+console.log(Dog.eat()) // I am eating my Pedigree
 ```
 
-the 'eat' function is separated out but still is able to reference the property on the Dog.
+> `this` always `binds` to the left hand caller. Doing `Dog.eat` makes `Dog` the binding source for `eat`
 
-The property 'eat' does not have a copy from the function 'eat', but a direct reference.
+Note: The 'eat' function is separated out but still is able to find the `food` on the Dog.
+
 
 ```javascript
 console.log(eat === Dog.eat) // true
+console.log(eat()); //I am eating my undefined
 ```
+> The left hand object calling the function is the scope of `this` for a function via Implicit Binding, this is the reason when `eat` is called standalone, it loses the context.
 
-```javascript
-const a = function() {}
-const b = function() {}
+### More on binding
 
-console.log(a === b) // false
-```
-
-What is happening here?
-
-Rule Of Thumb - `this` always `binds`(more on bind below) to the left hand caller.
-
-so when you say 'Dog.eat' - the caller is 'Dog' and it has the property called 'food'.
-
-```javascript
-Dog.newEat = eat
-
-console.log(Dog.newEat()) // ​​​​​I am eating my Pedigree​​​​​
-```
-## Function Binding
-
-`bind` is what you use to override the functionality such that - instead of `this` your object gets assignment of the default caller of the function.
+`bind` is what you use to provide scope to the `this` keyword. When a function is referenced inside the Object - it has default binding to the Object also known as Implicit Binding. This explains how inside `Dog#eat` gets to know `food` via `this`.
 
 Note: `bind` is available on function and not the objects!
 
-It expects an object to replace the implicit `this` calling.
+-------
 
 ### Implicit Binding
 
@@ -101,33 +93,43 @@ var checkGlobal = function() {
 console.log(checkGlobal()) // I am global
 ```
 
+-------
+
 ### Explicit binding
 
 using prev example:
 
 ```javascript
-console.log(eat()) // ​​​​​​​​​I am eating my undefined​​​​​
+console.log(eat()) // I am eating my undefined
 
-console.log(eat.bind( { food: 'new food!' } )()) // ​​​​​​​​​I am eating my new food!​​​​​
+console.log(eat.bind( { food: 'new food!' } )()) // I am eating my new food!
 ```
 
-#### Why you need to use bind when using React?
+-----
 
-If you've been creating components in React along with attaching event listeners then you've probably come across this problem of binding the functions before it's references.
+#### Using `bind` with React!
+
+If you've been creating components in React and attached event listeners then you've probably come across this situation of using `bind` to the functions to pass the scope.
 
 ```jsx
 <button type="button" onClick={this.myHandler}>Hello</button>
 ```
+> When using above code it will fail to do the desired operation and it needs a bind. Familiar?
 
-When using above code it will fail to do the desired operation and it needs a bind. Familiar?
 
-#### Why need of explicit binding with React components?
+###### Yes! but why we need to?
+> blame `ES6` and not `React`.
 
-because classes use strict mode - where the value of `this` being set to `undefined`.
+ES6 introduced `class`. And now you can structure Components as Classes.
+
+But a class uses `strict mode` and that sets the default value of  `this` to `undefined` instead of `window` or `global`.
+
+When using React components with ES6 classes - make use of binding to provide `this` the context and not leaving it undefined.
+
 
 ![](https://github.com/Kiprosh/engineering-blogs/raw/js-this/blogs/2018/Gifable-27FB32A4-53BC-425F-90F1-A68BFD829D0D.gif?raw=true)
 
-### Arrow functions
+### When using classes - Use Arrow functions `=>`
 
 One of the approach to solve such issues is the usage of Arrow Functions introduced in ES6. These functions have a default binding to `this`.
 
@@ -153,7 +155,7 @@ class FooBar extends React.Component{
 
 - If the function reference is assigned to variable then `implicit` binding will default to `global` in node & `window` in browser environment.
 
-- To change the scope of this use `bind` also called as `explicit` binding
+- To change the scope of this, use `function.bind(object)` also called as `explicit` binding
 
 - ES6 classes work with `"use strict"` that prevents binding of `this` to the default scope.
 
@@ -161,6 +163,6 @@ class FooBar extends React.Component{
 
 --------
 
-Reachout to us and let us know your thoughts on `this` :wink:
+Reach out to us and let me know your thoughts on `this` 😁
 
-- [Karan Valecha @IamKaranV](https://twitter.com/iamkaranv?lang=en)
+- Karan Valecha [@IamKaranV](https://twitter.com/iamkaranv?lang=en)
