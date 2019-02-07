@@ -1,6 +1,6 @@
 ###### Have you noticed `this` in JavaScript?
 
-`this` is quite interesting thing(reserved keyword) in the JS world. It is simple and does what it says - when you call a function it tries to know who is `this` to call me? 😬
+`this` is quite interesting thing(reserved keyword) in the JS world. It is simple and does what it says - when you call a function it tries to know who is `this` trying to call me? 😬
 
 ------
 
@@ -127,7 +127,7 @@ But a class uses `strict mode` and that sets the default value of  `this` to `un
 When using React components with ES6 classes - make use of binding to provide `this` the context and not leaving it undefined.
 
 
-![](https://github.com/Kiprosh/engineering-blogs/raw/js-this/blogs/2018/Gifable-27FB32A4-53BC-425F-90F1-A68BFD829D0D.gif?raw=true)
+![](https://drive.google.com/uc?authuser=0&id=1cJPkT_9-4ogTq6QlfCFPTOeJKaLR-0ti&export=download)
 
 ### When using classes - Use Arrow functions `=>`
 
