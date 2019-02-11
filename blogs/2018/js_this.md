@@ -1,10 +1,8 @@
-###### Have you noticed `this` in JavaScript?
+##### Have you noticed ***this*** in JavaScript?
+> `this` is quite interesting thing(reserved keyword) in the JS world. It is simple and does what it says - when you call a function it tries to know who is `this` trying to call me? 😬
 
-`this` is quite interesting thing(reserved keyword) in the JS world. It is simple and does what it says - when you call a function it tries to know who is `this` trying to call me? 😬
 
-------
-
-Let's start with an example: 👇🏼
+Here's an easy and simple example to start with 👇🏼
 
 ```javascript
 const Dog = {
@@ -19,10 +17,11 @@ console.log(Dog.eat) // [λ: eat]​​​​​
 console.log(Dog.eat()) // I am eating my Pedigree​​​​​
 ```
 
+Great! now let's use this `eat` to for new custom Dog 🐶
 
-Extending the `eat` to our new Dog 🐶
+As `eat` is defined in the `Dog` object, it knows how to eat food.
 
-Great, as `eat` defined in `Dog` object knows how to eat food - Let's provide this functionality to new Object PedigreeLoverDog 🐕
+Next we'll provide this functionality to new Object PedigreeLoverDog 🐕
 
 ```javascript
 const PedigreeLoverDog = {
@@ -34,15 +33,12 @@ PedigreeLoverDog.eat = Dog.eat;
 console.log(PedigreeLoverDog.eat()); // I am eating my undefined
 ```
 
-
 🤔 `this` doesn't look good here - (pun intended 😬)
 
-Common Misconception with `PedigreeLoverDog.eat = Dog.eat` - Just because `eat` was defined in `Dog` and it had `food` then the function must always have `food` accessible.
-
+A misconception some one here can have with `PedigreeLoverDog.eat = Dog.eat` is PedigreeLoverDog will have the access to `food` via `Dog`. But that's not the case.
 🙇
--------
 
-Let's play around the concept here: 
+ **Let's play around the concept here** 👨🏻‍💻
 
 
 ```javascript
@@ -60,24 +56,25 @@ console.log(Dog.eat) // [λ: eat]
 console.log(Dog.eat()) // I am eating my Pedigree
 ```
 
-> `this` always `binds` to the left hand caller. Doing `Dog.eat` makes `Dog` the binding source for `eat`
+> Note: The 'eat' function is separated out but still is able to find the `food` on the Dog.
 
-Note: The 'eat' function is separated out but still is able to find the `food` on the Dog.
+By default `this` will `bind` to the left hand caller. Doing `Dog.eat` makes `eat` ask for food from `Dog`.
 
 
 ```javascript
 console.log(eat === Dog.eat) // true
 console.log(eat()); //I am eating my undefined
 ```
-> The left hand object calling the function is the scope of `this` for a function via Implicit Binding, this is the reason when `eat` is called standalone, it loses the context.
 
-### More on binding
+
+The left hand object is the scope of `this` for a function , this is the reason when `eat` is called without `Dog`, it loses the context.
+
+##### More on **bind**ing
 
 `bind` is what you use to provide scope to the `this` keyword. When a function is referenced inside the Object - it has default binding to the Object also known as Implicit Binding. This explains how inside `Dog#eat` gets to know `food` via `this`.
 
 Note: `bind` is available on function and not the objects!
 
--------
 
 ### Implicit Binding
 
@@ -90,14 +87,14 @@ var checkGlobal = function() {
   return this.globalVar
 }
 
-console.log(checkGlobal()) // I am global
+console.log(checkGlobal()) // I am a global
 ```
 
 -------
 
-### Explicit binding
+### Explicit Binding
 
-using prev example:
+using previous example:
 
 ```javascript
 console.log(eat()) // I am eating my undefined
@@ -107,7 +104,7 @@ console.log(eat.bind( { food: 'new food!' } )()) // I am eating my new food!
 
 -----
 
-#### Using `bind` with React!
+##### **bind** with React
 
 If you've been creating components in React and attached event listeners then you've probably come across this situation of using `bind` to the functions to pass the scope.
 
@@ -126,10 +123,10 @@ But a class uses `strict mode` and that sets the default value of  `this` to `un
 
 When using React components with ES6 classes - make use of binding to provide `this` the context and not leaving it undefined.
 
+Checkout behaviour - "this" defaults to global but becomes `undefined` with "use strict" 👇
+<p><img src="https://drive.google.com/uc?authuser=0&id=1cJPkT_9-4ogTq6QlfCFPTOeJKaLR-0ti&export=download" style="max-width: 850px;"></p>
 
-![](https://drive.google.com/uc?authuser=0&id=1cJPkT_9-4ogTq6QlfCFPTOeJKaLR-0ti&export=download)
-
-### When using classes - Use Arrow functions `=>`
+##### Arrow functions `=>`
 
 One of the approach to solve such issues is the usage of Arrow Functions introduced in ES6. These functions have a default binding to `this`.
 
@@ -147,7 +144,7 @@ class FooBar extends React.Component{
 }
 ```
 
-## Summary
+##### Summary
 
 - It does not matter if you declare the functions inside an object or outside of it. It's the scope of `this` that matters.
 
