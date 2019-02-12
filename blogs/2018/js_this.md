@@ -1,5 +1,5 @@
 ##### Have you noticed ***this*** in JavaScript?
-> `this` is quite interesting thing(reserved keyword) in the JS world. It is simple and does what it says - when you call a function it tries to know who is `this` trying to call me? 😬
+> `this` is an interesting thing(reserved keyword) in the JS world. It is simple and does what says - when you call a function it tries to know who is `this` trying to call me? 😬
 
 
 Here's an easy and simple example to start with 👇🏼
@@ -21,7 +21,7 @@ Great! now let's use this `eat` to for new custom Dog 🐶
 
 As `eat` is defined in the `Dog` object, it knows how to eat food.
 
-Next we'll provide this functionality to new Object PedigreeLoverDog 🐕
+Next, we'll provide this functionality to new Object PedigreeLoverDog 🐕
 
 ```javascript
 const PedigreeLoverDog = {
@@ -35,7 +35,7 @@ console.log(PedigreeLoverDog.eat()); // I am eating my undefined
 
 🤔 `this` doesn't look good here - (pun intended 😬)
 
-A misconception some one here can have with `PedigreeLoverDog.eat = Dog.eat` is PedigreeLoverDog will have the access to `food` via `Dog`. But that's not the case.
+A misconception someone here can have with `PedigreeLoverDog.eat = Dog.eat` is PedigreeLoverDog will have the access to `food` via `Dog`. But that's not the case.
 🙇
 
  **Let's play around the concept here** 👨🏻‍💻
@@ -58,7 +58,7 @@ console.log(Dog.eat()) // I am eating my Pedigree
 
 > Note: The 'eat' function is separated out but still is able to find the `food` on the Dog.
 
-By default `this` will `bind` to the left hand caller. Doing `Dog.eat` makes `eat` ask for food from `Dog`.
+By default `this` will `bind` to the left-hand caller. Doing `Dog.eat` makes `eat` ask for food from `Dog`.
 
 
 ```javascript
@@ -67,7 +67,7 @@ console.log(eat()); //I am eating my undefined
 ```
 
 
-The left hand object is the scope of `this` for a function , this is the reason when `eat` is called without `Dog`, it loses the context.
+The left-hand object is the scope of `this` for a function, this is the reason when `eat` is called without `Dog`, it loses the context.
 
 ##### More on **bind**ing
 
@@ -78,7 +78,7 @@ Note: `bind` is available on function and not the objects!
 
 ### Implicit Binding
 
-In browser the default binding for `this` is the `window` object. Check the example below
+In the browser, the default binding for `this` is the `window` object. Check the example below
 
 ```javascript
 window.globalVar = 'I am a global';
@@ -123,12 +123,14 @@ But a class uses `strict mode` and that sets the default value of  `this` to `un
 
 When using React components with ES6 classes - make use of binding to provide `this` the context and not leaving it undefined.
 
-Checkout behaviour - "this" defaults to global but becomes `undefined` with "use strict" 👇
-<p><img src="https://drive.google.com/uc?authuser=0&id=1cJPkT_9-4ogTq6QlfCFPTOeJKaLR-0ti&export=download" style="max-width: 850px;"></p>
+Checkout behavior - "this" defaults to global but becomes `undefined` with "use strict" 👇
+<p>
+    <img src="https://drive.google.com/uc?authuser=0&id=1cJPkT_9-4ogTq6QlfCFPTOeJKaLR-0ti&export=download" style="max-width: 850px;">
+</p>
 
-##### Arrow functions `=>`
+##### Arrow Function **=>**
 
-One of the approach to solve such issues is the usage of Arrow Functions introduced in ES6. These functions have a default binding to `this`.
+One of the approaches to solving such issues is the usage of Arrow Function introduced in ES6. These functions have a default binding to `this`.
 
 ```jsx
 class FooBar extends React.Component{
@@ -150,13 +152,13 @@ class FooBar extends React.Component{
 
 - Object calling the function is the default binding for a `this`. Also called as `implicit` binding.
 
-- If the function reference is assigned to variable then `implicit` binding will default to `global` in node & `window` in browser environment.
+- If the function reference is assigned to a variable, `implicit` binding will default to `global` in node & `window` in the browser environment.
 
 - To change the scope of this, use `function.bind(object)` also called as `explicit` binding
 
 - ES6 classes work with `"use strict"` that prevents binding of `this` to the default scope.
 
-- Make use of the Arrow functions to reduce verbosity of `explicit` binding!
+- Make use of the Arrow functions to reduce the verbosity of `explicit` binding!
 
 --------
 
