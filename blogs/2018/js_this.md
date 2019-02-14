@@ -112,7 +112,9 @@ console.log(eat.bind( { food: 'new food!' } )()) // I am eating my new food!
 ##### **bind** with React
 
 If you've been creating components in React and attached event listeners then you've probably come across this situation of using `bind` to the functions to pass the scope.
-![bibs-bind-everywhere](/content/images/2019/02/bibs-bind-everywhere.jpeg)
+
+![bind-everywhere](https://drive.google.com/uc?id=1IkJUZ8RHq7AROpvoH51UFcjZ0MZVvOYi&export=download)
+
 ```jsx
 <button type="button" onClick={this.myHandler}>Hello</button>
 ```
