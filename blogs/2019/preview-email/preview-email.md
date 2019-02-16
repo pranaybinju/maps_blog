@@ -49,7 +49,7 @@ The directory structure for reference
 
 ### 📁Mailer.js
 
-```
+```javascript
 const email = new Email({
   views: { root: “./templates” },
   preview: isLocal
@@ -59,13 +59,13 @@ const email = new Email({
 - has the configurationpreview option(at line:13) available while instantiating the library which would enable or disable the email preview on a default browser
   views option(at line:12) indicates the directory path( ./templates) where all your templates reside, using pug/jade([default and recommended by the email-templates](https://www.npmjs.com/package/email-templates#install)) for this example
 
-```
+```javascript
 await email.send({
   message: {
     from,
     to,
     subject,
-    html: await email.render('/test', data)
+    html: await email.render("/test", data)
   }
 });
 ```
@@ -75,14 +75,14 @@ await email.send({
 
 ### 📁index.js
 
-```
+```javascript
 const message = {
   from: "sender@domain.com",
   to: "receiver@domain.com",
   subject: "Local mail testing",
   data: { name: "world" }
 };
-Mailer.send(message)
+Mailer.send(message);
 ```
 
 - Then you simply call the send function of Mailer.js as shown in index.js (at line:10) which will inject the name variable into the test.pug and render the email in a new tab
