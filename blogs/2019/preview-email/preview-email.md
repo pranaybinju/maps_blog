@@ -29,12 +29,6 @@ The situation still could be handled with peace when the victim is the colleague
 
 ## Implementation
 
-<script src="https://gist.github.com/ashwinsoni/396d9eab6588e09bbc4b4dc6c245d8a7.js"></script>
-
-<script src="https://gist.github.com/ashwinsoni/6c1bb23e6c0ebe33b90ae9954be48bc8.js"></script>
-
-<script src="https://gist.github.com/ashwinsoni/f5ab8946383246a02dc0d50eacddd029.js"></script>
-
 The directory structure for reference
 
 ```
@@ -47,6 +41,67 @@ The directory structure for reference
     └── body.pug
 ```
 
+
+```javascript
+// Mailer.js
+const Email = require("email-templates");
+
+const isLocal = process.env.NODE_ENV === "development";
+
+class Mailer {
+  static async send(message) {
+    try {
+      const { from, to, subject, data } = message;
+
+      // configure: template path and preview flag
+      const email = new Email({
+        views: { root: "./templates" },
+        preview: isLocal
+      });
+
+      if (isLocal) {
+        // mock the mail functionality
+        await email.send({
+          message: {
+            from,
+            to,
+            subject,
+            html: await email.render("body", data)
+          }
+        });
+      } else {
+        // send actual mail using any email services
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+}
+
+module.exports = Mailer;
+```
+
+```javascript
+// index.js
+const Mailer = require("./Mailer");
+
+const message = {
+  from: "sender@domain.com",
+  to: "receiver@domain.com",
+  subject: "Local mail testing",
+  data: { name: "world" }
+};
+
+Mailer.send(message)
+  .then(console.log)
+  .catch(console.error);
+```
+
+```javascript
+// body.pug
+h1 Hello #{name}
+```
+
 ### 📁Mailer.js
 
 ```javascript
@@ -56,8 +111,8 @@ const email = new Email({
 });
 ```
 
-- has the configuration preview option(at line:13) available while instantiating the library which would enable or disable the email preview on a default browser
-  views option(at line:12) indicates the directory path( ./templates) where all your templates reside, using pug/jade([default and recommended by the email-templates](https://www.npmjs.com/package/email-templates#install)) for this example
+- has the configuration preview option available while instantiating the library which would enable or disable the email preview on a default browser
+  views option indicates the directory path( ./templates) where all your templates reside, using pug/jade([default and recommended by the email-templates](https://www.npmjs.com/package/email-templates#install)) for this example
 
 ```javascript
 await email.send({
@@ -70,7 +125,7 @@ await email.send({
 });
 ```
 
-- Once the configuration is done, then use its send function(at line:18) specifying from to subject html
+- Once the configuration is done, then use its send function specifying from to subject html
   html property would render the view. Filename(./templates/test.pug will be picked up in this case) and the data will be injected in the template
 
 ### 📁index.js
@@ -85,7 +140,7 @@ const message = {
 Mailer.send(message);
 ```
 
-- Then you simply call the send function of Mailer.js as shown in index.js (at line:10) which will inject the name variable into the test.pug and render the email in a new tab
+- Then you simply call the send function of Mailer.js as shown in index.js which will inject the name variable into the test.pug and render the email in a new tab
 
 - Local mail snapshot for reference:
 
