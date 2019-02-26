@@ -56,7 +56,7 @@ const email = new Email({
 });
 ```
 
-- has the configurationpreview option(at line:13) available while instantiating the library which would enable or disable the email preview on a default browser
+- has the configuration preview option(at line:13) available while instantiating the library which would enable or disable the email preview on a default browser
   views option(at line:12) indicates the directory path( ./templates) where all your templates reside, using pug/jade([default and recommended by the email-templates](https://www.npmjs.com/package/email-templates#install)) for this example
 
 ```javascript
