@@ -2,17 +2,17 @@
 
 ## Why does it matter to not send an email during development on local?
 
-- At times, while doing development developer tends to send an email intentionally or unintentionally to verify the email functionality for a specific feature which intern could lead to getting bombarded with testing emails which is of no use.
+At times, while doing development developer tends to send an email intentionally or unintentionally to verify the email functionality for a specific feature which intern could lead to getting bombarded with testing emails which is of no use.
 
-- Then it could be possible that the developer needed to reply on the same email saying,
+Then it could be possible that the developer needed to reply on the same email saying,
 
 <i>“Please ignore the last mail as it was by mistakenly sent during testing on local”</i>
 
 The situation still could be handled with peace when the victim is the colleague of yours
 
-- What if ‘to’ recipient contains some team mailer group….
+What if ‘to’ recipient contains some team mailer group….
 
-- What if ‘to’ recipient contains the CEO’s mail id….
+What if ‘to’ recipient contains the CEO’s mail id….
 
 ![Situation image](/blogs/2019/preview-email/assets/situation.gif "A situation of you shooting a mail and realizing it was sent to CEO")
 
