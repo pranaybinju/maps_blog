@@ -6,7 +6,7 @@
 
 - Then it could be possible that the developer needed to reply on the same email saying,
 
-<center><i>“Please ignore the last mail as it was by mistakenly sent during testing on local”</i></center>
+<i>“Please ignore the last mail as it was by mistakenly sent during testing on local”</i>
 
 The situation still could be handled with peace when the victim is the colleague of yours
 
@@ -150,5 +150,5 @@ Mailer.send(message);
 
 I didn’t.
 
-<center><i>“So if you’re asking me what to do with all this knowledge you’re accumulating, I say… Pass it on…”
- ~ Professor Norman in Lucy (2014)</i></center>
+<i>“So if you’re asking me what to do with all this knowledge you’re accumulating, I say… Pass it on…”
+ ~ Professor Norman in Lucy (2014)</i>
