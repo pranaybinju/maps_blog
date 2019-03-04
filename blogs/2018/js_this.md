@@ -66,11 +66,11 @@ console.log(eat()); //I am eating my undefined
 ```
 
 
-Javascript will assign the scope of `this` to an Object preceeding the dot(.) operator before the function call i.e `Dog.eat` from the example above and it is the reason when `eat` is called without `Dog`, makes 'this' lose the context. This is due to Implicit Binding in JavaScript 👇
+Javascript will assign the scope of `this` to an Object preceding the dot(.) operator before the function call i.e `Dog.eat` from the example above and it is the reason when `eat` is called without `Dog`, makes 'this' lose the context. This is due to Implicit Binding in JavaScript 👇
 
 ##### **bind**ing
 
-`bind` is what we need to use for providing a scope to the `this` keyword.
+`bind` is what we need to use for providing scope to the `this` keyword.
 
 When a function is referenced inside the Object - it has default binding to the Object calling it also known as Implicit Binding. This explains how inside `Dog#eat` gets to know `food` via `this`.
 
@@ -81,7 +81,7 @@ Note: `bind` is available on function and not the objects!
 
 When JS is not executed in strict mode, it binds the function to the Object making the function call - this behaviour is called Implicit Binding.
 
-In the browser, the default binding for `this` is the `window` object. Check the example below
+In the browser, the default binding for `this` is the `window` object. Check the example below:
 
 ```javascript
 window.globalVar = 'I am a global';
@@ -97,7 +97,7 @@ console.log(checkGlobal()) // I am a global
 
 ### Explicit Binding
 
-If you want to bind function to a different object, it can be achieved using
+If you want to bind the function to a different object, it can be achieved using
  [function.prototype.bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/Function/bind)
 
 
@@ -159,11 +159,11 @@ class FooBar extends React.Component{
 
 - If the function reference is assigned to a variable, `implicit` binding will default to `global` in node & `window` in the browser environment.
 
-- To change the scope of this, use `function.bind(object)` also called as `explicit` binding
+- To change the scope of this, use `function.bind(object)` also called as `explicit` binding.
 
 - ES6 classes work with `"use strict"` that prevents binding of `this` to the default scope.
 
-- Make use of the Arrow functions to reduce the verbosity of `explicit` binding!
+- Make use of the Arrow functions to reduce the verbosity of `explicit` binding.
 
 --------
 
