@@ -12,7 +12,7 @@
 - [ ] Run the content through Grammarly for corrections
 - [ ] Do not check 'turn this post into a page' or 'feature this post'
 - [ ] Confirm everything is looking as expected in preview mode
-- [ ] Post the Ghost draft & preview link on the PR (and Trello) and assign team members for the final review.
+- [ ] Post the Ghost draft & preview link on the PR (and Trello) and assign team members for the final review
 - [ ] Send it to Rohan for final review and approval
 - [ ] Once approval is received by reviewers & Rohan then publish the post to public
 
