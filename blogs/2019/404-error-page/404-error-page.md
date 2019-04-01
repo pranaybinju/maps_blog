@@ -80,4 +80,4 @@ This code snippet will override the default `404.html` of Netlify and once the u
 
 Hope this helped you and saved your time finding fixes from Netlify which do not exist yet.
 
-Thanks you reading and feel free drop any questions about this or even possible solutions which you think can still fix this.
+Thanks for reading and feel free drop any questions about this or even possible solutions which you think can still fix this.
