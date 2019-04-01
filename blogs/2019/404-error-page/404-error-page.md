@@ -2,7 +2,7 @@
 
 We recently created a static app using Nextjs and Netlify using React. Everything was fine until we stumbled upon this error for invalid routes.
 
-![Netlify 404 page](netlify-404.png)
+![Netlify 404 page =400*400](netlify-404.png)
 
 This page indicates that we do not have any page defined for the route we entered. So as a fallback, Netlify redirects the user to its default `404.html` page.
 
