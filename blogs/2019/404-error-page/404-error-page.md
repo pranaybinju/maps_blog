@@ -95,4 +95,4 @@ For routes of the form `https://domain.netlify.com/error<any_text>`, this code s
 
 Hope this helped you and saved your time finding fixes from Netlify which do not exist yet.
 
-Thanks for reading and feel free drop any questions about this or even possible solutions which you think can still fix this.
+Thanks for reading and feel free to drop any questions or suggestions about this or even any possible solutions which you think can still fix this.
