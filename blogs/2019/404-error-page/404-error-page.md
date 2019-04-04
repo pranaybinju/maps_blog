@@ -1,6 +1,6 @@
 # Showing Custom 404 error page for Netlify apps
 
-We recently created a static app using Nextjs and Netlify using React. Everything was fine until we stumbled upon this error for invalid routes.
+We recently created a static app using [Nextjs](https://nextjs.org/) and [Netlify](https://netlify.com) using [React](https://reactjs.org/). Everything was fine until we stumbled upon this error for invalid routes.
 
 ![Netlify 404 page =400*400](netlify-404.png)
 
@@ -8,7 +8,7 @@ This page indicates that we do not have any page defined for the route we entere
 
 ## Overriding Netlify's default 404.html
 
-So you might be wondering, if there was a way we could redirect user to our custom 404 error page? After reading [Netlify docs](https://www.netlify.com/docs/redirects/#custom-404), we see that this can be done by creating a custom 404.html page in our build directory. Once the file is found, Netlify will override its default 404.html page with this custom 404.html page that we just created. If we want to name this file something else then we will need to add following configuration in `netlify.toml` file(you create one if you don't already have it and add following code in it), which should be present in you root directory.
+So you might be wondering, if there was a way we could redirect user to our custom 404 error page? After reading [Netlify docs](https://www.netlify.com/docs/redirects/#custom-404), we see that this can be done by creating a custom 404.html page in our build directory. Once the file is found, Netlify will override its default 404.html page with this custom 404.html page that we just created. If we want to name this file something else then we will need to add following configuration in `netlify.toml` file(you can create one if you don't already have it), which should be present in you root directory.
 
 ```toml
 [[redirects]]
@@ -17,19 +17,19 @@ So you might be wondering, if there was a way we could redirect user to our cust
   status = 404
 ```
 
-Detailed explanation for `netlify.toml` file can be found [here](https://www.netlify.com/docs/netlify-toml-reference/). I'll brief them quickly here, so we understand underlying terminologies correctly.
+Detailed explanation for `netlify.toml` file can be found [here](https://www.netlify.com/docs/netlify-toml-reference/). I'll brief above code quickly here, so we understand it correctly.
 
-- `[[redirect]]`: means we want to define redirect rule for our app, which controls how our pages are routed for certain rules. Rules are defined using various properties like `from`, `to`, `status`.
+- `[[redirect]]`: It is used to define redirect rule for our app, which controls how our pages are routed. Rules are defined using various properties like `from`, `to`, `status`.
 
-- `from`: In our code above, we want to redirect all invalid (not defined by us) routes to 404.html So `from` is the is that invalid route.
+- `from`: In our code above, we want to redirect all invalid routes(not defined by us) to 404.html So `from` is used to denote such invalid routes.
 
-- `to`: This is error page that needs to be shown, it is by default set to `404.html` for status 404, we can override it by defining custom page here
+- `to`: This is the error page that needs to be shown, it is by default set to `404.html` for status 404. We can override it by defining custom `404.html` page.
 
-- `status`: This is error status that need to be applied for above rule. We ask Netlify to show `to` html page for all `from` routes having error code as `404`.
+- `status`: This is error status, that needs to be applied for the above rule. We ask Netlify to show `to` html page for all `from` routes having error code as `404`.
 
 ## Redirecting to custom route for invalid routes
 
-Since we are working with React, it would be good if we could use a component instead of html. Using component has many benefits like, we will be able to reuse any previously created component, like Header and footer components. Also the anchor links will need to be hard-corded to make the html file work as Nextjs routes won't work with html file. So lets find a way to use components.
+Since we are working with React, it would be good if we could use a component instead of html. Using component has many benefits like, we will be able to reuse any previously created component, like Header and Footer components. Also the anchor links will need to be hard-corded to make the html file work as Nextjs routes won't work inside html files. So lets find a way to use components.
 
 We can create `_error.js` which [Nextjs uses by default](https://nextjs.org/docs/#custom-error-handling) on server to render any invalid routes. This component will be rendered like any other component, so we will have our default headers and footers and also all the routing will remain intact as we can access Nextjs routing.
 
@@ -47,7 +47,7 @@ module.exports = {
 };
 ```
 
-We want to handle 404 error in such a way that it is consistent for local developments and also producton development environments. On local environment, error is handled by Nextjs(using `yarn dev`), and Nextjs uses `_error` page from `pages` folder to display error. You can read more about this [here](https://nextjs.org/docs/#custom-error-handling). Prod 404 error is handled by Netlify(using `yarn build` command), so we also want a route for redirecting user for error, this is can by done using `/error` route(you can keep this route as `_error` to match netlify page name, I find `/error` more readable).
+We want to handle 404 error in such a way that it is consistent for local developments(i.e served using `next -p port`) and also for production environments(served static files). On local, error is handled by Nextjs(using `yarn dev`), and Nextjs uses `_error` page from `pages` folder to display error. You can read more about this [here](https://nextjs.org/docs/#custom-error-handling). Prod 404 error is handled by Netlify(using `yarn build` command), so we also want a route for redirecting user for error, this is can by done using `/error` route(you can keep this route as `_error` to match netlify page name, I find `/error` more readable).
 
 Netlify configuration for this will look like:
 
@@ -91,7 +91,7 @@ After some research, I found a hack to fix this issue until Netlify fixes it fro
 </html>
 ```
 
-This code snippet will override the default `404.html` of Netlify and once the user comes to this page, he will be redirected to our `/error` route page using browser location API.
+This code snippet will override the default `404.html` of Netlify and once the user comes to this route of the `https://domain.netlify.com/error<any_text>`, he will be redirected to our `/error` route page using browser location API.
 
 Hope this helped you and saved your time finding fixes from Netlify which do not exist yet.
 
