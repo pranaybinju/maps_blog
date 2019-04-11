@@ -19,7 +19,7 @@ So you might be wondering if there was a way we could redirect the user to our c
 
 Detailed explanation for `netlify.toml` file can be found [here](https://www.netlify.com/docs/netlify-toml-reference/). I'll quickly explain the above code snippet to help understand it correctly.
 
-- `[[redirect]]`: It is used to define redirect rule for our app, which controls how our pages are routed. Rules are defined using various properties like `from`, `to`, `status`.
+- `[[redirects]]`: It is used to define redirection rule for our app, which controls how our pages are routed. Rules are defined using various properties like `from`, `to`, `status`.
 
 - `from`: In our code above, we want to redirect all invalid routes(not defined by us) to `404.html` So `from` is used to denote such invalid routes.
 
