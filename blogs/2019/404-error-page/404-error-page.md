@@ -1,4 +1,4 @@
-# Showing Custom 404 error page for Netlify applications
+# Show custom 404 error page for Netlify applications
 
 We recently created a static app using [Nextjs](https://nextjs.org/) and [Netlify](https://netlify.com) using [React](https://reactjs.org/). Everything was fine until we stumbled upon this error for invalid routes.
 
@@ -8,7 +8,7 @@ This page indicates that we do not have any page defined for the route we entere
 
 ## Overriding Netlify's default 404.html
 
-So you might be wondering, if there was a way we could redirect user to our custom 404 error page? After reading [Netlify docs](https://www.netlify.com/docs/redirects/#custom-404), we see that this can be done by creating a custom 404.html page in our build directory. Once the file is found, Netlify will override its default 404.html page with this custom 404.html page that we just created. If we want to name this file something else then we will need to add following configuration in `netlify.toml` file(you can create one if you don't already have it), which should be present in you root directory.
+So you might be wondering, if there was a way we could redirect user to our custom 404 error page? After reading [Netlify docs](https://www.netlify.com/docs/redirects/#custom-404), we see that this can be done by creating a custom `404.html` page in our build directory. Once the file is found, Netlify will override its default `404.html` page with this custom `404.html` page that we just created. If we want to name this file something else then we will need to add following configuration in `netlify.toml` file (you can create one if you don't already have it), which should be present in your root directory.
 
 ```toml
 [[redirects]]
@@ -17,11 +17,11 @@ So you might be wondering, if there was a way we could redirect user to our cust
   status = 404
 ```
 
-Detailed explanation for `netlify.toml` file can be found [here](https://www.netlify.com/docs/netlify-toml-reference/). I'll brief above code quickly here, so we understand it correctly.
+Detailed explanation for `netlify.toml` file can be found [here](https://www.netlify.com/docs/netlify-toml-reference/). I'll quickly explain above code snippet to help understand it correctly.
 
 - `[[redirect]]`: It is used to define redirect rule for our app, which controls how our pages are routed. Rules are defined using various properties like `from`, `to`, `status`.
 
-- `from`: In our code above, we want to redirect all invalid routes(not defined by us) to 404.html So `from` is used to denote such invalid routes.
+- `from`: In our code above, we want to redirect all invalid routes(not defined by us) to `404.html` So `from` is used to denote such invalid routes.
 
 - `to`: This is the error page that needs to be shown, it is by default set to `404.html` for status 404. We can override it by defining custom `404.html` page.
 
