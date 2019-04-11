@@ -8,7 +8,7 @@ This page indicates that we do not have any page defined for the route we entere
 
 ## Overriding Netlify's default 404.html
 
-So you might be wondering, if there was a way we could redirect user to our custom 404 error page? After reading [Netlify docs](https://www.netlify.com/docs/redirects/#custom-404), we see that this can be done by creating a custom `404.html` page in our build directory. Once the file is found, Netlify will override its default `404.html` page with this custom `404.html` page that we just created. If we want to name this file something else then we will need to add following configuration in `netlify.toml` file (you can create one if you don't already have it), which should be present in your root directory.
+So you might be wondering if there was a way we could redirect the user to our custom 404 error page? After reading [Netlify docs](https://www.netlify.com/docs/redirects/#custom-404), we see that this can be done by creating a custom `404.html` page in our build directory. Once the file is found, Netlify will override its default `404.html` page with this custom `404.html` page that we just created. If we want to name this file something else then we will need to add the following configuration in `netlify.toml` file (you can create one if you don't already have it), which should be present in your root directory.
 
 ```toml
 [[redirects]]
@@ -17,21 +17,21 @@ So you might be wondering, if there was a way we could redirect user to our cust
   status = 404
 ```
 
-Detailed explanation for `netlify.toml` file can be found [here](https://www.netlify.com/docs/netlify-toml-reference/). I'll quickly explain above code snippet to help understand it correctly.
+Detailed explanation for `netlify.toml` file can be found [here](https://www.netlify.com/docs/netlify-toml-reference/). I'll quickly explain the above code snippet to help understand it correctly.
 
 - `[[redirect]]`: It is used to define redirect rule for our app, which controls how our pages are routed. Rules are defined using various properties like `from`, `to`, `status`.
 
 - `from`: In our code above, we want to redirect all invalid routes(not defined by us) to `404.html` So `from` is used to denote such invalid routes.
 
-- `to`: This is the error page that needs to be shown, it is by default set to `404.html` for status 404. We can override it by defining custom `404.html` page.
+- `to`: This is the error page that needs to be shown, it is by default set to `404.html` for status 404. We can override it by defining a custom `404.html` page.
 
-- `status`: This is error status, that needs to be applied for the above rule. We ask Netlify to show `to` html page for all `from` routes having error code as `404`.
+- `status`: This is error status, that needs to be applied for the above rule. We ask Netlify to show `to` HTML page for all `from` routes having error code as `404`.
 
 ## Redirecting to custom route for invalid routes
 
-Since we are working with React, it would be good if we could use a component instead of html. Using component has many benefits like, we will be able to reuse any previously created component, like Header and Footer components. Also the anchor links will need to be hard-corded to make the html file work as Nextjs routes won't work inside html files. So lets find a way to use components.
+Since we are working with React, it would be good if we could use a component instead of HTML. Using component has many benefits like, we will be able to reuse any previously created component, like Header and Footer components. Also, the anchor links will need to be hard-coded to make the HTML file work as Nextjs routes won't work inside HTML files. So let's find a way to use components.
 
-We can create `_error.js` which [Nextjs uses by default](https://nextjs.org/docs/#custom-error-handling) on server to render any invalid routes. This component will be rendered like any other component, so we will have our default headers and footers and also all the routing will remain intact as we can access Nextjs routing.
+We can create `_error.js` which [Nextjs uses by default](https://nextjs.org/docs/#custom-error-handling) on the server to render any invalid routes. This component will be rendered like any other component, so we will have our default headers and footers and also all the routing will remain intact as we can access Nextjs routing.
 
 I have created a [Github repo](https://github.com/trojanh/nextjs-react-example) to demonstrate this component way of handling error so you can directly dive into the code and get some hands on.
 
@@ -47,7 +47,7 @@ module.exports = {
 };
 ```
 
-We want to handle 404 error in such a way that it is consistent for local developments(i.e served using `next -p port`) and also for production environments(served static files). On local, error is handled by Nextjs(using `yarn dev`), and Nextjs uses `_error` page from `pages` folder to display error. You can read more about this [here](https://nextjs.org/docs/#custom-error-handling). Prod 404 error is handled by Netlify(using `yarn build` command), so we also want a route for redirecting user for error, this is can by done using `/error` route(you can keep this route as `_error` to match netlify page name, I find `/error` more readable).
+We want to handle 404 error in such a way that it is consistent for local developments(i.e served using `next -p port`) and also for production environments(served static files). On local, error is handled by Nextjs(using `yarn dev`), and Nextjs uses `_error` page from `pages` folder to display error. You can read more about this [here](https://nextjs.org/docs/#custom-error-handling). Prod 404 error is handled by Netlify(using `yarn build` command), so we also want a route for redirecting user for error, this is can be done using `/error` route(you can keep this route as `_error` to match netlify page name, I find `/error` more readable).
 
 Netlify configuration for this will look like:
 
@@ -58,7 +58,7 @@ Netlify configuration for this will look like:
   status = 404
 ```
 
-Now everything looks good so far and we seemed to have solved our problem. You can preview the code in action till this point [here](https://5ca210ea90b5fe0008422eae--netlfiy-react-example.netlify.com/).There's one more thing left.
+Now everything looks good so far and we seemed to have solved our problem. You can preview the code in action till this point [here](https://5ca210ea90b5fe0008422eae--netlfiy-react-example.netlify.com/). There's one more thing left.
 
 ## Introducing a twist :beetle:
 
