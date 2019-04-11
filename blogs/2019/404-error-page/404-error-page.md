@@ -1,6 +1,6 @@
 # Show custom 404 error page for Netlify applications
 
-We recently created a static app using [Nextjs](https://nextjs.org/) and [Netlify](https://netlify.com) using [React](https://reactjs.org/). Everything was fine until we stumbled upon this error for invalid routes.
+We recently created a static app using [Next.js](https://nextjs.org/) and [Netlify](https://netlify.com) using [React](https://reactjs.org/). Everything was fine until we stumbled upon this error for invalid routes.
 
 ![Netlify 404 page =400x400](netlify-404.png)
 
@@ -29,9 +29,9 @@ Detailed explanation for `netlify.toml` file can be found [here](https://www.net
 
 ## Redirecting to custom route for invalid routes
 
-Since we are working with React, it would be good if we could use a component instead of HTML. Using component has many benefits like, we will be able to reuse any previously created component, like Header and Footer components. Also, the anchor links will need to be hard-coded to make the HTML file work as Nextjs routes won't work inside HTML files. So let's find a way to use components.
+Since we are working with React, it would be good if we could use a component instead of HTML. Using component has many benefits like, we will be able to reuse any previously created component, like Header and Footer components. Also, the anchor links will need to be hard-coded to make the HTML file work as Next.js routes won't work inside HTML files. So let's find a way to use components.
 
-We can create `_error.js` which [Nextjs uses by default](https://nextjs.org/docs/#custom-error-handling) on the server to render any invalid routes. This component will be rendered like any other component, so we will have our default headers and footers and also all the routing will remain intact as we can access Nextjs routing.
+We can create `_error.js` which [Next.js uses by default](https://nextjs.org/docs/#custom-error-handling) on the server to render any invalid routes. This component will be rendered like any other component, so we will have our default headers and footers and also all the routing will remain intact as we can access Next.js routing.
 
 I have created a [Github repo](https://github.com/trojanh/nextjs-react-example) to demonstrate this component way of handling error so you can directly dive into the code and get some hands on.
 
@@ -47,7 +47,7 @@ module.exports = {
 };
 ```
 
-We want to handle 404 error in such a way that it is consistent for local developments(i.e served using `next -p port`) and also for production environments(served static files). On local, error is handled by Nextjs(using `yarn dev`), and Nextjs uses `_error` page from `pages` folder to display error. You can read more about this [here](https://nextjs.org/docs/#custom-error-handling). Prod 404 error is handled by Netlify(using `yarn build` command), so we also want a route for redirecting user for error, this is can be done using `/error` route(you can keep this route as `_error` to match netlify page name, I find `/error` more readable).
+We want to handle 404 error in such a way that it is consistent for local developments(i.e served using `next -p port`) and also for production environments(served static files). On local, error is handled by Next.js(using `yarn dev`), and Next.js uses `_error` page from `pages` folder to display error. You can read more about this [here](https://nextjs.org/docs/#custom-error-handling). Prod 404 error is handled by Netlify(using `yarn build` command), so we also want a route for redirecting user for error, this is can be done using `/error` route(you can keep this route as `_error` to match netlify page name, I find `/error` more readable).
 
 Netlify configuration for this will look like:
 
