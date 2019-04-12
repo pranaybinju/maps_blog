@@ -1,6 +1,6 @@
 # Show custom 404 error page for Netlify applications
 
-We recently created a static app using [Next.js](https://nextjs.org/), [Netlify](https://netlify.com) and [React](https://reactjs.org/). Everything was fine until we stumbled upon this error for invalid routes.
+We recently created a static app using [Next.js](https://nextjs.org/), [React](https://reactjs.org/) and [Netlify](https://netlify.com). Everything was fine until we stumbled upon this error for invalid routes.
 
 ![Netlify 404 page =400x400](netlify-404.png)
 
