@@ -9,8 +9,8 @@
 # Blog Writing checklist
 
 - [ ] Write the blog in Markdown format in Github repo here
-- [ ] Verify that content is not [plagiarized](https://en.wikipedia.org/wiki/Plagiarism). Ensure due credit is given for content or references.
 - [ ] Scan entire blog post content through [Grammarly](https://chrome.google.com/webstore/detail/grammarly-for-chrome/kbfnbcaeplbcioakkpcpgfkobkghlhen?hl=en) and [Hemingwayapp](http://www.hemingwayapp.com/) for sentence and word corrections.
+- [ ] Verify that content is not [plagiarized](https://en.wikipedia.org/wiki/Plagiarism). Ensure due credit is given for content or references.
 - [ ] Raise a PR and assign reviewers
 - [ ] Collaborate over the PR review comments and finalize the blog post content
 - [ ] Copy + Paste the finalized content in Ghost
