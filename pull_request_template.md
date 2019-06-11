@@ -1,5 +1,5 @@
 # Do's
-- A trello card on the [company board here](https://trello.com/b/XwrkQKSO/kiprosh-company-wide) with a due date and proper lables (example: `Tech`, `Blog`) for your blog will help everybody to collaborate.
+- A trello card on the [company board here](https://trello.com/b/XwrkQKSO/kiprosh-company-wide) with a due date and proper labels (example: `Tech`, `Blog`) for your blog will help everybody to collaborate.
 
 
 # Dont's
