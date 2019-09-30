@@ -4,7 +4,7 @@ To ensure data integrity, a relational database has to be ACID compliant.
 
 ACID = Atomicity, Consistency, Isolation, Durability
 
-While performing concurrent operations, a database must ensure data integrity. Locks ensure this data integrity and consistency. Locks can be a database, table, page or row level. Here is a beginner's guide to database locking in PostgreSQL.
+While performing concurrent operations, a database must ensure data integrity. Locking mechanism ensure this data integrity and consistency. Locks can be a database, table, page or row level. Here is a beginner's guide to database locking in PostgreSQL.
 
 In this article, we will see how Rails provides optimistic locking for ActiveRecord models. But before we proceed, let us first understand the basics about optimistic and pessimistic locking.
 
@@ -70,8 +70,16 @@ user2_product.save # Raises an ActiveRecord::StaleObjectError
 
 Optimistic locking also checks for stale data when objects are destroyed and not just when they are updated.
 
+[Rails API here](https://api.rubyonrails.org/classes/ActiveRecord/Locking/Optimistic.html) is an excellent source to know more about Optimistic locking in Rails and how to handle locking in a multi-process application.
+
+## How to implement pessimistic locking in Rails?
+
+(Will add more details here shortly). Also follows this API https://api.rubyonrails.org/classes/ActiveRecord/Locking/Pessimistic.html
+
 ## References and further reading:
 
 https://api.rubyonrails.org/classes/ActiveRecord/Locking/Optimistic.html
 https://sipsandbits.com/2018/05/30/optimistic-locking-of-activerecord-models/
 https://gist.github.com/ryanermita/464bf88e2fc292e75c9353820c2f0475
+
+Report: https://www.quetext.com/results/654d14b54d5fb7b22bf1
