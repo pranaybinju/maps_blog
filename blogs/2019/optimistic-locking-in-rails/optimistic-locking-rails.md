@@ -49,7 +49,7 @@ In the majority of the cases, we would only need optimistic locking thereby avoi
 ## How to implement optimistic locking in Rails?
 It's fairly simple and straightforward to implement optimistic locking in Rails as ActiveRecord provides a built-in mechanism.
 
-By adding a lock_version column to any ActiveRecord model, Rails will automatically check this column before updating a record. Every update operation on the record increments the lock_version column value. If a record is instantiated twice, it will raise a StaleObjectError for the last saved record if the first record is already updated.
+By adding a `lock_version` column to any ActiveRecord model, Rails will automatically check this column before updating a record. Every update operation on the record increments the `lock_version` column value. If a record is instantiated twice, it will raise a `StaleObjectError` for the last saved record once the first record is updated.
 
 From our earlier example:
 ```
