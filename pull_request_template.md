@@ -1,26 +1,22 @@
-# Do's
-- A trello card on the [company board here](https://trello.com/b/XwrkQKSO/kiprosh-company-wide) with a due date and proper labels (example: `Tech`, `Blog`) for your blog will help everybody to collaborate.
-
-
 # Dont's
 - Do not [plagiarize](https://en.wikipedia.org/wiki/Plagiarism) any of the blog content. Give proper credits and references if the content or code snippet is referred from anywhere.
 
 
 # Blog Writing checklist
 
-- [ ] Write the blog in Markdown format in Github repo here
-- [ ] Scan entire blog post content through [Grammarly](https://chrome.google.com/webstore/detail/grammarly-for-chrome/kbfnbcaeplbcioakkpcpgfkobkghlhen?hl=en) and [Hemingwayapp](http://www.hemingwayapp.com/) for sentence and word corrections.
-- [ ] Verify that content is not [plagiarized](https://en.wikipedia.org/wiki/Plagiarism). Ensure due credit is given for content or references.
-- [ ] Raise a PR and assign reviewers
-- [ ] Collaborate over the PR review comments and finalize the blog post content
-- [ ] Copy + Paste the finalized content in Ghost
-- [ ] Attach a right contextual image to blog post
-- [ ] Have a proper SEO friendly slug to the blog post
+- [ ] Start drafting the blog in Ghost
+- [ ] When the blog post is almost complete, scan entire blog post content through [Grammarly](https://chrome.google.com/webstore/detail/grammarly-for-chrome/kbfnbcaeplbcioakkpcpgfkobkghlhen?hl=en) and [Hemingwayapp](http://www.hemingwayapp.com/) for sentence and word corrections.
+- [ ] Verify that content is not [plagiarized](https://en.wikipedia.org/wiki/Plagiarism). Ensure due credit is given for content or references
+- [ ] Raise a PR and assign reviewers. Collaborate over the PR review comments
+
+# Ghost checkliost
+- [ ] Verify if proper SEO friendly slug is present for blog post
 - [ ] Add appropriate tags to the blog post
 - [ ] Do not enable `turn this post into a page` or `feature this post`
 - [ ] Confirm everything is looking as expected in preview mode
-- [ ] Post the Ghost draft & preview link on the PR (and Trello) for the final review
-- [ ] Once approval is received by reviewers then publish the post
+- [ ] Post the Ghost draft & preview link on the PR for the final review
+- [ ] Once approval is received by reviewers then publish the blog post
+- [ ] (Optional) Attach a right contextual image to blog post on Ghost. Check existing published blog examples
 
 # After publishing
 - [ ] Share it on your personal Twitter/LinkedIn/Facebook
