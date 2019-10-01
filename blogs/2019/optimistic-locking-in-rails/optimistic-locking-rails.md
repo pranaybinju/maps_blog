@@ -76,7 +76,7 @@ user2_product.save # Raises an ActiveRecord::StaleObjectError
 
 Optimistic locking also checks for stale data when objects are destroyed and not just when they are updated.
 
-[Rails API here](https://api.rubyonrails.org/classes/ActiveRecord/Locking/Optimistic.html) is an excellent source to know more about Optimistic locking in Rails and how to handle locking in a multi-process application. [Here](https://api.rubyonrails.org/classes/ActiveRecord/Locking/Pessimistic.html) is the guide to implement pessimitic locking in Rails.
+[Rails API here](https://api.rubyonrails.org/classes/ActiveRecord/Locking/Optimistic.html) is an excellent source to know more about Optimistic locking in Rails and how to handle locking in a multi-process application. [Here](https://api.rubyonrails.org/classes/ActiveRecord/Locking/Pessimistic.html) is the guide to implement pessimistic locking in Rails.
 
 ## References and further reading:
 
