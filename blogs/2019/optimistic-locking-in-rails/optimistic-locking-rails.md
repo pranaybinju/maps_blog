@@ -78,11 +78,11 @@ Optimistic locking also checks for stale data when objects are destroyed and not
 
 [Rails API here](https://api.rubyonrails.org/classes/ActiveRecord/Locking/Optimistic.html) is an excellent source to know more about Optimistic locking in Rails and how to handle locking in a multi-process application. [Here](https://api.rubyonrails.org/classes/ActiveRecord/Locking/Pessimistic.html) is the guide to implement pessimistic locking in Rails.
 
-## References and further reading:
+### References and further reading
 
 https://api.rubyonrails.org/classes/ActiveRecord/Locking/Optimistic.html
 https://sipsandbits.com/2018/05/30/optimistic-locking-of-activerecord-models/
 https://gist.github.com/ryanermita/464bf88e2fc292e75c9353820c2f0475
 
-## Source of picture and flow diagram (thanks @nipunasilva)
+### Source of picture and flow diagram (thanks @nipunasilva)
 https://nipunasilva.blogspot.com/2009/03/pessemestic-vs-optimistic-concurrency.html
