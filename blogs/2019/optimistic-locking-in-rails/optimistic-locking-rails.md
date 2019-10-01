@@ -4,7 +4,7 @@ An [ACID](https://en.wikipedia.org/wiki/ACID) compliant relational database ensu
 
 ACID = Atomicity, Consistency, Isolation, Durability
 
-While performing concurrent operations, a database must ensure data integrity. The locking mechanism ensures data integrity and consistency. Locks can be a database, table, page or row level. [Here is a beginner's guide](https://vladmihalcea.com/a-beginners-guide-to-database-locking-and-the-lost-update-phenomena/) to database locking in PostgreSQL.
+While performing concurrent operations, a database must ensure data integrity. The locking mechanism ensures data integrity and consistency. Locks can be a database, table, page or row level. [Here is a beginner's guide](https://vladmihalcea.com/a-beginners-guide-to-database-locking-and-the-lost-update-phenomena/) to database locking in [PostgreSQL](https://www.postgresql.org/about/).
 
 In this article, let's see how [Rails](https://rubyonrails.org/) provides a mechanism for optimistic locking on [ActiveRecord](https://guides.rubyonrails.org/active_record_basics.html) models. However, before we proceed, let us first understand the basics of optimistic and pessimistic locking.
 
@@ -30,12 +30,9 @@ user2_product.save #success
 # Product.last.title = "Mackbook Pro" # and not "Mackbook Pro 13"
 ```
 
-Let's try and understand this with the flow diagram below.
-[Image Attached]
-
 When multiple users are editing the same record, it's necessary to have a mechanism where the data is not lost or overwritten, or at least the user is notified. Optimistic locking is a mechanism to prevent data overrides by assuming that a database transaction conflict rarely happens.
 
-[Image Attached]
+[Image Attached: concurrency.jpg]
 
 Optimistic locking uses a "version-number" column to track changes in each table that needs to implement concurrent access. Every-time a record in such a table changes, its version number is updated. If two users update a record simultaneously, only one of the users gets their changes accepted and other users will receive an error message because the version number won't match the version in the table. In the example above, using optimistic locking, Ritesh gets an alert that the title has changed while he was editing it. So the application feature can now allow refreshing the page so that Ritesh sees the updated title for the product.
 
@@ -48,6 +45,9 @@ Optimistic locking uses a "version-number" column to track changes in each table
 ## What is pessimistic locking?
 
 When one user is editing a record and we maintain an exclusive lock on that record, another user is prevented from modifying this record until the lock is released or the transaction is completed. This explicit locking is known as a pessimistic lock. In our earlier example discussed above, when Ritesh started editing the title, Mohan is prevented from editing the same product.
+
+Let's try and understand these concepts with a flow diagram.
+[Image Attached: ovsp_locks.jpg]
 
 In the majority of the cases, we would only need optimistic locking, thereby avoiding pessimistic locking at the most. We also gain performance by moving from an explicit (pessimistic) lock to an optimistic lock which checks the record at the time of an update instead of locking the record for the entire transaction.
 
