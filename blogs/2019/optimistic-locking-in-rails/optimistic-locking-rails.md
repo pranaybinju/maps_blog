@@ -84,5 +84,8 @@ https://api.rubyonrails.org/classes/ActiveRecord/Locking/Optimistic.html
 https://sipsandbits.com/2018/05/30/optimistic-locking-of-activerecord-models/
 https://gist.github.com/ryanermita/464bf88e2fc292e75c9353820c2f0475
 
+### Helpful video on GoRails
+https://gorails.com/episodes/optimistic-locking-with-rails
+
 ### Source of the picture and flow diagram (thanks @nipunasilva)
 https://nipunasilva.blogspot.com/2009/03/pessemestic-vs-optimistic-concurrency.html
