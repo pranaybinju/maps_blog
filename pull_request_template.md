@@ -9,7 +9,7 @@
 - [ ] Verify that content is not [plagiarized](https://en.wikipedia.org/wiki/Plagiarism). Ensure due credit is given for content or references
 - [ ] Raise a PR and assign reviewers. Collaborate over the PR review comments
 
-# Ghost checkliost
+# Ghost checklist
 - [ ] Verify if proper SEO friendly slug is present for blog post
 - [ ] Add appropriate tags to the blog post
 - [ ] Do not enable `turn this post into a page` or `feature this post`
