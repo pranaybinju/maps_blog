@@ -1,6 +1,5 @@
 # Dont's
-- Do not [plagiarize](https://en.wikipedia.org/wiki/Plagiarism) any of the blog content. Give proper credits and references if the content or code snippet is referred from anywhere.
-
+- Do not [plagiarize](https://en.wikipedia.org/wiki/Plagiarism) blog content. Give proper credits and references if the content, code snippet or picture is referred from anywhere.
 
 # Blog Writing checklist
 
