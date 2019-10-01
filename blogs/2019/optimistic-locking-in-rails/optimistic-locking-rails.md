@@ -6,7 +6,7 @@ ACID = Atomicity, Consistency, Isolation, Durability
 
 While performing concurrent operations, a database must ensure data integrity. Locking mechanism ensure this data integrity and consistency. Locks can be a database, table, page or row level. Here is a beginner's guide to database locking in PostgreSQL.
 
-In this article, we will see how Rails provides optimistic locking for ActiveRecord models. But before we proceed, let us first understand the basics about optimistic and pessimistic locking.
+In this article, we will see how Rails provides mechanism for optimistic locking on ActiveRecord models. But before we proceed, let us first understand the basics about optimistic and pessimistic locking.
 
 ## What is optimistic locking?
 
@@ -74,7 +74,7 @@ Optimistic locking also checks for stale data when objects are destroyed and not
 
 ## How to implement pessimistic locking in Rails?
 
-(Will add more details here shortly). Also follows this API https://api.rubyonrails.org/classes/ActiveRecord/Locking/Pessimistic.html
+(Will add more details here shortly). Also follow this API https://api.rubyonrails.org/classes/ActiveRecord/Locking/Pessimistic.html
 
 ## References and further reading:
 
