@@ -34,7 +34,7 @@ When multiple users are editing the same record, it's necessary to have a mechan
 
 [Image Attached: concurrency.jpg]
 
-Optimistic locking uses a "version-number" column to track changes in each table that needs to implement concurrent access. Every-time a record in such a table changes, its version number is updated. If two users update a record simultaneously, only one of the users gets their changes accepted and other users will receive an error message because the version number won't match the version in the table. In the example above, using optimistic locking, Ritesh gets an alert that the title has changed while he was editing it. So the application feature can now allow refreshing the page so that Ritesh sees the updated title for the product.
+Optimistic locking uses a "version-number" column to track changes in each table that needs to implement concurrent access. Apart from the version number, other approaches involve dates, timestamps, checksums/hashes or even an entire state of the row. But we will discuss optimistic locking here using version number column. Every-time a record in such a table changes, its version number is updated. If two users update a record simultaneously, only one of the users gets their changes accepted and other users will receive an error message because the version number won't match the version in the table. In the example above, using optimistic locking, Ritesh gets an alert that the title has changed while he was editing it. Ritesh can refresh the page or front-end can be structured such that it shows the updated title while Ritesh is still editing it.
 
 ### Please note that:
 
