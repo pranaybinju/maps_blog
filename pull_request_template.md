@@ -1,10 +1,10 @@
 # Dont's
-- Do not [plagiarize](https://en.wikipedia.org/wiki/Plagiarism) blog content. Give proper credits and references if the content, code snippet or picture is referred from anywhere.
+- Do not [plagiarize](https://en.wikipedia.org/wiki/Plagiarism) blog content. Give proper credits and references if the content, code snippet or picture is referred from anywhere
 
 # Blog Writing checklist
 
 - [ ] Start drafting the blog in Ghost
-- [ ] When the blog post is almost complete, scan the entire blog post content through [Grammarly](https://chrome.google.com/webstore/detail/grammarly-for-chrome/kbfnbcaeplbcioakkpcpgfkobkghlhen?hl=en) and [Hemingwayapp](http://www.hemingwayapp.com/) for sentence and word corrections.
+- [ ] When the blog post is almost complete, scan the entire blog post content through [Grammarly](https://chrome.google.com/webstore/detail/grammarly-for-chrome/kbfnbcaeplbcioakkpcpgfkobkghlhen?hl=en) and [Hemingwayapp](http://www.hemingwayapp.com/) for sentence and word corrections
 - [ ] Verify that content is not [plagiarized](https://en.wikipedia.org/wiki/Plagiarism). Ensure due credit is given for content or references
 - [ ] Copy-paste contents herein Github in markdown format and raise a PR. Assign reviewers to the PR to collaborate for review comments
 
