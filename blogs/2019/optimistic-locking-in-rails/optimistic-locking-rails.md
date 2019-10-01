@@ -1,10 +1,10 @@
 # Optimistic vs. Pessimistic locking in Rails
 
-An [ACID](https://en.wikipedia.org/wiki/ACID) compliant relational database ensures data integrity.
+While performing concurrent operations, a database must ensure data integrity. [ACID](https://en.wikipedia.org/wiki/ACID) compliant relational database ensures this data integrity through its locking mechanism.
 
 ACID = Atomicity, Consistency, Isolation, Durability
 
-While performing concurrent operations, a database must ensure data integrity. The locking mechanism ensures data integrity and consistency. Locks can be a database, table, page or row level. [Here is a beginner's guide](https://vladmihalcea.com/a-beginners-guide-to-database-locking-and-the-lost-update-phenomena/) to database locking in [PostgreSQL](https://www.postgresql.org/about/).
+Locks can be at the database, table, page, or row level. [Here is a beginner's guide](https://vladmihalcea.com/a-beginners-guide-to-database-locking-and-the-lost-update-phenomena/) to database locking in [PostgreSQL](https://www.postgresql.org/about/).
 
 In this article, let's see how [Rails](https://rubyonrails.org/) provides a mechanism for optimistic locking on [ActiveRecord](https://guides.rubyonrails.org/active_record_basics.html) models. However, before we proceed, let us first understand the basics of optimistic and pessimistic locking.
 
