@@ -15,7 +15,7 @@
 - [ ] Confirm everything is looking as expected in preview mode
 - [ ] Post the Ghost draft & preview link on the PR for the final review and notify collaborators
 - [ ] Once approval is received by reviewers then publish the blog post
-- [ ] (Optional) Attach the right contextual image to a blog post on Ghost. Refer existing published blogs.
+- [ ] (Optional) Attach the right contextual image to a blog post on Ghost. Refer existing published blogs
 
 # After publishing
 - [ ] Share it on your personal Twitter/LinkedIn/Facebook
