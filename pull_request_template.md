@@ -19,5 +19,5 @@
 
 # After publishing
 - [ ] Share it on your personal Twitter/LinkedIn/Facebook
-- [ ] Submit the blog to RubyFlow
 - [ ] Ask Shivani / Yashika to post the article via Kiprosh official social media account
+- [ ] (Optional) Submit your blog post on [RubyFlow](http://www.rubyflow.com/) if its Ruby or Rails specific blog
