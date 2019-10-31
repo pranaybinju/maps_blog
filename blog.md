@@ -86,3 +86,21 @@ Before tracking user location, let's add a Marker which will help us know where 
 
 For knowing our location, we add `react-native-geolocation-service` package by running
 `npm install react-native-geolocation-service`
+
+- After installing, for iOS run `pod install`.Autolinking will take care of installing dependencies in Android.
+- For Android: Allow app to aceess location by modifying AndroidManifest.xml as follows:
+  <ss for android manifest location permission>
+
+## 6. Get current location:
+
+Let's get our current position on the map. For this,
+
+- Import Geolocation service in Map.jsx
+  <ss for geolocation>
+- Add state variables for latitude and logitude.
+- In componentDidMount(), listen to `getCurrentPosition()` event as follows and set state variables.
+  <ss for getCurrentPosition() >
+- Add marker for your location
+  <ss for marker code>
+- Finally, we can find ourselves on the map.
+  <ss for marker on map>
