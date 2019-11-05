@@ -26,7 +26,7 @@ yarn add --dev react-native-typescript-transformer typescript
 
 Then create a new file named `tsconfig.json` in your project’s root directory and copy paste the json shown in snippet 1.1
 
-```json
+```js
 {
   "compilerOptions": {
     /* Basic Options */
