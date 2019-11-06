@@ -172,8 +172,6 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
-Now run your app using yarn android or yarn ios and it will work as expected if not then do drop a comment📝 👇 mentioning the issue.
-
 ### **Step 2 -> Setup React Native Web & Webpack**
 
 1. Add [react-dom](https://www.npmjs.com/package/react-dom) and [react-native-web](https://www.npmjs.com/package/react-native-web) to the project
@@ -300,8 +298,6 @@ Now add `web` script command inside `package.json` as shown in image 1.3
 
 > image 1.3: yarn web command
 
-Now run your app using yarn web and it will work as expected if not then do drop a comment📝 👇 mentioning the issue.
-
 Final output
 
 ![image 1.4: Final snapshot for mobile
@@ -369,6 +365,6 @@ We will deploy the web app on [Render](https://render.com/) cloud platform. To s
 
 All the source code is available at https://github.com/vemarav/ReactNativeWebPlayground
 
-If you have any open thoughts or better approach do drop a comment. It will help me a lot to think in wider perspective.
+If you have faced any issue do drop a comment📝 👇 mentioning the issue.
 
 <div style='text-align:center;font-size:2rem;font-style:italic;font-weight:200;'>We would ❤️ to hear from you</div>
