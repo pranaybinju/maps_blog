@@ -172,6 +172,13 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
+Now run `yarn ios` or `yarn android` and you will screen as shown in following image (image 1.4)
+
+![image 1.3: Final snapshot for mobile
+](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_4.png)
+
+> image 1.3: Final snapshot for mobile
+
 ### **Step 2 -> Setup React Native Web & Webpack**
 
 1. Add [react-dom](https://www.npmjs.com/package/react-dom) and [react-native-web](https://www.npmjs.com/package/react-native-web) to the project
@@ -279,7 +286,7 @@ Now add `index.web.ts` to the project’s root directory and copy-paste content 
 ```js
 import { AppRegistry } from 'react-native';
 import { name as appName } from './app.json';
-import App from './app/App';
+import App from './App';
 
 AppRegistry.registerComponent(appName, () => App);
 
@@ -291,19 +298,14 @@ AppRegistry.runApplication(appName, {
 
 > snippet 1.6: index.web.ts
 
-Now add `web` script command inside `package.json` as shown in image 1.3
+Now add `web` script command inside `package.json` as shown in image 1.4
 
-![image 1.3: yarn web command
+![image 1.4: yarn web command
 ](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_3.png)
 
-> image 1.3: yarn web command
+> image 1.4: yarn web command
 
 Final output
-
-![image 1.4: Final snapshot for mobile
-](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_4.png)
-
-> image 1.4: Final snapshot for mobile
 
 ![image 1.5: Final snapshot for web
 ](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_5.png)
@@ -312,7 +314,7 @@ Final output
 
 ### **Step 3 -> Deploy web app**
 
-Add the following script command to `package.json` and to create a deployable `dist` source.
+Add the following script command to `package.json` and to create a deployable `dist` source directory.
 
 ```
 "build:web": "cd web && webpack"
@@ -336,7 +338,7 @@ We will deploy the web app on [Render](https://render.com/) cloud platform. To s
 
 1. Create an account (Render supports only Github / GitLab).
 
-2. If you are successfully created an account then you will see a dashboard as shown in image 1.7
+2. If you are successfully created an account then you will see a dashboard as shown in following image (image 1.7)
 
 ![image 1.7: Render dashboard](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_7.png)
 
@@ -351,7 +353,7 @@ We will deploy the web app on [Render](https://render.com/) cloud platform. To s
 
 > image 1.8: Your repository
 
-5. 5. Select your repo and add following settings shown in image 1.9, except Name, choose different and unique name for your app and then click on create web service
+5. Select your repo and add following settings shown in image 1.9, except Name, choose different and unique name for your app and then click on create web service
 
 ![image 1.9: Render settings](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_9.png)
 
