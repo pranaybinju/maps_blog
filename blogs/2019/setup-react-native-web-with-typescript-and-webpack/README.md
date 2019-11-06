@@ -24,7 +24,7 @@ To add typescript to our app first we need to install [react-native-typescript-t
 yarn add --dev react-native-typescript-transformer typescript
 ```
 
-Then create a new file named `tsconfig.json` in your project’s root directory and copy paste the json shown in snippet 1.1
+Then create a new file named `tsconfig.json` in your project’s root directory and copy-paste the JSON as shown in following code snippet (snippet 1.1)
 
 ```js
 {
