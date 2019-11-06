@@ -305,7 +305,7 @@ Now add `web` script command inside `package.json` as shown in image 1.4
 
 > image 1.4: yarn web command
 
-Final output
+Run `yarn web` command and visit `localhost:8080`. You will see a screen as shown in following image (image 1.5)
 
 ![image 1.5: Final snapshot for web
 ](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_5.png)
