@@ -12,7 +12,7 @@ To create react native app you need to run following command
 react-native init ReactNativeWebApp
 ```
 
-This command will create react native app and your app directory will look like as shown in image 1.1
+This command will create react native app and your app directory will look like as shown in the following image (image 1.1)
 
 ![image 1.1: project root](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_1.png)
 
@@ -93,7 +93,7 @@ Then create a new file named `tsconfig.json` in your project’s root directory 
 
 > snippet 1.1: tsconfig.json
 
-Add `tslint.json` in project’s root directory and copy paste the json content from snippet 1.2
+Add `tslint.json` in the project’s root directory and copy-paste the JSON content from the following code snippet (snippet 1.2)
 
 ```json
 {
@@ -134,13 +134,13 @@ Add `tslint.json` in project’s root directory and copy paste the json content 
 
 > snippet 1.2: tslint.json
 
-Next rename App.js to App.tsx and add types for react and react native
+Next rename `App.js` to `App.tsx` and add types for react and react native
 
 ```
 yarn add --dev @types/react @types/react-native
 ```
 
-Final changes of App.tsx shown in snippet 1.3
+Final changes of `App.tsx` shown in the following code snippet (snippet 1.3)
 
 ```jsx
 import React from 'react';
@@ -180,7 +180,7 @@ export default App;
 yarn add react-dom react-native-web
 ```
 
-2. Create a directory named web in project’s root directory and add index.html(snippet 1.4) inside web directory
+2. Create a directory named `web` in the project’s root directory and add `index.html` (snippet 1.4) inside the `web` directory
 
 ```html
 <!DOCTYPE html>
@@ -214,7 +214,7 @@ To know more about webpack visit https://webpack.js.org/ and to know about webpa
 yarn add --dev webpack webpack-cli webpack-dev-server
 ```
 
-To add webpack configuration first we need to create a file with name `webpack.config.js` inside web directory, then copy paste content from snippet 1.5 into `webpack.config.js`
+To add webpack configuration first we need to create a file with name `webpack.config.js` inside `web` directory, then copy-paste content from following snippet (snippet 1.5) into `webpack.config.js`
 
 ```js
 const path = require('path');
@@ -258,7 +258,7 @@ module.exports = {
       '.web.js',
       '.jsx',
       '.js'
-    ], // read files in fillowing order
+    ], // read files in following order
     alias: Object.assign({
       'react-native$': 'react-native-web'
     })
@@ -274,7 +274,7 @@ We have used [html-webpack-plugin](https://webpack.js.org/plugins/html-webpack-p
 yarn add --dev html-webpack-plugin ts-loader
 ```
 
-Now add `index.web.ts` to the project’s root directory and copy paste content from snippet 1.6 to `index.web.ts`
+Now add `index.web.ts` to the project’s root directory and copy-paste content from following snippet (snippet 1.6) to `index.web.ts`
 
 ```js
 import { AppRegistry } from 'react-native';
@@ -312,7 +312,7 @@ Final output
 
 ### **Step 3 -> Deploy web app**
 
-Add following script command to package.json and to create a deployable dist source
+Add the following script command to `package.json` and to create a deployable `dist` source.
 
 ```
 "build:web": "cd web && webpack"
@@ -322,9 +322,9 @@ Add following script command to package.json and to create a deployable dist sou
 
 > image 1.6: diff for the script command
 
-then run `yarn build:web` which will crearte a new folder named dist with the required files needs to run the web app
+Then run `yarn build:web` which will create a new folder named `dist` with the required files needed to run the web app.
 
-open `.gitignore` and search for production then add /dist below production make sure it is uncommented as shown below
+Open `.gitignore` and search for production then add `/dist` below `production` make sure it is uncommented as shown below.
 
 ```
 # production
@@ -365,6 +365,6 @@ We will deploy the web app on [Render](https://render.com/) cloud platform. To s
 
 All the source code is available at https://github.com/vemarav/ReactNativeWebPlayground
 
-If you have faced any issue do drop a comment📝 👇 mentioning the issue.
+If you face any issue, drop a comment📝 👇 in the comments section mentioning the issue and error-details if any.
 
 <div style='text-align:center;font-size:2rem;font-style:italic;font-weight:200;'>We would ❤️ to hear from you</div>
