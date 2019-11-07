@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
-Now run `yarn ios` or `yarn android` and you will screen as shown in following image (image 1.4)
+Now run `yarn ios` or `yarn android` and you will see screen as shown in following image (image 1.4)
 
 ![image 1.3: Final snapshot for mobile
 ](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_4.png)
