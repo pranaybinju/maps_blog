@@ -187,7 +187,7 @@ Now run `yarn ios` or `yarn android` and you will see screen as shown in followi
 yarn add react-dom react-native-web
 ```
 
-2. Create a directory named `web` in the project’s root directory and add `index.html` (snippet 1.4) inside the `web` directory
+2.2 Create a directory named `web` in the project’s root directory and add `index.html` (snippet 1.4) inside the `web` directory
 
 ```html
 <!DOCTYPE html>
