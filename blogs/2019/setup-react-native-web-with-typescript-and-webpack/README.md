@@ -334,7 +334,7 @@ Open `.gitignore` and search for production then add `/dist` below `production` 
 /build
 ```
 
-We will deploy the web app on [Render](https://render.com/) cloud platform. To setup continuous deployment follow the below steps
+We will deploy the web app on [Render](https://render.com/) cloud platform. To setup continuous deployment follow the below steps:
 
 1. Create an account (Render supports only Github / GitLab).
 
