@@ -107,6 +107,7 @@ Let's get our current position on the map. For this,
 
 - Import Geolocation service in Map.jsx
 - Add state variables for latitude,logitude and position coordinates array.
+
 - In componentDidMount(), listen to `getCurrentPosition()` event as follows and set state variables.
   ![](SS/get_current_position.png)
 - Change `initialRegion` prop of Map to `region` and add marker for your location
