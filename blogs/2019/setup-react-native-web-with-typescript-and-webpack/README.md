@@ -181,7 +181,7 @@ Now run `yarn ios` or `yarn android` and you will see screen as shown in followi
 
 ### 2. Setup React Native Web & Webpack
 
-1. Add [react-dom](https://www.npmjs.com/package/react-dom) and [react-native-web](https://www.npmjs.com/package/react-native-web) to the project
+2.1 Add [react-dom](https://www.npmjs.com/package/react-dom) and [react-native-web](https://www.npmjs.com/package/react-native-web) to the project
 
 ```
 yarn add react-dom react-native-web
