@@ -21,7 +21,7 @@ This command will create react native app and your app directory will look like 
 
 > image 1.1: project root
 
-To add typescript to our app first we need to install [react-native-typescript-transformer](To add typescript to our app first we need to install react-native-typescript-transformer)
+To add typescript to our app first we need to install [react-native-typescript-transformer](https://github.com/ds300/react-native-typescript-transformer)
 
 ```
 yarn add --dev react-native-typescript-transformer typescript
@@ -175,22 +175,22 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
-Now run `yarn ios` or `yarn android` and you will see screen as shown in following image (image 1.4)
+Now run `yarn ios` or `yarn android` and you will see screen as shown in following image (image 1.2)
 
-![image 1.3: Final snapshot for mobile
+![image 1.2: Final snapshot for mobile
 ](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_4.png)
 
-> image 1.3: Final snapshot for mobile
+> image 1.2: Final snapshot for mobile
 
 ### 2. Setup React Native Web & Webpack
 
-2.1 Add [react-dom](https://www.npmjs.com/package/react-dom) and [react-native-web](https://www.npmjs.com/package/react-native-web) to the project
+Add [react-dom](https://www.npmjs.com/package/react-dom) and [react-native-web](https://www.npmjs.com/package/react-native-web) to the project
 
 ```
 yarn add react-dom react-native-web
 ```
 
-2.2 Create a directory named `web` in the project’s root directory and add `index.html` (snippet 1.4) inside the `web` directory
+Create a directory named `web` in the project’s root directory and add `index.html` (snippet 1.4) inside the `web` directory
 
 ```html
 <!DOCTYPE html>
@@ -212,11 +212,11 @@ yarn add react-dom react-native-web
 
 > snippet 1.4: index.html
 
-![image 1.2: After adding index.html](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_2.png)
+![image 1.3: After adding index.html](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_2.png)
 
-> image 1.2: After adding index.html
+> image 1.3: After adding index.html
 
-2.3 Add webpack and its configuration inside web directory
+Add webpack and its configuration inside web directory
 
 To know more about webpack visit https://webpack.js.org/ and to know about webpack-dev-server visit https://webpack.js.org/configuration/dev-server/
 
@@ -301,7 +301,7 @@ AppRegistry.runApplication(appName, {
 
 > snippet 1.6: index.web.ts
 
-Now add `web` script command inside `package.json` as shown in image 1.4
+Now add `web` script command inside `package.json` as shown in following image (image 1.4)
 
 ![image 1.4: yarn web command
 ](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_3.png)
@@ -323,46 +323,44 @@ Add the following script command to `package.json` and to create a deployable `d
 "build:web": "cd web && webpack"
 ```
 
-![image 1.6: diff for the script command](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_6.png)
+![image 1.6: diff for the yarn build:web script command](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_6.png)
 
-> image 1.6: diff for the script command
+> image 1.6: diff for the `yarn build:web` script command
 
 Then run `yarn build:web` which will create a new folder named `dist` with the required files needed to run the web app.
 
-Open `.gitignore` and search for production then add `/dist` below `production` make sure it is uncommented as shown below.
+Open .gitignore and search for production then add /dist inside the .gitignore file.
 
 ```
-# production
 /dist
-/build
 ```
 
 We will deploy the web app on [Render](https://render.com/) cloud platform. To setup continuous deployment follow the below steps:
 
-3.1 Create an account (Render supports only Github / GitLab).
+* Create an account (Render supports only Github / GitLab).
 
-3.2 If you are successfully created an account then you will see a dashboard as shown in following image (image 1.7)
+* If you are successfully created an account then you will see a dashboard as shown in following image (image 1.7)
 
 ![image 1.7: Render dashboard](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_7.png)
 
 > image 1.7: Render dashboard
 
-3.3 Now click `New Web Service` button and connect with Github and install render on your react native web app repository
+* Now click `New Web Service` button and connect with Github and install render on your react native web app repository
 
-3.4 Then you will see your app/repository here https://dashboard.render.com/select-repo?type=web
+* Then you will see your app/repository here https://dashboard.render.com/select-repo?type=web
 
 ![image 1.8: Your repository
 ](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_8.png)
 
 > image 1.8: Your repository
 
-3.5 Select your repo and add following settings shown in image 1.9, except Name, choose different and unique name for your app and then click on create web service
+* Select your repo and add following settings shown in image 1.9, except Name, choose different and unique name for your app and then click on create web service
 
 ![image 1.9: Render settings](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_9.png)
 
 > image 1.9: Render settings
 
-3.6 If everything goes as expected then you can visit your site with the link provided by render, link highlighted in image 1.10
+* If everything goes as expected then you can visit your site with the link provided by render, link highlighted in image 1.10
 
 ![image 1.10: you will see your link in the highlighted area](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_10.png)
 
