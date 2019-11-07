@@ -37,6 +37,7 @@ Let's first load default Google map using react-native-maps for iOS and Android.
 **Enabling Google maps for iOS using Cocoapods:**
 
 - Run `cd ios && pod install` to install react-native-maps dependency for iOS
+  ![](SS/pod_install.png)
 - Copy the Google API key and paste it in AppDelegate.m file as follows:
   `+ #import <GoogleMaps/GoogleMaps.h>`
   `@implementation AppDelegate`
@@ -45,24 +46,30 @@ Let's first load default Google map using react-native-maps for iOS and Android.
   `+ [GMSServices provideAPIKey:@"_YOUR_API_KEY_"]; // add this line using the api key obtained from Google Console`
   `...`
 - Next, we create a component called Map and import MapView component of react-native-maps
+  ![](SS/folder_Structure.png)
+
   `import MapView from 'react-native-maps';`
+
 - Render map as follows in Map component:
-  <ss of map.jsx>
-  and in App.js add Map component as follows:
-  <ss of App.js>
+
+![](SS/default_map_component.png)
+
+and in App.js add Map component as follows:
+![](SS/app_js.png)
 
 On running command `react-native run-ios` we get following output:
-<ss of ios simulator with map>
+![](SS/default_map.png)
 
 **Enabling Google maps for Android:**
 For enabling Google maps on Android we just need few steps as most of the job is done by auto-linking feature.
 
 - Add `googlePlayServicesVersion = "16.0.0"` and `androidMapsUtilsVersion = "0.5+"` in **./android/build.gradle** file as follows:
-  <ss for build.gradle>
+  ![](SS/build_gradle.png)
+
 - Add meta tag with you API key in AndroidManifest.xml as follows:
-  <ss for AndroidManifest.xml>
+  ![](SS/manifest.png)
   That's all. Run the project with `react-native run-android` and we have the map on our screen
-  <ss for android map>
+  ![](SS/android_default.png)
 
 ## 4.Customize Google Maps:
 
@@ -74,11 +81,14 @@ Now that we have loaded default map, let's customise our maps. Google has it's o
 - After having done with customisations, click on **Finish**. This generates JSON for our style. Copy this JSON.
 - Create a folder and name it as 'constants' in src.
 - Create a file called **mapStyle.json** and paste the JSON of style in it.
-- Import PROVIDER_GOOGLE as constant from react-nativ-maps. This is needed for iOS.
+
+![](SS/map_style.png)
+
+- Import PROVIDER_GOOGLE as constant from react-native-maps. This is needed for iOS.
 - Now, update MapView component as following:
-  <ss for MapView>
+  ![](SS/update_map_view.png)
 - Run the project.
-  <ss for ios with custom map>
+  ![](SS/ios_custom_map.png)
 
 ## 5.Add Geolocation service:
 
@@ -89,18 +99,31 @@ For knowing our location, we add `react-native-geolocation-service` package by r
 
 - After installing, for iOS run `pod install`.Autolinking will take care of installing dependencies in Android.
 - For Android: Allow app to aceess location by modifying AndroidManifest.xml as follows:
-  <ss for android manifest location permission>
+  ![](SS/location_permission.png)
 
 ## 6. Get current location:
 
 Let's get our current position on the map. For this,
 
 - Import Geolocation service in Map.jsx
-  <ss for geolocation>
-- Add state variables for latitude and logitude.
+- Add state variables for latitude,logitude and position coordinates array.
 - In componentDidMount(), listen to `getCurrentPosition()` event as follows and set state variables.
-  <ss for getCurrentPosition() >
-- Add marker for your location
-  <ss for marker code>
+  ![](SS/get_current_position.png)
+- Change `initialRegion` prop of Map to `region` and add marker for your location
+  ![](SS/marker.png)
 - Finally, we can find ourselves on the map.
-  <ss for marker on map>
+  ![](SS/marker_current.png)
+
+## 7. Track location change:
+
+To track change of location on the map, we have to listen to watchPosition event.
+
+- Add handler for `watchPosition` event and update the coordinates array as follows
+  ![](SS/watch_position.png)
+- Next we import Polyline as constant from `react-native-maps` and add which will help us locate our changed position on the map and also give us feel of our location being tracked.
+  ![](SS/polyline.png)
+
+Now whenever our GPS senses change in location,
+handler of watchPosition event will be called which will give us current coordinates. These current coordinates will be concatenated to coordinates array of state which is provided as coordinates props to Polyline. This will create a tracker on the map for our location.
+
+![](SS/location_tracking.png)
