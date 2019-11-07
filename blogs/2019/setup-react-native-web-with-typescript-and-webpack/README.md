@@ -4,7 +4,7 @@ In this tutorial we will setup react native web app locally and deploy on [Rende
 
 Before we start with the [react-native-web](https://github.com/necolas/react-native-web) setup, I assume that you have installed [Node.js](https://nodejs.org/en/), [Yarn](https://yarnpkg.com/lang/en/) and [react-native-cli](https://www.npmjs.com/package/react-native-cli) on your machine.```
 
-### **Step 1 -> Setup React Native App with Typescript**
+### 1. Setup React Native App with Typescript
 
 To create react native app you need to run following command
 
