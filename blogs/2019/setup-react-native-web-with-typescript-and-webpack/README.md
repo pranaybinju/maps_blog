@@ -312,7 +312,7 @@ Run `yarn web` command and visit `localhost:8080`. You will see a screen as show
 
 > image 1.5: Final snapshot for web
 
-### **Step 3 -> Deploy web app**
+### 3. Deploy web app
 
 Add the following script command to `package.json` and to create a deployable `dist` source directory.
 
