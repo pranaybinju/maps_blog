@@ -2,7 +2,7 @@
 
 In this tutorial we will setup react native web app locally and deploy on [Render](https://render.com/).
 
-Before we start with the [react-native-web](https://github.com/necolas/react-native-web) setup I will assume that you have installed [NodeJs](https://nodejs.org/en/), [yarn](https://yarnpkg.com/lang/en/) and [react-native-cli](https://www.npmjs.com/package/react-native-cli) on your machine.
+Before we start with the [react-native-web](https://github.com/necolas/react-native-web) setup, I assume that you have installed [Node.js](https://nodejs.org/en/), [Yarn](https://yarnpkg.com/lang/en/) and [react-native-cli](https://www.npmjs.com/package/react-native-cli) on your machine.```
 
 ### **Step 1 -> Setup React Native App with Typescript**
 
