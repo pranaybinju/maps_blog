@@ -1,5 +1,8 @@
 # Setup React Native Web App with TypeScript and WebPack
 
+![Image from official react native website](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/placeholder.gif)
+> Image from official [react native website](https://facebook.github.io/react-native/)
+
 In this tutorial we will setup react native web app locally and deploy on [Render](https://render.com/).
 
 Before we start with the [react-native-web](https://github.com/necolas/react-native-web) setup, I assume that you have installed [Node.js](https://nodejs.org/en/), [Yarn](https://yarnpkg.com/lang/en/) and [react-native-cli](https://www.npmjs.com/package/react-native-cli) on your machine.
