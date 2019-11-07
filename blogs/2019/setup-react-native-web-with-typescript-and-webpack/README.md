@@ -213,7 +213,7 @@ yarn add react-dom react-native-web
 
 > image 1.2: After adding index.html
 
-3. Add webpack and its configuration inside web directory
+2.3 Add webpack and its configuration inside web directory
 
 To know more about webpack visit https://webpack.js.org/ and to know about webpack-dev-server visit https://webpack.js.org/configuration/dev-server/
 
