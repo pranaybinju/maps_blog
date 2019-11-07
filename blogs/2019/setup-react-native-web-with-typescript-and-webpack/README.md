@@ -2,7 +2,7 @@
 
 In this tutorial we will setup react native web app locally and deploy on [Render](https://render.com/).
 
-Before we start with the [react-native-web](https://github.com/necolas/react-native-web) setup, I assume that you have installed [Node.js](https://nodejs.org/en/), [Yarn](https://yarnpkg.com/lang/en/) and [react-native-cli](https://www.npmjs.com/package/react-native-cli) on your machine.```
+Before we start with the [react-native-web](https://github.com/necolas/react-native-web) setup, I assume that you have installed [Node.js](https://nodejs.org/en/), [Yarn](https://yarnpkg.com/lang/en/) and [react-native-cli](https://www.npmjs.com/package/react-native-cli) on your machine.
 
 ### 1. Setup React Native App with Typescript
 
@@ -336,30 +336,30 @@ Open `.gitignore` and search for production then add `/dist` below `production` 
 
 We will deploy the web app on [Render](https://render.com/) cloud platform. To setup continuous deployment follow the below steps:
 
-1. Create an account (Render supports only Github / GitLab).
+3.1 Create an account (Render supports only Github / GitLab).
 
-2. If you are successfully created an account then you will see a dashboard as shown in following image (image 1.7)
+3.2 If you are successfully created an account then you will see a dashboard as shown in following image (image 1.7)
 
 ![image 1.7: Render dashboard](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_7.png)
 
 > image 1.7: Render dashboard
 
-3. Now click `New Web Service` button and connect with Github and install render on your react native web app repository
+3.3 Now click `New Web Service` button and connect with Github and install render on your react native web app repository
 
-4. Then you will see your app/repository here https://dashboard.render.com/select-repo?type=web
+3.4 Then you will see your app/repository here https://dashboard.render.com/select-repo?type=web
 
 ![image 1.8: Your repository
 ](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_8.png)
 
 > image 1.8: Your repository
 
-5. Select your repo and add following settings shown in image 1.9, except Name, choose different and unique name for your app and then click on create web service
+3.5 Select your repo and add following settings shown in image 1.9, except Name, choose different and unique name for your app and then click on create web service
 
 ![image 1.9: Render settings](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_9.png)
 
 > image 1.9: Render settings
 
-6. If everything goes as expected then you can visit your site with the link provided by render, link highlighted in image 1.10
+3.6 If everything goes as expected then you can visit your site with the link provided by render, link highlighted in image 1.10
 
 ![image 1.10: you will see your link in the highlighted area](/blogs/2019/setup-react-native-web-with-typescript-and-webpack/assets/1_10.png)
 
