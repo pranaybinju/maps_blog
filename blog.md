@@ -163,6 +163,9 @@ Thank you!
 
 - react-native-maps official docs: https://github.com/react-native-community/react-native-maps
 
+- Google Maps Platform Styling Wizard:
+  https://mapstyle.withgoogle.com/
+
 - Why does your app essentially require geolocation: https://www.mindinventory.com/blog/benefits-of-geolocation-in-mobile-app/
 
 - How to use geolocation api: https://flaviocopes.com/geolocation-api/
