@@ -4,12 +4,12 @@ In recent years, location tracking of products/services provided by businesses h
 
 In one of our health and fitness-based apps, we had a requirement of integrating the map with custom style and track location of the user while performing activities such as running or cycling.
 
-In this blog, I will walk you through steps for integrating maps with custom style and track the location of the user using react-native.
+In this blog, we will walk you through steps for integrating Google Maps with custom style and tracking the location of the user using `react-native`.
 
 ## Pre-requisites
 
-- The API key for maps: If you don't have one, refer [https://developers.google.com/maps/documentation/javascript/get-api-key](https://developers.google.com/maps/documentation/javascript/get-api-key)
-- basic knowledge of react-native
+- Google Map API key for maps (If you don't have one, refer [Get Google Map API Key](https://developers.google.com/maps/documentation/javascript/get-api-key))
+- Basic knowledge of `react-native`
 
 So let's get started.
 
@@ -20,38 +20,38 @@ Let's create our project by running
 
 At the time of writing this blog following are list of dependencies:
 
-- "react": "16.9.0",
-- "react-native": "0.61.2"
-- Cocoapods(for iOS):"1.7.5"
-- "react-native-maps":"0.26.1"
+- `react` (v16.9.0),
+- `react-native` (v0.61.2)
+- `Cocoapods`(v1.7.5) (for iOS)
+- `react-native-maps` "0.26.1"
 
 ## 2. Add react-native-maps and link it
 
-Next, we add react-native-maps package from Airbnb, which has great support from the community. In our terminal, we run
+Next, we add `react-native-maps` package from Airbnb, which has great support from the community. In our terminal, we run
 `npm install react-native-maps --save-exact` and auto-link it by running `react-native link react-native-map`.
 
 ## 3. Load default map
 
-Let's first load default Google map using react-native-maps for iOS and Android.
+Let's first load the default Google map using `react-native-maps` for iOS and Android.
 
 **Enabling Google maps for iOS using Cocoapods:**
 
-- Run `cd ios && pod install` to install react-native-maps dependency for iOS
+- Run `cd ios && pod install` to install `react-native-maps`dependency for iOS.
 
   ![](./assets/pod_install.png)
   _pod installation_
 
-- Import GoogleMaps header file in AppDelegate.m as follows
+- Import `GoogleMaps` header file in `AppDelegate.m` as follows
 
 ![](./assets/googlemaps.png)
 _importing GoogleMaps header file_
 
-- Copy the Google API key and paste it in AppDelegate.m file as follows
+- Copy the Google API key and paste it in `AppDelegate.m` file as follows
 
   ![](./assets/appdelegate.png)
   _AppDelegate.m_
 
-* Next, we create a component called Map and import MapView component of react-native-maps
+* Next, we create a component called `Map` and import `MapView`component of `react-native-maps`
 
   ![](./assets/folder_Structure.png)
 
@@ -59,12 +59,12 @@ _importing GoogleMaps header file_
 
   `import MapView from 'react-native-maps';`
 
-* Render map as follows in Map component:
+* Render map as follows in `Map` component:
 
 ![](./assets/default_map_component.png)
 _Map component_
 
-and in App.js add Map component as follows:
+and in `App.js` add `Map` component as follows:
 
 ![](./assets/app.png)
 
@@ -83,7 +83,7 @@ For enabling Google maps on Android we just need few steps as most of the job is
 
   _build.gradle_
 
-- Add meta tag with your API key in AndroidManifest.xml as follows:
+- Add meta tag with your API key in `AndroidManifest.xml` as follows:
 
 ## 4. Customize Google Maps:
 
@@ -93,15 +93,15 @@ Now that we have loaded the default map, let's customize our maps. Google has it
 - Select a theme
 - Click on **More Options** to add more customizations. Play around with different options and customize according to your needs.
 - After having done with customizations, click on **Finish**. This generates JSON for our style. Copy this JSON.
-- Create a folder and name it as 'constants' in src.
+- Create a folder and name it as `constants` in src.
 - Create a file called **mapStyle.json** and paste the JSON of style in it.
 
 ![](./assets/map_style.png)
 
 _mapStyle.json_
 
-- Import PROVIDER_GOOGLE as a constant from react-native-maps. This is needed for iOS.
-- Now, update the MapView component as follows:
+- Import `PROVIDER_GOOGLE` as a constant from `react-native-maps`. This is needed for iOS.
+- Now, update the `MapView` component as follows:
 
   ![](./assets/update_map_view.png)
 
@@ -117,11 +117,11 @@ _mapStyle.json_
 
 Before tracking the user location, let's add a Marker which will help us know where we are on this planet.
 
-For knowing our location, we add `react-native-geolocation-service` package by running
+To know our location, we add `react-native-geolocation-service` package by running
 `npm install react-native-geolocation-service`
 
-- After installing, for iOS run `pod install`.Autolinking will take care of installing dependencies in Android.
-- For Android: Allow the app to access location by modifying AndroidManifest.xml as follows:
+- After installing, for iOS run `pod install`. Autolinking will take care of installing dependencies in Android.
+- For Android: Allow the app to access location by modifying `AndroidManifest.xml` as follows:
 
   ![](./assets/location_permission.png)
 
@@ -131,15 +131,15 @@ For knowing our location, we add `react-native-geolocation-service` package by r
 
 Let's get our current position on the map. For this,
 
-- Import Geolocation service in Map.jsx
+- Import Geolocation service in `Map.jsx`
 - Add state variables for latitude, longitude and position coordinates array.
-- In componentDidMount(), listen to `getCurrentPosition()` event as follows and set state variables.
+- In `componentDidMount()`, listen to `getCurrentPosition()` event as follows and set state variables.
 
   ![](./assets/get_current_position.png)
 
   _getCurrentPosition() handler_
 
-  `getCurrentPosition()` takes success callback,error callback and options as parameters.You can refer official docs from https://github.com/Agontuk/react-native-geolocation-service and configure accordingly
+  `getCurrentPosition()` takes success callback, error callback and options as parameters. You can refer to official docs from https://github.com/Agontuk/react-native-geolocation-service and configure accordingly.
 
 - Change `initialRegion` prop of Map to `region` and add a marker for your location
 
@@ -155,7 +155,7 @@ Let's get our current position on the map. For this,
 
 ## 7. Track location change:
 
-To track the change of location on the map, we have to listen to watchPosition event.
+To track the change of location on the map, we have to listen to `watchPosition` event.
 
 - Add a handler for `watchPosition` event and update the coordinates array as follows
 
