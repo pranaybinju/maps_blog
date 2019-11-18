@@ -109,9 +109,9 @@ _mapStyle.json_
 
 - Run the project.
 
-  ![](./assets/ios_custom_map.png)
+<img src="./assets/ios_custom_map.png"  width="350" height="400">
 
-  _customized map_
+_customized map_
 
 ## 5. Add Geolocation service:
 
@@ -172,8 +172,7 @@ To track the change of location on the map, we have to listen to `watchPosition`
 Now, whenever our GPS senses change in location,
 the handler of watchPosition event will be called which will give us current coordinates. These current coordinates will be concatenated to coordinates an array of the state which is provided as coordinates props to Polyline. This will create a tracker on the map for our location.
 
-![](./assets/location_tracking.png)
-_location being tracked_
+<img src="./assets/location_tracking.png"  width="350" height="400">
 
 You can clone the repo from https://github.com/pranaybinju/integrating_custom_maps and experiment with the same.
 
