@@ -38,38 +38,39 @@ Let's first load default Google map using react-native-maps for iOS and Android.
 
 - Run `cd ios && pod install` to install react-native-maps dependency for iOS
 
-  ![](assets/pod_install.png)
+  ![](./blogs/2019/integrate-google-maps-with-custom-style-&-track-user-location-in-react-native/assets/pod_install.png)
   _pod installation_
 
-- Copy the Google API key and paste it in AppDelegate.m file as follows:
+- Import GoogleMaps header file in AppDelegate.m as follows
 
-  `+ #import <GoogleMaps/GoogleMaps.h>`
-  `@implementation AppDelegate`
-  `...`
-  `- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {`
-  `+ [GMSServices provideAPIKey:@"_YOUR_API_KEY_"]; // add this line using the api key obtained from Google Console`
-  `...`
+![](./blogs/2019/integrate-google-maps-with-custom-style-&-track-user-location-in-react-native/assets/googlemaps.png)
+_importing GoogleMaps header file_
 
-- Next, we create a component called Map and import MapView component of react-native-maps
+- Copy the Google API key and paste it in AppDelegate.m file as follows
 
-  ![](assets/folder_Structure.png)
+  ![](./blogs/2019/integrate-google-maps-with-custom-style-&-track-user-location-in-react-native/assets/appdelegate.png)
+  _AppDelegate.m_
+
+* Next, we create a component called Map and import MapView component of react-native-maps
+
+  ![](./blogs/2019/integrate-google-maps-with-custom-style-&-track-user-location-in-react-native/assets/folder_Structure.png)
 
   _folder structure_
 
   `import MapView from 'react-native-maps';`
 
-- Render map as follows in Map component:
+* Render map as follows in Map component:
 
-![](assets/default_map_component.png)
+![](./blogs/2019/integrate-google-maps-with-custom-style-&-track-user-location-in-react-native/assets/default_map_component.png)
 _Map component_
 
 and in App.js add Map component as follows:
 
-![](assets/app_js.png)
+![](./blogs/2019/integrate-google-maps-with-custom-style-&-track-user-location-in-react-native/assets/app_js.png)
 
 On running command `react-native run-ios` we get following output:
 
-![](assets/default_map.png)
+![](./blogs/2019/integrate-google-maps-with-custom-style-&-track-user-location-in-react-native/assets/default_map.png)
 
 _default map_
 
@@ -78,7 +79,7 @@ For enabling Google maps on Android we just need few steps as most of the job is
 
 - Add `googlePlayServicesVersion = "16.0.0"` and `androidMapsUtilsVersion = "0.5+"` in **./android/build.gradle** file as follows:
 
-  ![](assets/build_gradle.png)
+  ![](./blogs/2019/integrate-google-maps-with-custom-style-&-track-user-location-in-react-native/assets/build_gradle.png)
 
   _build.gradle_
 
@@ -95,20 +96,20 @@ Now that we have loaded the default map, let's customize our maps. Google has it
 - Create a folder and name it as 'constants' in src.
 - Create a file called **mapStyle.json** and paste the JSON of style in it.
 
-![](assets/map_style.png)
+![](./blogs/2019/integrate-google-maps-with-custom-style-&-track-user-location-in-react-native/assets/map_style.png)
 
 _mapStyle.json_
 
 - Import PROVIDER_GOOGLE as a constant from react-native-maps. This is needed for iOS.
 - Now, update the MapView component as follows:
 
-  ![](assets/update_map_view.png)
+  ![](./blogs/2019/integrate-google-maps-with-custom-style-&-track-user-location-in-react-native/assets/update_map_view.png)
 
   _MapView component_
 
 - Run the project.
 
-  ![](assets/ios_custom_map.png)
+  ![](./blogs/2019/integrate-google-maps-with-custom-style-&-track-user-location-in-react-native/assets/ios_custom_map.png)
 
   _customized map_
 
@@ -122,7 +123,7 @@ For knowing our location, we add `react-native-geolocation-service` package by r
 - After installing, for iOS run `pod install`.Autolinking will take care of installing dependencies in Android.
 - For Android: Allow the app to access location by modifying AndroidManifest.xml as follows:
 
-  ![](assets/location_permission.png)
+  ![](./blogs/2019/integrate-google-maps-with-custom-style-&-track-user-location-in-react-native/assets/location_permission.png)
 
   _adding location permissions in AndroidManifest.xml_
 
@@ -134,7 +135,7 @@ Let's get our current position on the map. For this,
 - Add state variables for latitude, longitude and position coordinates array.
 - In componentDidMount(), listen to `getCurrentPosition()` event as follows and set state variables.
 
-  ![](assets/get_current_position.png)
+  ![](./blogs/2019/integrate-google-maps-with-custom-style-&-track-user-location-in-react-native/assets/get_current_position.png)
 
   _getCurrentPosition() handler_
 
@@ -142,13 +143,13 @@ Let's get our current position on the map. For this,
 
 - Change `initialRegion` prop of Map to `region` and add a marker for your location
 
-  ![](assets/marker.png)
+  ![](./blogs/2019/integrate-google-maps-with-custom-style-&-track-user-location-in-react-native/assets/marker.png)
 
   _adding Marker component_
 
 * Finally, we can find ourselves on the map.
 
-  ![](assets/marker_current.png)
+  ![](./blogs/2019/integrate-google-maps-with-custom-style-&-track-user-location-in-react-native/assets/marker_current.png)
 
   _location marker_
 
@@ -158,20 +159,20 @@ To track the change of location on the map, we have to listen to watchPosition e
 
 - Add a handler for `watchPosition` event and update the coordinates array as follows
 
-  ![](assets/watch_position.png)
+  ![](./blogs/2019/integrate-google-maps-with-custom-style-&-track-user-location-in-react-native/assets/watch_position.png)
 
   _watchPosition() handler_
 
 - Next, we import Polyline as constant from `react-native-maps` and add which will help us locate our changed position on the map and also give us feel of our location being tracked.
 
-  ![](assets/polyline.png)
+  ![](./blogs/2019/integrate-google-maps-with-custom-style-&-track-user-location-in-react-native/assets/polyline.png)
 
   _Polyline component_
 
 Now, whenever our GPS senses change in location,
 the handler of watchPosition event will be called which will give us current coordinates. These current coordinates will be concatenated to coordinates an array of the state which is provided as coordinates props to Polyline. This will create a tracker on the map for our location.
 
-![](assets/location_tracking.png)
+![](./blogs/2019/integrate-google-maps-with-custom-style-&-track-user-location-in-react-native/assets/location_tracking.png)
 _location being tracked_
 
 You can clone the repo from https://github.com/pranaybinju/integrating_custom_maps and experiment with the same.
