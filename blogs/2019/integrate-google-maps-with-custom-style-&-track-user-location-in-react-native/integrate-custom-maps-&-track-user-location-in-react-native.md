@@ -163,6 +163,10 @@ buildscript {
 
 ```
 
+That's all. Run the project with `react-native run-android` and we have the map on our screen.
+
+![](./assets/android_default.png)
+
 ## 4. Customize Google Maps:
 
 Now that we have loaded the default map, let's customize our maps. Google has it's own **Google Maps Platform Styling Wizard** which helps us in customization of maps.
