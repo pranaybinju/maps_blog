@@ -165,7 +165,7 @@ buildscript {
 
 That's all. Run the project with `react-native run-android` and we have the map on our screen.
 
-![](./assets/android_default.png)
+<img src="./assets/android_default.png"  width="500" height="500" title="default map on Android">
 
 ## 4. Customize Google Maps:
 
@@ -185,17 +185,16 @@ _mapStyle.json_
 - Import `PROVIDER_GOOGLE` as a constant from `react-native-maps`. This is needed for iOS.
 - Now, update the `MapView` component as follows:
 
-  ```html
-  ... <MapView provider={PROVIDER_GOOGLE} customMapStyle={mapStyle}
+  ```TSX
+  ...
+  <MapView provider={PROVIDER_GOOGLE} customMapStyle={mapStyle}
   style={{flex: 1}} region={{ latitude: this.state.latitude, longitude:
   this.state.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421, }}> ...
   ```
 
 - Run the project.
 
-<img src="./assets/ios_custom_map.png"  width="350" height="400">
-
-_customized map_
+<img src="./assets/ios_custom_map.png"  width="500" height="500" title="custoimized map on ios">
 
 ## 5. Add Geolocation service:
 
@@ -328,7 +327,7 @@ To track the change of location on the map, we have to listen to `watchPosition`
 Now, whenever our GPS senses change in location,
 the handler of watchPosition event will be called which will give us current coordinates. These current coordinates will be concatenated to coordinates an array of the state which is provided as coordinates props to Polyline. This will create a tracker on the map for our location.
 
-<img src="./assets/location_tracking.png"  width="350" height="400">
+<img src="./assets/location_tracking.png"  width="500" height="500" title="location being tracked">
 
 You can clone the repo from https://github.com/pranaybinju/integrating_custom_maps and experiment with the same.
 
