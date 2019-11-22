@@ -28,7 +28,16 @@ At the time of writing this blog following are list of dependencies:
 ## 2. Add react-native-maps and link it
 
 Next, we add `react-native-maps` package from Airbnb, which has great support from the community. In our terminal, we run
-`npm install react-native-maps --save-exact` and auto-link it by running `react-native link react-native-map`.
+
+```bash
+npm install react-native-maps --save-exact
+```
+
+and auto-link it by running
+
+```bash
+react-native link react-native-map
+```
 
 ## 3. Load default map
 
@@ -36,10 +45,17 @@ Let's first load the default Google map using `react-native-maps` for iOS and An
 
 **Enabling Google maps for iOS using Cocoapods:**
 
-- Run `cd ios && pod install` to install `react-native-maps`dependency for iOS.
+- Run
 
-  ![](./assets/pod_install.png)
-  _pod installation_
+```bash
+ cd ios && pod install
+
+```
+
+to install `react-native-maps` dependency for iOS.
+
+![](./assets/pod_install.png)
+_pod installation_
 
 - Import `GoogleMaps` header file in `AppDelegate.m` as follows
 
@@ -69,7 +85,7 @@ return YES;
 }
 ```
 
-- Next, we create a component called `Map` and import `MapView` component of `react-native-maps`
+- Next, we create a component called `Map` in `root/src/components` folder and import `MapView` component of `react-native-maps`
 
   ![](./assets/folder_Structure.png)
 
@@ -77,7 +93,7 @@ return YES;
 
   `import MapView from 'react-native-maps';`
 
-- Render map as follows in `Map` component:
+- Render map as follows in `Map` component with hardcoded values for latitude,longitude,latitudeDelta and longitudeDelta as follows:
 
 ```js
 import React from "react";
@@ -89,8 +105,6 @@ export default class Map extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <MapView
-          provider={PROVIDER_GOOGLE}
-          customMapStyle={mapStyle}
           style={{ flex: 1 }}
           initialRegion={{
             latitude: 37.78825,
@@ -188,8 +202,12 @@ _mapStyle.json_
   ```TSX
   ...
   <MapView provider={PROVIDER_GOOGLE} customMapStyle={mapStyle}
-  style={{flex: 1}} region={{ latitude: this.state.latitude, longitude:
-  this.state.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421, }}> ...
+  style={{flex: 1}} initialRegion={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421
+          }}> ...
   ```
 
 - Run the project.
@@ -201,9 +219,20 @@ _mapStyle.json_
 Before tracking the user location, let's add a Marker which will help us know where we are on this planet.
 
 To know our location, we add `react-native-geolocation-service` package by running
-`npm install react-native-geolocation-service`
 
-- After installing, for iOS run `pod install`. Autolinking will take care of installing dependencies in Android.
+```bash
+npm install react-native-geolocation-service
+```
+
+- After installing, for iOS run
+
+```bash
+ pod install
+
+```
+
+Autolinking will take care of installing dependencies in Android.
+
 - For Android: Allow the app to access location by modifying `AndroidManifest.xml` as follows:
 
   ```xml
@@ -252,11 +281,12 @@ Let's get our current position on the map. For this,
   );
   ```
 
-  `getCurrentPosition()` takes success callback, error callback and options as parameters. You can refer to official docs from https://github.com/Agontuk/react-native-geolocation-service and configure accordingly.
+`getCurrentPosition()` takes success callback, error callback and options as parameters. You can refer to official docs from https://github.com/Agontuk/react-native-geolocation-service and configure accordingly.
 
 - Change `initialRegion` prop of MapView to `region` and add a marker for your location
 
-  ```html
+  ```JSX
+  ...
   <MapView
           provider={PROVIDER_GOOGLE}
           customMapStyle={mapStyle}
@@ -273,6 +303,7 @@ Let's get our current position on the map. For this,
               longitude: this.state.longitude,
             }}></Marker>
         </MapView>
+        ...
 
   ```
 
@@ -313,16 +344,23 @@ To track the change of location on the map, we have to listen to `watchPosition`
   );
   ```
 
-- Next, we import Polyline as constant from `react-native-maps` and add which will help us locate our changed position on the map and also give us feel of our location being tracked.
+- Next, we import Polyline as constant from `react-native-maps`
 
-  ```html
-  ...
-      <Polyline coordinates={this.state.coordinates} strokeColor="#bf8221"
-      strokeColors={[ '#bf8221', '#ffe066', '#ffe066', '#ffe066', '#ffe066', ]}
-      strokeWidth={3} />
-  </MapView>
-  ...
-  ```
+```JSX
+import MapView, {PROVIDER_GOOGLE, Marker, Polyline} from 'react-native-maps';
+
+```
+
+and add which will help us locate our changed position on the map and also give us feel of our location being tracked.
+
+```html
+...
+    <Polyline coordinates={this.state.coordinates} strokeColor="#bf8221"
+    strokeColors={[ '#bf8221', '#ffe066', '#ffe066', '#ffe066', '#ffe066', ]}
+    strokeWidth={3} />
+</MapView>
+...
+```
 
 Now, whenever our GPS senses change in location,
 the handler of watchPosition event will be called which will give us current coordinates. These current coordinates will be concatenated to coordinates an array of the state which is provided as coordinates props to Polyline. This will create a tracker on the map for our location.
@@ -349,3 +387,11 @@ Thank you!
 
 - React native google map with react-native-maps:
   https://codeburst.io/react-native-google-map-with-react-native-maps-572e3d3eee14
+
+```
+
+```
+
+```
+
+```
