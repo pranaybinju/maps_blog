@@ -59,13 +59,13 @@ _pod installation_
 
 - Import `GoogleMaps` header file in `AppDelegate.m` as follows
 
-```m
+```objc
 #import <GoogleMaps/GoogleMaps.h>
 ```
 
 - Copy the Google API key and paste it in `AppDelegate.m` file as follows
 
-```m
+```objc
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 [GMSServices provideAPIKey:@"YOUR_API_KEY"];
@@ -93,7 +93,7 @@ return YES;
 
   `import MapView from 'react-native-maps';`
 
-- Render map as follows in `Map` component with hardcoded values for latitude,longitude,latitudeDelta and longitudeDelta as follows:
+- Render map in `Map` component with hardcoded values for latitude, longitude, latitudeDelta and longitudeDelta as follows:
 
 ```js
 import React from "react";
@@ -179,7 +179,7 @@ buildscript {
 
 That's all. Run the project with `react-native run-android` and we have the map on our screen.
 
-<img src="./assets/android_default.png"  width="500" height="500" title="default map on Android">
+![](./assets/rsz_android_default.png)
 
 ## 4. Customize Google Maps:
 
@@ -212,7 +212,7 @@ _mapStyle.json_
 
 - Run the project.
 
-<img src="./assets/ios_custom_map.png"  width="500" height="500" title="custoimized map on ios">
+![](./assets/rsz_ios_custom_map.png)
 
 ## 5. Add Geolocation service:
 
@@ -365,7 +365,7 @@ and add which will help us locate our changed position on the map and also give 
 Now, whenever our GPS senses change in location,
 the handler of watchPosition event will be called which will give us current coordinates. These current coordinates will be concatenated to coordinates an array of the state which is provided as coordinates props to Polyline. This will create a tracker on the map for our location.
 
-<img src="./assets/location_tracking.png"  width="500" height="500" title="location being tracked">
+![](./assets/rsz_3rsz_location_tracking.png)
 
 You can clone the repo from https://github.com/pranaybinju/integrating_custom_maps and experiment with the same.
 
@@ -387,11 +387,3 @@ Thank you!
 
 - React native google map with react-native-maps:
   https://codeburst.io/react-native-google-map-with-react-native-maps-572e3d3eee14
-
-```
-
-```
-
-```
-
-```
