@@ -303,7 +303,7 @@ Let's get our current position on the map. For this,
 
 * Finally, we can find ourselves on the map.
 
-  ![](./assets/marker_current.png)
+  ![](./assets/rsz_android_location_marker.png)
 
   _location marker_
 
