@@ -65,25 +65,17 @@ _pod installation_
 
 - Copy the Google API key and paste it in `AppDelegate.m` file as follows
 
-```objc
+```
+@implementation AppDelegate
+...
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-[GMSServices provideAPIKey:@"YOUR_API_KEY"];
-RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
-RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
-                                                 moduleName:@"integrating_custom_maps"
-                                          initialProperties:nil];
-
-rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
-
-self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-UIViewController *rootViewController = [UIViewController new];
-rootViewController.view = rootView;
-self.window.rootViewController = rootViewController;
-[self.window makeKeyAndVisible];
-return YES;
-}
++  [GMSServices provideAPIKey:@"_YOUR_API_KEY_"]; // add this line using the api key obtained from Google Console
+...
 ```
+
+The **[GMSServices provideAPIKey]** should be the first call of the method didFinishLaunchingWithOptions().
 
 - Next, we create a component called `Map` in `root/src/components` folder and import `MapView` component of `react-native-maps`
 
@@ -180,6 +172,8 @@ buildscript {
 That's all. Run the project with `react-native run-android` and we have the map on our screen.
 
 ![](./assets/rsz_android_default.png)
+
+If you still find yourself stuck somewhere, refer [Installation Instructions](https://github.com/react-native-community/react-native-maps/blob/master/docs/installation.md) from `react-native-maps` official docs.
 
 ## 4. Customize Google Maps:
 
