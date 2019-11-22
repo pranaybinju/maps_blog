@@ -279,7 +279,7 @@ Let's get our current position on the map. For this,
 
 - Change `initialRegion` prop of MapView to `region` and add a marker for your location
 
-  ```JSX
+  ```jsx
   ...
   <MapView
           provider={PROVIDER_GOOGLE}
@@ -340,9 +340,8 @@ To track the change of location on the map, we have to listen to `watchPosition`
 
 - Next, we import Polyline as constant from `react-native-maps`
 
-```JSX
-import MapView, {PROVIDER_GOOGLE, Marker, Polyline} from 'react-native-maps';
-
+```jsx
+import MapView, { PROVIDER_GOOGLE, Marker, Polyline } from "react-native-maps";
 ```
 
 and add which will help us locate our changed position on the map and also give us feel of our location being tracked.
