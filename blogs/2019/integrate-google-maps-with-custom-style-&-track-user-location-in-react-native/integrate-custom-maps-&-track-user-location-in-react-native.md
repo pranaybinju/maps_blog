@@ -71,7 +71,7 @@ _pod installation_
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-+  [GMSServices provideAPIKey:@"_YOUR_API_KEY_"]; // add this line using the api key obtained from Google Console
++  [GMSServices provideAPIKey:@"_YOUR_API_KEY_"];
 ...
 ```
 
@@ -341,7 +341,7 @@ To track the change of location on the map, we have to listen to `watchPosition`
 - Next, we import Polyline as constant from `react-native-maps`
 
 ```jsx
-import MapView, { PROVIDER_GOOGLE, Marker, Polyline } from "react-native-maps";
+import MapView, { Polyline, PROVIDER_GOOGLE, Marker } from "react-native-maps";
 ```
 
 and add which will help us locate our changed position on the map and also give us feel of our location being tracked.
